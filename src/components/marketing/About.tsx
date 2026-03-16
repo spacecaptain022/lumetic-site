@@ -120,7 +120,7 @@ export default function About() {
               <defs>
                 <mask id="lumetic-text-mask">
                   <rect width="100%" height="100%" fill="white" />
-                  <text x="0" y="50%" dominantBaseline="middle" className="lumetic-about-bg-text" style={{ fontFamily: "var(--font-bebas), 'Arial Narrow', sans-serif", letterSpacing: "0.01em", fill: "black" }}>
+                  <text x="0" y="50%" dominantBaseline="middle" style={{ fontFamily: "var(--font-bebas), 'Arial Narrow', sans-serif", fontSize: "clamp(2rem, 26vw, 42rem)", letterSpacing: "0.01em", fill: "black" }}>
                     LUMETIC
                   </text>
                 </mask>

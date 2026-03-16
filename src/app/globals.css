@@ -106,14 +106,3 @@
   ::-webkit-scrollbar-track { background: oklch(0.99 0 0); }
   ::-webkit-scrollbar-thumb { background: oklch(0.75 0 0); border-radius: 2px; }
 }
-
-/* About section — LUMETIC background text mask
-   Mobile: scales to fit viewport; Desktop: large editorial overflow */
-.lumetic-about-bg-text {
-  font-size: clamp(2rem, 22vw, 10rem);
-}
-@media (min-width: 768px) {
-  .lumetic-about-bg-text {
-    font-size: clamp(12rem, 38vw, 42rem);
-  }
-}
