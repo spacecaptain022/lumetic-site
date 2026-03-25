@@ -85,15 +85,6 @@ export default function Contact() {
             <div className="w-12 h-px bg-foreground/15" />
             <div className="flex flex-col gap-5">
               <div>
-                <p className="font-sans text-[10px] uppercase tracking-[0.18em] text-foreground/55 mb-1">Email</p>
-                <a
-                  href="mailto:lumetic.io@gmail.com"
-                  className="font-sans text-sm text-foreground/70 hover:text-foreground transition-colors duration-200"
-                >
-                  lumetic.io@gmail.com
-                </a>
-              </div>
-              <div>
                 <p className="font-sans text-[10px] uppercase tracking-[0.18em] text-foreground/55 mb-1">Based in</p>
                 <p className="font-sans text-sm text-foreground/70">USA / Hong Kong</p>
               </div>
