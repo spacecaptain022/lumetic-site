@@ -23,7 +23,6 @@ const navLinks = [
 
 const socialLinks = [
   { label: "X", href: "https://x.com/LUMETICio" },
-  { label: "Telegram", href: "https://t.me/LUMETICio" },
 ];
 
 export default function Footer() {
