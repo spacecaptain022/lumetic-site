@@ -97,7 +97,7 @@ export default function Ventures() {
             </p>
             <p className="font-sans text-background/65 leading-relaxed" style={{ fontSize: "0.85rem" }}>
               Lumetic connects builders, visionaries, and founders with the right capital,
-              partners, and opportunities to grow. We believe brand is not decoration — it
+              partners, and opportunities to grow. We believe brand is not decoration. It
               is strategy, and when paired with clear vision, it becomes a powerful advantage.
             </p>
             <a
