@@ -84,7 +84,7 @@ export default function Ventures() {
             >
               Lumetic
               <br />
-              Ventures
+              Collective
             </motion.h2>
           </div>
 
@@ -161,7 +161,7 @@ export default function Ventures() {
           <div className="flex items-center gap-4">
             <Image
               src="/Lumetic logo black no text.png"
-              alt="Lumetic Ventures"
+              alt="Lumetic Collective"
               width={28}
               height={28}
               className="w-6 h-6 invert opacity-40"
@@ -170,7 +170,7 @@ export default function Ventures() {
               className="font-sans uppercase tracking-[0.2em] text-background/30"
               style={{ fontSize: "0.65rem" }}
             >
-              Lumetic Ventures — Early Stage &amp; Beyond
+              Lumetic Collective — Early Stage &amp; Beyond
             </span>
           </div>
           <a
