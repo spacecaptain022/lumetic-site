@@ -3,6 +3,7 @@ import { Inter, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import Cursor from "@/components/layout/Cursor";
 import SmoothScroll from "@/components/layout/SmoothScroll";
+/* Quick Contact floater — off for now; to restore: import FloatingSubscribe from "@/components/layout/FloatingSubscribe" and render <FloatingSubscribe /> below SmoothScroll. */
 
 const inter = Inter({
   variable: "--font-inter",
@@ -44,9 +45,7 @@ export default function RootLayout({
           <style>{`* { opacity: 1 !important; transform: none !important; }`}</style>
         </noscript>
         <Cursor />
-        <SmoothScroll>
-        {children}
-        </SmoothScroll>
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

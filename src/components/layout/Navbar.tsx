@@ -7,12 +7,9 @@ import Image from "next/image";
 
 const navLeft = [
   { label: "X", href: "https://x.com/LUMETICio" },
-  { label: "Services", href: "#services" },
+  { label: "Services", href: "/#services" },
 ];
-const navRight = [
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
-];
+const navRight = [{ label: "Contact", href: "/#contact" }];
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,9 +28,12 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, []);
 
-  const navBg    = inverted ? "bg-foreground/80"      : "bg-background/60";
+  const navBg = inverted ? "bg-foreground/80" : "bg-background/60";
   const navBorder = inverted ? "border-background/10" : "border-foreground/[0.06]";
-  const linkColor = inverted ? "text-background/60 hover:text-background" : "text-foreground/50 hover:text-foreground";
+  const linkColor = inverted
+    ? "text-background/60 hover:text-background"
+    : "text-foreground/50 hover:text-foreground";
+  const logoInvert = inverted;
 
   return (
     <>
@@ -61,7 +61,7 @@ export default function Navbar() {
             width={36}
             height={36}
             priority
-            className={`w-8 h-8 md:w-9 md:h-9 transition-all duration-500 ${inverted ? "invert" : ""}`}
+            className={`w-8 h-8 md:w-9 md:h-9 transition-all duration-500 ${logoInvert ? "invert" : ""}`}
           />
         </a>
 
@@ -93,7 +93,7 @@ export default function Navbar() {
           </a>
           <button
             onClick={() => setMenuOpen(true)}
-            className="text-foreground/60 hover:text-foreground transition-colors p-2 -mr-2"
+            className="p-2 -mr-2 text-foreground/60 transition-colors hover:text-foreground"
             aria-label="Open menu"
           >
             <Menu size={20} strokeWidth={1.5} />
@@ -109,7 +109,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="fixed inset-0 z-[100] bg-background flex flex-col px-5 sm:px-8 py-4 sm:py-5"
+            className="fixed inset-0 z-[100] flex flex-col bg-background px-5 py-4 sm:px-8 sm:py-5"
           >
             <div className="flex items-center justify-between mb-10 sm:mb-16">
               <Image
@@ -121,7 +121,7 @@ export default function Navbar() {
               />
               <button
                 onClick={() => setMenuOpen(false)}
-                className="text-foreground/60 hover:text-foreground transition-colors"
+                className="text-foreground/60 transition-colors hover:text-foreground"
                 aria-label="Close menu"
               >
                 <X size={20} strokeWidth={1.5} />
@@ -139,7 +139,7 @@ export default function Navbar() {
                   <a
                     href={item.href}
                     onClick={() => setMenuOpen(false)}
-                    className="text-3xl sm:text-4xl font-display tracking-wider text-foreground hover:text-foreground/65 transition-colors"
+                    className="text-3xl font-display tracking-wider text-foreground transition-colors hover:text-foreground/65 sm:text-4xl"
                   >
                     {item.label}
                   </a>

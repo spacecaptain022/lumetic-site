@@ -103,32 +103,164 @@ export default function About() {
       <div ref={heroRef} className="h-[150vh] md:h-[280vh]">
         <section className="sticky top-0 relative w-full h-screen bg-background flex flex-col justify-end px-4 md:px-12 pb-16 md:pb-20 overflow-hidden">
 
-          {/* LUMETIC video text mask + parallax */}
+          {/* LUMETIC — video fills letterforms; refined grade + grain + soft vignette */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.05 }}
+            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] as const, delay: 0.05 }}
             className="absolute inset-0 pointer-events-none select-none"
             aria-hidden
           >
-            <motion.div className="absolute inset-0" style={{ y: videoY, scale: 1.35 }}>
-              <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-cover" style={{ opacity: 0.35 }}>
+            <motion.div
+              className="absolute inset-0 will-change-transform"
+              style={{ y: videoY, scale: 1.22 }}
+            >
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="h-full w-full object-cover [filter:saturate(0)_contrast(1.18)_brightness(0.94)]"
+                style={{ opacity: 0.52 }}
+              >
                 <source src="/about%20text%20mask%20video.mp4" type="video/mp4" />
               </video>
             </motion.div>
-            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" className="absolute inset-0">
+            <svg
+              width="100%"
+              height="100%"
+              xmlns="http://www.w3.org/2000/svg"
+              className="absolute inset-0 [text-rendering:geometricPrecision] [shape-rendering:geometricPrecision]"
+            >
               <defs>
-                <mask id="lumetic-text-mask">
+                <mask id="lumetic-text-mask" maskUnits="userSpaceOnUse">
                   <rect width="100%" height="100%" fill="white" />
-                  <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle" style={{ fontFamily: "var(--font-bebas), 'Arial Narrow', sans-serif", fontSize: "clamp(2rem, 26vw, 42rem)", letterSpacing: "0.01em", fill: "black" }}>
+                  <text
+                    x="50%"
+                    y="50%"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    fill="black"
+                    style={{
+                      fontFamily: "var(--font-bebas), 'Arial Narrow', sans-serif",
+                      fontSize: "clamp(2.25rem, 25vw, 40rem)",
+                      letterSpacing: "0.026em",
+                      fontWeight: 400,
+                    }}
+                  >
                     LUMETIC
                   </text>
                 </mask>
               </defs>
               <rect width="100%" height="100%" mask="url(#lumetic-text-mask)" style={{ fill: "var(--background)" }} />
             </svg>
-            <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent" />
+            {/* Layered rounded strokes: ambient shadow → mid depth → crisp edge → soft highlight */}
+            <svg
+              width="100%"
+              height="100%"
+              xmlns="http://www.w3.org/2000/svg"
+              className="absolute inset-0 pointer-events-none [text-rendering:geometricPrecision]"
+              aria-hidden
+            >
+              <defs>
+                <filter id="lumetic-ambient" x="-35%" y="-35%" width="170%" height="170%">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="b" />
+                  <feMerge>
+                    <feMergeNode in="b" />
+                  </feMerge>
+                </filter>
+                <filter id="lumetic-mid" x="-28%" y="-28%" width="156%" height="156%">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="5.5" />
+                </filter>
+              </defs>
+              <g
+                style={{
+                  fontFamily: "var(--font-bebas), 'Arial Narrow', sans-serif",
+                  fontSize: "clamp(2.25rem, 25vw, 40rem)",
+                  letterSpacing: "0.026em",
+                  fontWeight: 400,
+                }}
+              >
+                <text
+                  x="50%"
+                  y="50%"
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fill="none"
+                  stroke="var(--foreground)"
+                  strokeOpacity={0.07}
+                  strokeWidth={14}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  paintOrder="stroke fill"
+                  filter="url(#lumetic-ambient)"
+                  transform="translate(0, 11)"
+                >
+                  LUMETIC
+                </text>
+                <text
+                  x="50%"
+                  y="50%"
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fill="none"
+                  stroke="var(--foreground)"
+                  strokeOpacity={0.1}
+                  strokeWidth={5}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  paintOrder="stroke fill"
+                  filter="url(#lumetic-mid)"
+                  transform="translate(0, 4)"
+                >
+                  LUMETIC
+                </text>
+                <text
+                  x="50%"
+                  y="50%"
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fill="none"
+                  stroke="var(--foreground)"
+                  strokeOpacity={0.13}
+                  strokeWidth={1.35}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  paintOrder="stroke fill"
+                >
+                  LUMETIC
+                </text>
+                <text
+                  x="50%"
+                  y="50%"
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fill="none"
+                  stroke="var(--background)"
+                  strokeOpacity={0.55}
+                  strokeWidth={0.85}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  paintOrder="stroke fill"
+                  transform="translate(0, -1.25)"
+                >
+                  LUMETIC
+                </text>
+              </g>
+            </svg>
+            {/* Soft vignette — rounder falloff for a softer, more dimensional read */}
+            <div
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_68%_68%_at_50%_52%,transparent_8%,color-mix(in_oklch,var(--background)_55%,transparent)_55%,var(--background)_92%,var(--background)_100%)] opacity-[0.58]"
+              aria-hidden
+            />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background via-background/45 to-transparent md:h-44" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/40 to-transparent md:h-44" />
+            {/* Micro grain — lifts the flat fill slightly */}
+            <div
+              className="pointer-events-none absolute inset-0 opacity-[0.045] mix-blend-multiply [background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E')]"
+              aria-hidden
+            />
           </motion.div>
 
           {/* Scroll-driven typewriter headline */}
