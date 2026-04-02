@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { exploreServices } from "@/data/exploreServices";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -14,45 +15,6 @@ function fadeUp(delay: number) {
     transition: { duration: 1.0, ease, delay },
   };
 }
-
-const services = [
-  {
-    title: "Brand Identity & Strategy",
-    description:
-      "Create cohesive, memorable brand identities that make you stand out and endure.",
-    image: "/Card 1 graphic.jpg",
-    exp: "EXP 001",
-    year: "2026",
-    tags: ["IDENTITY", "STRATEGY", "SYSTEMS"],
-  },
-  {
-    title: "Web Design & Digital Presence",
-    description:
-      "Design intuitive, conversion-driven websites your customers will love.",
-    image: "/Card 2 graphic.jpg",
-    exp: "EXP 002",
-    year: "2026",
-    tags: ["WEB", "UX", "DIGITAL"],
-  },
-  {
-    title: "Motion & Visual Content",
-    description:
-      "Bring your brand to life with engaging visuals, animations, and content systems.",
-    image: "/Card 3 graphic.jpg",
-    exp: "EXP 003",
-    year: "2026",
-    tags: ["MOTION", "CONTENT", "VISUAL"],
-  },
-  {
-    title: "Web3, AI & Dev Services",
-    description:
-      "Smart contracts, Web3 products, and AI for your business—integration, deployment, and ongoing setup with your team.",
-    image: "/Card 4 graphic.png",
-    exp: "EXP 004",
-    year: "2026",
-    tags: ["WEB3", "SMART CONTRACTS", "AI"],
-  },
-] as const;
 
 export default function Services() {
   return (
@@ -76,7 +38,7 @@ export default function Services() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5 max-w-6xl mx-auto">
-          {services.map((service, i) => (
+          {exploreServices.map((service, i) => (
             <motion.article
               key={service.title}
               {...fadeUp(i * 0.1)}

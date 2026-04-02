@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { exploreServices } from "@/data/exploreServices";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -15,10 +16,8 @@ function fadeUp(delay: number) {
   };
 }
 
-const services = [
-  "Brand Identity & Strategy",
-  "Web Design & Digital Presence",
-  "Motion & Visual Content",
+const serviceSelectOptions = [
+  ...exploreServices.map((s) => s.title),
   "Not sure yet",
 ];
 
@@ -149,7 +148,7 @@ export default function Contact() {
                     className="w-full bg-transparent border-b border-foreground/18 pb-3 font-sans text-sm text-foreground/75 focus:text-foreground focus:border-foreground/45 outline-none appearance-none cursor-pointer transition-colors duration-300"
                   >
                     <option value="" disabled>Select a service</option>
-                    {services.map((s) => (
+                    {serviceSelectOptions.map((s) => (
                       <option key={s} value={s}>{s}</option>
                     ))}
                   </select>
