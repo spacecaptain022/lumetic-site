@@ -16,6 +16,7 @@ function fadeUp(delay: number) {
 
 const navLinks = [
   { label: "Services", href: "/#services" },
+  { label: "About", href: "/#about" },
   { label: "Ventures", href: "/#ventures" },
   { label: "Contact", href: "/#contact" },
 ];

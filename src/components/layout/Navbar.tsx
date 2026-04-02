@@ -9,7 +9,10 @@ const navLeft = [
   { label: "X", href: "https://x.com/LUMETICio" },
   { label: "Services", href: "/#services" },
 ];
-const navRight = [{ label: "Contact", href: "/#contact" }];
+const navRight = [
+  { label: "About", href: "/#about" },
+  { label: "Contact", href: "/#contact" },
+];
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
