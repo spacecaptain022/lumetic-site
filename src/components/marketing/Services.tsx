@@ -15,15 +15,6 @@ function fadeUp(delay: number) {
   };
 }
 
-/** Lusion-style corner marker — white circle, black dot */
-function CardCornerDot() {
-  return (
-    <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white shadow-sm" aria-hidden>
-      <span className="size-1.5 rounded-full bg-black" />
-    </span>
-  );
-}
-
 const services = [
   {
     title: "Brand Identity & Strategy",
@@ -104,12 +95,9 @@ export default function Services() {
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_20%,rgba(255,255,255,0.08),transparent_55%)] pointer-events-none opacity-70" />
 
               <div className="absolute inset-0 z-10 flex flex-col p-5 md:p-6">
-                <div className="flex items-start justify-between gap-3">
-                  <p className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.14em] text-white/85">
-                    {service.exp} / {service.year}
-                  </p>
-                  <CardCornerDot />
-                </div>
+                <p className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.14em] text-white/85">
+                  {service.exp} / {service.year}
+                </p>
 
                 <div className="mt-auto space-y-2">
                   <h3
@@ -144,10 +132,6 @@ export default function Services() {
           className="relative mx-auto max-w-6xl overflow-hidden rounded-2xl bg-black md:rounded-[1.35rem]"
           style={{ boxShadow: "0 8px 40px rgba(0,0,0,0.14)" }}
         >
-          <div className="absolute right-5 top-5 z-20 md:right-6 md:top-6">
-            <CardCornerDot />
-          </div>
-
           <div className="absolute inset-0">
             <Image
               src="/Card 4 graphic.png"

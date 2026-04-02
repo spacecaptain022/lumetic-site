@@ -10,18 +10,6 @@ const displayStyle = {
   lineHeight: 0.9,
 } as const;
 
-/** Lusion-style corner marker — ring + dot (light card variant) */
-function HeroCardCornerDot() {
-  return (
-    <span
-      className="pointer-events-none absolute bottom-6 left-6 flex size-7 items-center justify-center rounded-full border border-foreground/20 bg-background/90 shadow-[0_2px_10px_rgba(0,0,0,0.06)]"
-      aria-hidden
-    >
-      <span className="size-1.5 rounded-full bg-foreground" />
-    </span>
-  );
-}
-
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -69,7 +57,6 @@ export default function Hero() {
               className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full bg-foreground/[0.04] blur-3xl"
               aria-hidden
             />
-            <HeroCardCornerDot />
 
             <p
               className="relative text-foreground font-sans font-semibold uppercase leading-snug tracking-[0.12em]"

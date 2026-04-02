@@ -22,17 +22,6 @@ const services = [
   "Not sure yet",
 ];
 
-function FormCardCornerDot() {
-  return (
-    <span
-      className="pointer-events-none absolute right-7 top-7 flex size-7 items-center justify-center rounded-full border border-foreground/20 bg-background/90 shadow-[0_2px_10px_rgba(0,0,0,0.06)]"
-      aria-hidden
-    >
-      <span className="size-1.5 rounded-full bg-foreground" />
-    </span>
-  );
-}
-
 const formShellClass =
   "relative overflow-hidden rounded-[2rem] border border-foreground/[0.08] bg-card/90 p-8 shadow-[0_28px_72px_-24px_rgba(0,0,0,0.12),0_12px_32px_-12px_rgba(0,0,0,0.07),inset_0_1px_0_rgba(255,255,255,0.95)] ring-1 ring-foreground/[0.04] backdrop-blur-xl backdrop-saturate-150 md:p-10 md:pl-11";
 
@@ -125,10 +114,9 @@ export default function Contact() {
             className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-foreground/[0.04] blur-3xl"
             aria-hidden
           />
-          <FormCardCornerDot />
 
           {submitted ? (
-            <div className="relative flex min-h-[280px] flex-col items-start justify-center gap-4 pr-12 pt-4 sm:pr-14">
+            <div className="relative flex min-h-[280px] flex-col items-start justify-center gap-4 pt-4">
               <span className="font-display text-foreground uppercase text-4xl tracking-wide sm:text-5xl">
                 Message sent.
               </span>
