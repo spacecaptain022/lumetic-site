@@ -6,7 +6,7 @@ import { X, Menu } from "lucide-react";
 import Image from "next/image";
 
 const navLeft = [
-  { label: "X", href: "https://x.com/LUMETICio" },
+  { label: "X", href: "https://x.com/LumeticStudio" },
   { label: "Services", href: "/#services" },
 ];
 const navRight = [

@@ -22,7 +22,7 @@ const navLinks = [
 ];
 
 const socialLinks = [
-  { label: "X", href: "https://x.com/LUMETICio" },
+  { label: "X", href: "https://x.com/LumeticStudio" },
 ];
 
 type FooterProps = { variant?: "default" | "dark" };
