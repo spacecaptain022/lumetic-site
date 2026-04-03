@@ -5,7 +5,9 @@ import { motion, useScroll, useTransform, useSpring, useMotionValueEvent, useInV
 import { ArrowRight } from "lucide-react";
 
 const LINES = ["WE MAKE", "BRANDS THAT", "LEAD."];
-const TOTAL_CHARS = LINES.join("").length;
+/** Per-line word lists — scroll reveal steps are per word, not per letter */
+const LINE_WORDS = LINES.map((line) => line.split(/\s+/).filter(Boolean));
+const TOTAL_WORDS = LINE_WORDS.reduce((sum, words) => sum + words.length, 0);
 
 function CountUp({ to, from = 0, suffix = "", duration = 1.6 }: { to: number; from?: number; suffix?: string; duration?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -90,7 +92,7 @@ export default function About() {
   const descriptorOpacity = useTransform(scrollYProgress, [0.7, 1], [0, 1]);
 
   useMotionValueEvent(scrollYProgress, "change", (v) => {
-    const next = Math.round(v * (TOTAL_CHARS + 4));
+    const next = Math.round(v * (TOTAL_WORDS + 3));
     if (next !== prevRevealRef.current) {
       prevRevealRef.current = next;
       setRevealCount(next);
@@ -273,22 +275,24 @@ export default function About() {
                 className="font-display text-foreground uppercase"
                 style={{ fontSize: "clamp(3rem, 9vw, 10rem)", letterSpacing: "0.03em", lineHeight: 0.92 }}
               >
-                {LINES.map((line, li) => {
-                  const lineStart = LINES.slice(0, li).join("").length;
+                {LINE_WORDS.map((words, li) => {
+                  const wordStart = LINE_WORDS.slice(0, li).reduce((sum, w) => sum + w.length, 0);
                   return (
                     <span key={li} style={{ display: "block" }}>
-                      {line.split("").map((char, ci) => {
-                        const idx = lineStart + ci;
+                      {words.map((word, wi) => {
+                        const idx = wordStart + wi;
                         const revealed = revealCount > idx;
                         return (
-                          <span
-                            key={ci}
-                            style={{
-                              opacity: revealed ? 1 : 0.08,
-                              transition: "opacity 0.06s ease",
-                            }}
-                          >
-                            {char}
+                          <span key={`${li}-${wi}`}>
+                            {wi > 0 ? " " : null}
+                            <span
+                              style={{
+                                opacity: revealed ? 1 : 0.08,
+                                transition: "opacity 0.14s ease",
+                              }}
+                            >
+                              {word}
+                            </span>
                           </span>
                         );
                       })}
