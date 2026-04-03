@@ -339,57 +339,11 @@ export default function About() {
               className="font-display text-foreground uppercase w-full"
               style={{ fontSize: "clamp(1rem, 4.5vw, 4.2rem)", letterSpacing: "0.03em", lineHeight: 1.15 }}
             >
-              {[
-                { word: "Most",      dim: false },
-                { word: "brands",    dim: false },
-                { word: "fail",      dim: false },
-                { word: "before",    dim: false },
-                { word: "they",      dim: false },
-                { word: "launch.",   dim: false },
-                { word: "Not",       dim: false },
-                { word: "because",   dim: false },
-                { word: "of",        dim: false },
-                { word: "bad",       dim: false },
-                { word: "products,", dim: false },
-                { word: "but",       dim: false },
-                { word: "because",   dim: false },
-                { word: "no",        dim: false },
-                { word: "one",       dim: false },
-                { word: "stopped",   dim: false },
-                { word: "to",        dim: false },
-                { word: "ask:",      dim: false },
-                { word: "who",       dim: true  },
-                { word: "is",        dim: true  },
-                { word: "this",      dim: true  },
-                { word: "for,",      dim: true  },
-                { word: "and",       dim: true  },
-                { word: "why",       dim: true  },
-                { word: "should",    dim: true  },
-                { word: "they",      dim: true  },
-                { word: "care?",     dim: true  },
-                { word: "That",      dim: false },
-                { word: "question",  dim: false },
-                { word: "is",        dim: false },
-                { word: "where",     dim: false },
-                { word: "we",        dim: false },
-                { word: "start.",    dim: false },
-              ].map(({ word, dim }, i) => {
-                const yDir = i % 3 === 0 ? -1 : 1;
-                const yAmt = 28 + (i % 5) * 8;
-                const rot  = (i % 2 === 0 ? -1 : 1) * (2 + (i % 4) * 1.5);
-                return (
-                  <motion.span
-                    key={i}
-                    className={`inline-block mr-[0.2em] ${dim ? "text-foreground/50" : ""}`}
-                    initial={{ opacity: 0, y: yDir * yAmt, rotate: rot, scale: 0.9 }}
-                    whileInView={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
-                    viewport={{ once: false, margin: "-60px" }}
-                    transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] as const, delay: (i % 6) * 0.03 }}
-                  >
-                    {word}
-                  </motion.span>
-                );
-              })}
+              Most brands fail before they launch. Not because of bad products, but because no one stopped to
+              ask:{" "}
+              <span className="text-foreground/45">
+                who is this for, and why should they care? That question is where we start.
+              </span>
             </p>
           </div>
         </div>
