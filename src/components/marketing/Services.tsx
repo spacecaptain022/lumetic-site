@@ -42,36 +42,44 @@ export default function Services() {
             <motion.article
               key={service.title}
               {...fadeUp(i * 0.1)}
-              className="relative aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-2xl md:rounded-[1.35rem] bg-black"
+              className="relative flex h-full min-h-[22rem] flex-col overflow-hidden rounded-2xl bg-black md:min-h-[24rem] md:rounded-[1.35rem]"
               style={{ boxShadow: "0 8px 40px rgba(0,0,0,0.18)" }}
             >
-              <Image
-                src={service.image}
-                alt=""
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
-                className="object-cover object-center grayscale contrast-[1.05] brightness-[0.92]"
-                aria-hidden
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/88 via-black/35 to-black/25 pointer-events-none" />
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_20%,rgba(255,255,255,0.08),transparent_55%)] pointer-events-none opacity-70" />
+              <div className="pointer-events-none absolute inset-0 z-0">
+                <Image
+                  src={service.image}
+                  alt=""
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
+                  className="object-cover object-center grayscale contrast-[1.05] brightness-[0.92]"
+                  aria-hidden
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/88 via-black/35 to-black/25" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_20%,rgba(255,255,255,0.08),transparent_55%)] opacity-70" />
+              </div>
 
-              <div className="absolute inset-0 z-10 flex flex-col p-5 md:p-6">
-                <p className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.14em] text-white/85">
+              <div className="relative z-10 flex min-h-[22rem] flex-1 flex-col p-5 md:min-h-[24rem] md:p-6">
+                <p className="shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-white/85 md:text-[11px]">
                   {service.exp} / {service.year}
                 </p>
 
-                <div className="mt-auto space-y-2">
-                  <h3
-                    className="font-sans font-semibold text-white uppercase leading-[1.05] tracking-tight"
-                    style={{ fontSize: "clamp(1.35rem, 2.8vw, 1.85rem)" }}
-                  >
-                    {service.title}
-                  </h3>
-                  <p className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.18em] text-white/55">
+                <div className="mt-auto flex w-full flex-col gap-2 pt-10">
+                  <div className="flex h-[7.5rem] flex-col justify-end md:h-[8.25rem]">
+                    <h3
+                      className="font-sans font-semibold text-white uppercase leading-[1.05] tracking-tight"
+                      style={{ fontSize: "clamp(1.35rem, 2.8vw, 1.85rem)" }}
+                    >
+                      {service.titleLines.map((line, ti) => (
+                        <span key={ti} className="block leading-[1.05]">
+                          {line}
+                        </span>
+                      ))}
+                    </h3>
+                  </div>
+                  <p className="flex min-h-[2.5rem] items-center font-mono text-[8px] uppercase leading-snug tracking-[0.12em] text-white/55 md:text-[9px] md:tracking-[0.14em]">
                     {service.tags.join(" • ")}
                   </p>
-                  <p className="font-sans text-white/50 leading-relaxed pt-1 line-clamp-3 md:line-clamp-2 text-[0.75rem] md:text-[0.78rem] max-w-[32ch]">
+                  <p className="min-h-[calc(3*1.625*0.75rem)] font-sans text-[0.75rem] leading-relaxed text-white/50 md:min-h-[calc(3*1.625*0.78rem)] md:text-[0.78rem]">
                     {service.description}
                   </p>
                 </div>
