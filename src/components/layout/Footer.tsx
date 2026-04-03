@@ -4,13 +4,14 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
+import { scrollRevealViewportSubtle } from "@/lib/motion";
 
 function fadeUp(delay: number) {
   return {
-    initial: { opacity: 0, y: 32 },
+    initial: { opacity: 0, y: 28 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: "-40px" },
-    transition: { duration: 1.0, ease: [0.22, 1, 0.36, 1] as const, delay },
+    viewport: scrollRevealViewportSubtle,
+    transition: { duration: 0.88, ease: [0.22, 1, 0.36, 1] as const, delay },
   };
 }
 
@@ -29,7 +30,7 @@ type FooterProps = { variant?: "default" | "dark" };
 
 export default function Footer({ variant = "default" }: FooterProps) {
   const wordmarkRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(wordmarkRef, { once: false, margin: "0px 0px -40px 0px" });
+  const inView = useInView(wordmarkRef, { once: false, margin: "0px 0px 18% 0px", amount: 0.12 });
 
   const isDark = variant === "dark";
   const footBg = isDark ? "bg-black" : "bg-background";

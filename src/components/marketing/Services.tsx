@@ -4,15 +4,16 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { exploreServices } from "@/data/exploreServices";
+import { scrollRevealViewport } from "@/lib/motion";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 function fadeUp(delay: number) {
   return {
-    initial: { opacity: 0, y: 60 },
+    initial: { opacity: 0, y: 36 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: "-80px" },
-    transition: { duration: 1.0, ease, delay },
+    viewport: scrollRevealViewport,
+    transition: { duration: 0.88, ease, delay },
   };
 }
 
@@ -20,7 +21,7 @@ export default function Services() {
   return (
     <>
       {/* ── Services Grid ── */}
-      <section className="w-full bg-background py-16 md:py-32 px-4 md:px-12">
+      <section className="w-full bg-background py-14 md:py-32 px-4 md:px-12">
         <div className="max-w-6xl mx-auto mb-12 md:mb-16 text-center md:text-left">
           <motion.p
             {...fadeUp(0)}
@@ -96,7 +97,7 @@ export default function Services() {
       </section>
 
       {/* ── CTA — same language as Explore cards: dark canvas, scrim, mono detail, calm type */}
-      <section className="w-full bg-background px-4 md:px-12 pb-16 md:pb-32">
+      <section className="w-full bg-background px-4 md:px-12 pb-14 md:pb-32">
         <motion.div
           {...fadeUp(0)}
           className="relative mx-auto max-w-6xl overflow-hidden rounded-2xl bg-black md:rounded-[1.35rem]"

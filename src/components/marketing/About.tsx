@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring, useMotionValueEvent, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { inViewReveal, scrollRevealViewport } from "@/lib/motion";
 
 const LINES = ["WE MAKE", "BRANDS THAT", "LEAD."];
 /** Per-line word lists — scroll reveal steps are per word, not per letter */
@@ -11,7 +12,7 @@ const TOTAL_WORDS = LINE_WORDS.reduce((sum, words) => sum + words.length, 0);
 
 function CountUp({ to, from = 0, suffix = "", duration = 1.6 }: { to: number; from?: number; suffix?: string; duration?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const inView = useInView(ref, inViewReveal);
   const [count, setCount] = useState(from);
 
   useEffect(() => {
@@ -44,10 +45,10 @@ function fadeUp(delay: number) {
 
 function scrollFadeUp(delay = 0) {
   return {
-    initial: { opacity: 0, y: 56 },
+    initial: { opacity: 0, y: 36 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: "-80px" },
-    transition: { duration: 1.0, ease, delay },
+    viewport: scrollRevealViewport,
+    transition: { duration: 0.88, ease, delay },
   };
 }
 
@@ -89,7 +90,7 @@ export default function About() {
     { stiffness: 30, damping: 25, mass: 1 }
   );
 
-  const descriptorOpacity = useTransform(scrollYProgress, [0.7, 1], [0, 1]);
+  const descriptorOpacity = useTransform(scrollYProgress, [0.42, 0.94], [0, 1]);
 
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     const next = Math.round(v * (TOTAL_WORDS + 3));
@@ -102,8 +103,8 @@ export default function About() {
   return (
     <>
       {/* ── Hero — sticky scroll type-on ── */}
-      <div ref={heroRef} className="h-[150vh] md:h-[280vh]">
-        <section className="sticky top-0 relative w-full h-screen bg-background flex flex-col justify-end px-4 md:px-12 pb-16 md:pb-20 overflow-hidden">
+      <div ref={heroRef} className="h-[195vh] md:h-[280vh]">
+        <section className="sticky top-0 relative w-full h-screen bg-background flex flex-col justify-end px-4 md:px-12 pb-12 sm:pb-16 md:pb-20 overflow-hidden">
 
           {/* LUMETIC — video fills letterforms; refined grade + grain + soft vignette */}
           <motion.div
@@ -266,7 +267,7 @@ export default function About() {
           </motion.div>
 
           {/* Scroll-driven typewriter headline */}
-          <div className="relative z-10 max-w-6xl w-full mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-10">
+          <div className="relative z-10 max-w-6xl w-full mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-8 md:gap-10">
             <div>
               <motion.p {...fadeUp(0)} className="font-sans text-[10px] uppercase tracking-[0.18em] text-foreground/60 mb-5">
                 About us
@@ -327,8 +328,8 @@ export default function About() {
       <div className="w-full h-px bg-foreground/10" />
 
       {/* ── Manifesto ── */}
-      <section className="w-full bg-background px-4 md:px-12 py-16 md:py-36 overflow-hidden">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8">
+      <section className="w-full bg-background px-4 md:px-12 py-14 md:py-36 overflow-hidden">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
           <motion.div {...scrollFadeUp(0)} className="md:col-span-2 flex items-start pt-1">
             <span className="font-sans text-[10px] uppercase tracking-[0.18em] text-foreground/55">
               Philosophy
@@ -353,20 +354,20 @@ export default function About() {
       <div className="w-full h-px bg-foreground/10" />
 
       {/* ── Principles ── */}
-      <section className="w-full bg-background px-4 md:px-12 py-14 md:py-32">
+      <section className="w-full bg-background px-4 md:px-12 py-12 md:py-32">
         <div className="max-w-6xl mx-auto">
-          <motion.p {...scrollFadeUp(0)} className="font-sans text-[10px] uppercase tracking-[0.18em] text-foreground/55 mb-14">
+          <motion.p {...scrollFadeUp(0)} className="font-sans text-[10px] uppercase tracking-[0.18em] text-foreground/55 mb-10 md:mb-14">
             How we work
           </motion.p>
           <div className="flex flex-col divide-y divide-foreground/8">
             {principles.map((p, i) => (
               <motion.div
                 key={p.index}
-                initial={{ opacity: 0, x: -40 }}
+                initial={{ opacity: 0, x: -16 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] as const, delay: i * 0.1 }}
-                className="flex flex-col gap-3 md:grid md:grid-cols-12 md:gap-8 py-8 md:py-12"
+                viewport={scrollRevealViewport}
+                transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] as const, delay: i * 0.08 }}
+                className="flex flex-col gap-3 md:grid md:grid-cols-12 md:gap-8 py-7 md:py-12"
               >
                 <div className="flex items-baseline gap-3 md:contents">
                   <span className="md:col-span-1 font-sans text-[10px] text-foreground/50 tracking-[0.12em] shrink-0">{p.index}</span>
@@ -392,7 +393,7 @@ export default function About() {
       <div className="w-full h-px bg-foreground/10" />
 
       {/* ── Stats row ── */}
-      <section className="w-full bg-background px-4 md:px-12 py-12 md:py-24">
+      <section className="w-full bg-background px-4 md:px-12 py-10 md:py-24">
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 place-items-center text-center">
           {[
             { to: 20, suffix: "+", label: "Brands built" },
@@ -419,8 +420,8 @@ export default function About() {
       <div className="w-full h-px bg-foreground/10" />
 
       {/* ── CTA ── */}
-      <section className="w-full bg-background px-4 md:px-12 py-14 md:py-32">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-8 md:gap-10">
+      <section className="w-full bg-background px-4 md:px-12 py-12 md:py-32">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-7 md:gap-10">
           <motion.h2
             {...scrollFadeUp(0)}
             className="font-display text-foreground uppercase"

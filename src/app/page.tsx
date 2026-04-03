@@ -28,7 +28,7 @@ export default function Home() {
       </div>
 
       <div id="contact">
-        <div className="pt-24">
+        <div className="pt-16 md:pt-24">
           <Contact />
         </div>
       </div>

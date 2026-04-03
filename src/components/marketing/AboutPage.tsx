@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import AboutHeroBackground from "@/components/three/AboutHeroBackground";
+import { scrollRevealViewport } from "@/lib/motion";
 
 /** Lusion-style service ticks (https://labs.lusion.co/about) */
 const heroServices = [
@@ -17,10 +18,10 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 function fadeUp(delay = 0) {
   return {
-    initial: { opacity: 0, y: 40 },
+    initial: { opacity: 0, y: 32 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: "-60px" },
-    transition: { duration: 0.9, ease, delay },
+    viewport: scrollRevealViewport,
+    transition: { duration: 0.85, ease, delay },
   };
 }
 

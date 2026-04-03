@@ -4,15 +4,16 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { exploreServices } from "@/data/exploreServices";
+import { scrollRevealViewport } from "@/lib/motion";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 function fadeUp(delay: number) {
   return {
-    initial: { opacity: 0, y: 56 },
+    initial: { opacity: 0, y: 36 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: "-80px" },
-    transition: { duration: 1.0, ease, delay },
+    viewport: scrollRevealViewport,
+    transition: { duration: 0.88, ease, delay },
   };
 }
 
@@ -58,7 +59,7 @@ export default function Contact() {
   }
 
   return (
-    <section className="relative isolate w-full min-h-[calc(100vh-6rem)] overflow-hidden bg-background px-4 py-20 md:px-12 md:py-28 flex items-start">
+    <section className="relative isolate w-full min-h-[calc(100vh-6rem)] overflow-hidden bg-background px-4 py-16 md:px-12 md:py-28 flex items-start">
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_85%_55%_at_10%_20%,rgba(0,0,0,0.03)_0%,transparent_50%)]"
         aria-hidden
@@ -68,7 +69,7 @@ export default function Contact() {
         aria-hidden
       />
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 lg:gap-24">
+      <div className="relative z-10 w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 lg:gap-24">
 
         {/* Left — headline + info */}
         <div className="flex flex-col justify-between gap-16 md:min-h-[min(520px,70vh)]">

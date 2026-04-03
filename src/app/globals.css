@@ -102,6 +102,10 @@
     @apply font-sans;
     scroll-behavior: smooth;
   }
+  /* Anchor targets clear fixed nav on mobile + desktop */
+  main > div[id] {
+    scroll-margin-top: 5.25rem;
+  }
   ::selection {
     background: oklch(0.08 0 0);
     color: oklch(0.99 0 0);

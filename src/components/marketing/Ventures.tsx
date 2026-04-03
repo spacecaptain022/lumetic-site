@@ -4,15 +4,16 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { scrollRevealViewport } from "@/lib/motion";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 function fadeUp(delay: number) {
   return {
-    initial: { opacity: 0, y: 60 },
+    initial: { opacity: 0, y: 36 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: "-80px" },
-    transition: { duration: 1.0, ease, delay },
+    viewport: scrollRevealViewport,
+    transition: { duration: 0.88, ease, delay },
   };
 }
 
@@ -20,8 +21,8 @@ function fadeIn(delay: number) {
   return {
     initial: { opacity: 0 },
     whileInView: { opacity: 1 },
-    viewport: { once: true, margin: "-80px" },
-    transition: { duration: 1.0, ease, delay },
+    viewport: scrollRevealViewport,
+    transition: { duration: 0.88, ease, delay },
   };
 }
 
@@ -80,10 +81,10 @@ export default function Ventures() {
       {/* Top hairline */}
       <div className="relative z-10 w-full h-px bg-gradient-to-r from-transparent via-background/15 to-transparent" />
 
-      <div className="relative z-10 px-4 md:px-12 pt-16 md:pt-32 pb-20 md:pb-28 max-w-7xl mx-auto">
+      <div className="relative z-10 px-4 md:px-12 pt-14 md:pt-32 pb-16 md:pb-28 max-w-7xl mx-auto">
 
         {/* Header row */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 md:gap-12 mb-12 md:mb-28">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-7 md:gap-12 mb-10 md:mb-28">
           <div>
             <motion.p
               {...fadeUp(0)}
