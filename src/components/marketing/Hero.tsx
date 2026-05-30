@@ -39,7 +39,7 @@ export default function Hero() {
             href="#services"
             className="md:hidden inline-flex items-center gap-2 bg-foreground text-background font-sans font-medium px-6 py-3 rounded-full text-sm tracking-wide"
           >
-            Our Work <ArrowRight size={13} strokeWidth={1.5} />
+            Services <ArrowRight size={13} strokeWidth={1.5} />
           </a>
 
           <div
@@ -72,7 +72,7 @@ export default function Hero() {
               className="relative inline-flex items-center justify-end gap-2 text-foreground/55 transition-colors duration-200 hover:text-foreground group"
               style={{ fontSize: "0.78rem" }}
             >
-              <span className="font-sans font-medium tracking-wide">Our Work</span>
+              <span className="font-sans font-medium tracking-wide">Services</span>
               <ArrowRight size={12} strokeWidth={1.5} className="group-hover:translate-x-1 transition-transform duration-200" />
             </a>
           </div>
