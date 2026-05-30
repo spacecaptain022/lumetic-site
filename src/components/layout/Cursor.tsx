@@ -2,13 +2,17 @@
 
 import { useEffect, useRef, useState } from "react";
 
+const INTERACTIVE =
+  "a, button, [role='button'], input, textarea, select, label, summary, [data-cursor='pointer']";
+
 export default function Cursor() {
-  const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const trailRef = useRef<HTMLDivElement>(null);
   const mouse = useRef({ x: -100, y: -100 });
-  const ring = useRef({ x: -100, y: -100 });
+  const trail = useRef({ x: -100, y: -100 });
   const frameRef = useRef<number>(0);
   const [hovering, setHovering] = useState(false);
+  const [pressing, setPressing] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -18,31 +22,33 @@ export default function Cursor() {
     };
     const onLeave = () => setHidden(true);
     const onEnter = () => setHidden(false);
+    const onDown = () => setPressing(true);
+    const onUp = () => setPressing(false);
 
     document.addEventListener("mousemove", onMove);
     document.addEventListener("mouseleave", onLeave);
     document.addEventListener("mouseenter", onEnter);
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("mouseup", onUp);
 
-    // Track hover state on interactive elements
     const onOver = (e: MouseEvent) => {
       const el = e.target as HTMLElement;
-      if (el.closest("a, button, [role='button'], input, textarea, select, label")) {
-        setHovering(true);
-      } else {
-        setHovering(false);
-      }
+      setHovering(Boolean(el.closest(INTERACTIVE)));
     };
     document.addEventListener("mouseover", onOver);
 
     function tick() {
-      ring.current.x += (mouse.current.x - ring.current.x) * 0.1;
-      ring.current.y += (mouse.current.y - ring.current.y) * 0.1;
+      trail.current.x += (mouse.current.x - trail.current.x) * 0.14;
+      trail.current.y += (mouse.current.y - trail.current.y) * 0.14;
 
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${mouse.current.x}px, ${mouse.current.y}px) translate(-50%, -50%)`;
+      const transform = (x: number, y: number) =>
+        `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = transform(mouse.current.x, mouse.current.y);
       }
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate(${ring.current.x}px, ${ring.current.y}px) translate(-50%, -50%)`;
+      if (trailRef.current) {
+        trailRef.current.style.transform = transform(trail.current.x, trail.current.y);
       }
 
       frameRef.current = requestAnimationFrame(tick);
@@ -55,49 +61,95 @@ export default function Cursor() {
       document.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseleave", onLeave);
       document.removeEventListener("mouseenter", onEnter);
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("mouseup", onUp);
       document.removeEventListener("mouseover", onOver);
       cancelAnimationFrame(frameRef.current);
     };
   }, []);
 
-  // Never render on server; hide on touch devices or when reduced motion is requested
   if (!mounted) return null;
   if (!window.matchMedia("(pointer: fine)").matches) return null;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return null;
 
+  const size = hovering ? 52 : 28;
+  const arm = hovering ? 14 : 8;
+  const stroke = hovering ? 1.25 : 1;
+  const dot = hovering ? 0 : 2;
+
+  const cursorStyle = {
+    opacity: hidden ? 0 : 1,
+    transition: "opacity 0.25s ease",
+    willChange: "transform",
+  } as const;
+
+  const contrastFilter =
+    "drop-shadow(0 0 1px rgba(255,255,255,0.95)) drop-shadow(0 1px 2px rgba(0,0,0,0.18))";
+
   return (
     <>
-      {/* Dot — snaps instantly */}
       <div
-        ref={dotRef}
-        className="pointer-events-none fixed top-0 left-0 z-[9999]"
-        style={{
-          width: hovering ? 6 : 5,
-          height: hovering ? 6 : 5,
-          borderRadius: "50%",
-          background: "#fff",
-          mixBlendMode: "difference",
-          opacity: hidden ? 0 : 1,
-          transition: "width 0.2s, height 0.2s, opacity 0.2s",
-          willChange: "transform",
-        }}
-      />
+        ref={trailRef}
+        aria-hidden
+        className="pointer-events-none fixed top-0 left-0 z-[9998]"
+        style={cursorStyle}
+      >
+        <div
+          className="rounded-full bg-foreground/10"
+          style={{
+            width: hovering ? 56 : 36,
+            height: hovering ? 56 : 36,
+            filter: contrastFilter,
+            transition:
+              "width 0.35s cubic-bezier(0.22,1,0.36,1), height 0.35s cubic-bezier(0.22,1,0.36,1)",
+          }}
+        />
+      </div>
 
-      {/* Ring — lags behind */}
       <div
-        ref={ringRef}
-        className="pointer-events-none fixed top-0 left-0 z-[9999]"
-        style={{
-          width: hovering ? 44 : 32,
-          height: hovering ? 44 : 32,
-          borderRadius: "50%",
-          border: "1px solid #fff",
-          mixBlendMode: "difference",
-          opacity: hidden ? 0 : 1,
-          transition: "width 0.25s cubic-bezier(0.22,1,0.36,1), height 0.25s cubic-bezier(0.22,1,0.36,1), opacity 0.2s",
-          willChange: "transform",
-        }}
-      />
+        ref={cursorRef}
+        aria-hidden
+        className="pointer-events-none fixed top-0 left-0 z-[9999] text-foreground"
+        style={cursorStyle}
+      >
+        <div
+          style={{
+            width: size,
+            height: size,
+            transform: pressing ? "scale(0.9)" : "scale(1)",
+            transition:
+              "transform 0.15s ease, width 0.35s cubic-bezier(0.22,1,0.36,1), height 0.35s cubic-bezier(0.22,1,0.36,1)",
+          }}
+        >
+          <svg
+            width={size}
+            height={size}
+            viewBox={`0 0 ${size} ${size}`}
+            fill="none"
+            style={{
+              filter: contrastFilter,
+              transition:
+                "width 0.35s cubic-bezier(0.22,1,0.36,1), height 0.35s cubic-bezier(0.22,1,0.36,1)",
+            }}
+          >
+            <path
+              d={`M ${size / 2} ${size / 2 - arm} V ${size / 2 - 3}
+                 M ${size / 2} ${size / 2 + 3} V ${size / 2 + arm}
+                 M ${size / 2 - arm} ${size / 2} H ${size / 2 - 3}
+                 M ${size / 2 + 3} ${size / 2} H ${size / 2 + arm}`}
+              stroke="currentColor"
+              strokeWidth={stroke}
+              strokeLinecap="round"
+              style={{
+                transition: "stroke-width 0.35s cubic-bezier(0.22,1,0.36,1)",
+              }}
+            />
+            {dot > 0 && (
+              <circle cx={size / 2} cy={size / 2} r={dot / 2} fill="currentColor" />
+            )}
+          </svg>
+        </div>
+      </div>
     </>
   );
 }
