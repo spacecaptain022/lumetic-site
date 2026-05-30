@@ -28,9 +28,9 @@ export default function Hero() {
 
         <div className="relative w-full select-none overflow-visible">
           <h1 className="font-display text-foreground uppercase">
-            <span className="relative block w-full px-4 md:px-8" style={displayStyle}>DEFINE</span>
-            <span className="relative block w-full px-4 md:px-8" style={displayStyle}>YOUR</span>
-            <span className="relative block w-full px-4 md:px-8" style={displayStyle}>BRAND</span>
+            <span className="relative block w-full px-4 md:px-8" style={displayStyle}>CLARITY</span>
+            <span className="relative block w-full px-4 md:px-8" style={displayStyle}>OVER</span>
+            <span className="relative block w-full px-4 md:px-8" style={displayStyle}>NOISE</span>
           </h1>
         </div>
 

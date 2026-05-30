@@ -134,14 +134,17 @@ export default function Footer({ variant = "default" }: FooterProps) {
             © 2026 Lumetic Studio LLC.
           </p>
           <div className="flex items-center gap-5">
-            {["Privacy", "Terms"].map((l) => (
+            {[
+              { label: "Privacy", href: "/privacy" },
+              { label: "Terms", href: "/terms" },
+            ].map((item) => (
               <a
-                key={l}
-                href="#"
+                key={item.label}
+                href={item.href}
                 className={`font-sans uppercase tracking-[0.14em] transition-colors duration-200 ${isDark ? "text-white/60 hover:text-white" : "text-foreground/60 hover:text-foreground"}`}
                 style={{ fontSize: "0.58rem" }}
               >
-                {l}
+                {item.label}
               </a>
             ))}
           </div>
