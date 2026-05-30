@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { exploreServices } from "@/data/exploreServices";
@@ -25,7 +25,7 @@ export default function Services() {
         <div className="max-w-6xl mx-auto mb-12 md:mb-16 text-center md:text-left">
           <motion.p
             {...fadeUp(0)}
-            className="font-sans text-foreground/45 uppercase tracking-[0.22em] text-[0.65rem] mb-3"
+            className="font-sans text-foreground/60 uppercase tracking-[0.22em] text-[0.65rem] mb-3"
           >
             (Discover what you&apos;ve been missing)
           </motion.p>
@@ -105,7 +105,7 @@ export default function Services() {
         >
           <div className="absolute inset-0">
             <Image
-              src="/Card 4 graphic.png"
+              src="/card-4-graphic.webp"
               alt=""
               fill
               sizes="(max-width: 768px) 100vw, 1200px"

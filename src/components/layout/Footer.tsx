@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m as motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import { scrollRevealViewportSubtle } from "@/lib/motion";
@@ -35,10 +35,10 @@ export default function Footer({ variant = "default" }: FooterProps) {
   const isDark = variant === "dark";
   const footBg = isDark ? "bg-black" : "bg-background";
   const line = isDark ? "bg-white/10" : "bg-foreground/10";
-  const textMuted = isDark ? "text-white/40" : "text-foreground/40";
-  const textSubtle = isDark ? "text-white/25" : "text-foreground/25";
-  const textLink = isDark ? "text-white/50 hover:text-white" : "text-foreground/50 hover:text-foreground";
-  const textLabel = isDark ? "text-white/25" : "text-foreground/25";
+  const textMuted = isDark ? "text-white/55" : "text-foreground/55";
+  const textSubtle = isDark ? "text-white/60" : "text-foreground/60";
+  const textLink = isDark ? "text-white/65 hover:text-white" : "text-foreground/65 hover:text-foreground";
+  const textLabel = isDark ? "text-white/55" : "text-foreground/55";
   const wordmark = isDark ? "text-white" : "text-foreground";
   const logoClass = isDark ? "w-7 h-7 invert" : "w-7 h-7";
   const ctaClass = isDark
@@ -138,7 +138,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
               <a
                 key={l}
                 href="#"
-                className={`font-sans uppercase tracking-[0.14em] transition-colors duration-200 ${isDark ? "text-white/25 hover:text-white/50" : "text-foreground/25 hover:text-foreground/50"}`}
+                className={`font-sans uppercase tracking-[0.14em] transition-colors duration-200 ${isDark ? "text-white/60 hover:text-white" : "text-foreground/60 hover:text-foreground"}`}
                 style={{ fontSize: "0.58rem" }}
               >
                 {l}

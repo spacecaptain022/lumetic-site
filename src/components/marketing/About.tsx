@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring, useMotionValueEvent, useInView } from "framer-motion";
+import { m as motion, useScroll, useTransform, useSpring, useMotionValueEvent, useInView, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { inViewReveal, scrollRevealViewport } from "@/lib/motion";
 
@@ -79,6 +79,7 @@ export default function About() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [revealCount, setRevealCount] = useState(0);
   const prevRevealRef = useRef(-1);
+  const reduce = useReducedMotion();
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -86,13 +87,18 @@ export default function About() {
   });
 
   const videoY = useSpring(
-    useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]),
+    useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["-15%", "15%"]),
     { stiffness: 30, damping: 25, mass: 1 }
   );
 
-  const descriptorOpacity = useTransform(scrollYProgress, [0.42, 0.94], [0, 1]);
+  const descriptorOpacity = useTransform(scrollYProgress, [0.42, 0.94], reduce ? [1, 1] : [0, 1]);
+
+  useEffect(() => {
+    if (reduce) setRevealCount(TOTAL_WORDS + 3);
+  }, [reduce]);
 
   useMotionValueEvent(scrollYProgress, "change", (v) => {
+    if (reduce) return;
     const next = Math.round(v * (TOTAL_WORDS + 3));
     if (next !== prevRevealRef.current) {
       prevRevealRef.current = next;
@@ -119,7 +125,7 @@ export default function About() {
               style={{ y: videoY, scale: 1.22 }}
             >
               <video
-                autoPlay
+                autoPlay={!reduce}
                 muted
                 loop
                 playsInline
@@ -127,7 +133,7 @@ export default function About() {
                 className="h-full w-full object-cover [filter:saturate(0)_contrast(1.18)_brightness(0.94)]"
                 style={{ opacity: 0.52 }}
               >
-                <source src="/about%20text%20mask%20video.mp4" type="video/mp4" />
+                <source src="/about-text-mask.mp4" type="video/mp4" />
               </video>
             </motion.div>
             <svg
@@ -272,7 +278,7 @@ export default function About() {
               <motion.p {...fadeUp(0)} className="font-sans text-[10px] uppercase tracking-[0.18em] text-foreground/60 mb-5">
                 About us
               </motion.p>
-              <h1
+              <h2
                 className="font-display text-foreground uppercase"
                 style={{ fontSize: "clamp(3rem, 9vw, 10rem)", letterSpacing: "0.03em", lineHeight: 0.92 }}
               >
@@ -300,7 +306,7 @@ export default function About() {
                     </span>
                   );
                 })}
-              </h1>
+              </h2>
             </div>
 
             <motion.div
@@ -342,7 +348,7 @@ export default function About() {
             >
               Most brands fail before they launch. Not because of bad products, but because no one stopped to
               ask:{" "}
-              <span className="text-foreground/45">
+              <span className="text-foreground/55">
                 who is this for, and why should they care? That question is where we start.
               </span>
             </p>

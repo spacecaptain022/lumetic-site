@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { exploreServices } from "@/data/exploreServices";
 import { scrollRevealViewport } from "@/lib/motion";
@@ -80,7 +80,7 @@ export default function Contact() {
             >
               Get in touch
             </motion.p>
-            <motion.h1
+            <motion.h2
               {...fadeUp(0.08)}
               className="font-display text-foreground uppercase [text-shadow:0_1px_0_rgba(255,255,255,0.5),0_22px_60px_rgba(0,0,0,0.06)]"
               style={{
@@ -90,7 +90,7 @@ export default function Contact() {
               }}
             >
               Let&apos;s build<br />something<br />great.
-            </motion.h1>
+            </motion.h2>
           </div>
 
           <motion.div {...fadeUp(0.2)} className="flex flex-col gap-4">
@@ -125,9 +125,22 @@ export default function Contact() {
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="relative flex flex-col gap-8">
+            <form
+              onSubmit={handleSubmit}
+              aria-describedby={error ? "contact-form-error" : undefined}
+              className="relative flex flex-col gap-8"
+            >
+              <div role="status" aria-live="polite" className="sr-only">
+                {loading ? "Sending message…" : ""}
+              </div>
               {error && (
-                <p className="font-sans text-sm text-red-500/80">{error}</p>
+                <p
+                  id="contact-form-error"
+                  role="alert"
+                  className="font-sans text-sm text-red-500/80"
+                >
+                  {error}
+                </p>
               )}
 
               <Field label="Name" id="name" type="text" placeholder="Your name" required />

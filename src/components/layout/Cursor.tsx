@@ -60,8 +60,10 @@ export default function Cursor() {
     };
   }, []);
 
-  // Never render on server; hide on touch devices
-  if (!mounted || !window.matchMedia("(pointer: fine)").matches) return null;
+  // Never render on server; hide on touch devices or when reduced motion is requested
+  if (!mounted) return null;
+  if (!window.matchMedia("(pointer: fine)").matches) return null;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return null;
 
   return (
     <>

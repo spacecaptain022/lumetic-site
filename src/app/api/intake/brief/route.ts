@@ -1,9 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
-
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { escapeHtml } from "@/lib/escape-html";
 
 const BRIEF_PROMPT = `Based on the following client intake conversation, generate a comprehensive, well-structured project brief for the Lumetic creative team.
 
@@ -22,6 +20,8 @@ Format the brief with these exact sections using **Section Title** markdown bold
 Be professional, concise, and actionable. Initial Recommendations should include 2–3 strategic suggestions from Lumetic's perspective. If a section has no information, write "Not discussed."`;
 
 export async function POST(req: NextRequest) {
+  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+  const resend = new Resend(process.env.RESEND_API_KEY);
   const { messages, clientName, clientEmail } = await req.json();
 
   if (!messages || !clientEmail) {
@@ -64,6 +64,9 @@ export async function POST(req: NextRequest) {
       })
       .join("");
 
+    const safeClientName = escapeHtml(String(clientName || "Unknown"));
+    const safeClientEmail = escapeHtml(String(clientEmail));
+
     await resend.emails.send({
       from: "Lumetic Intake <hello@lumetic.io>",
       to: "Lumetic.io@gmail.com",
@@ -72,7 +75,7 @@ export async function POST(req: NextRequest) {
       html: `
         <div style="font-family:sans-serif;max-width:680px;margin:0 auto;color:#111;padding:40px 0;">
           <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:#999;margin:0 0 6px;">Lumetic — AI Intake Brief</p>
-          <p style="font-size:12px;color:#bbb;margin:0 0 32px;">From: ${clientName || "Unknown"} &lt;${clientEmail}&gt;</p>
+          <p style="font-size:12px;color:#bbb;margin:0 0 32px;">From: ${safeClientName} &lt;${safeClientEmail}&gt;</p>
           <hr style="border:none;border-top:1px solid #eee;margin:0 0 32px;" />
           ${briefHtml}
           <hr style="border:none;border-top:1px solid #eee;margin:40px 0 24px;" />

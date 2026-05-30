@@ -1,11 +1,11 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { escapeHtml } from "@/lib/escape-html";
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(req: NextRequest) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   const { email } = await req.json();
 
   if (!email || typeof email !== "string" || !emailRe.test(email.trim())) {
@@ -13,6 +13,7 @@ export async function POST(req: NextRequest) {
   }
 
   const clean = email.trim();
+  const safeClean = escapeHtml(clean);
 
   const { error } = await resend.emails.send({
     from: "Lumetic <hello@lumetic.io>",
@@ -23,7 +24,7 @@ export async function POST(req: NextRequest) {
     html: `
       <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#111;">
         <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:#999;margin-bottom:16px;">Lumetic — Quick Contact</p>
-        <p style="font-size:14px;"><a href="mailto:${clean}" style="color:#111;">${clean}</a></p>
+        <p style="font-size:14px;"><a href="mailto:${safeClean}" style="color:#111;">${safeClean}</a></p>
         <p style="font-size:12px;color:#999;margin-top:24px;">Submitted via site floating bar.</p>
       </div>
     `,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { m as motion, useScroll, useTransform, useSpring, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { scrollRevealViewport } from "@/lib/motion";
@@ -35,6 +35,7 @@ const focus = [
 
 export default function Ventures() {
   const sectionRef = useRef<HTMLElement>(null);
+  const reduce = useReducedMotion();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -42,7 +43,7 @@ export default function Ventures() {
   });
 
   const bgY = useSpring(
-    useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]),
+    useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["-8%", "8%"]),
     { stiffness: 40, damping: 20, mass: 1 }
   );
 
@@ -55,7 +56,7 @@ export default function Ventures() {
         style={{ y: bgY, scale: 1.18 }}
       >
         <Image
-          src="/Venture bg.png"
+          src="/venture-bg.webp"
           alt=""
           fill
           sizes="100vw"
@@ -167,7 +168,7 @@ export default function Ventures() {
                     {item.desc}
                   </p>
                 </div>
-                <span className="font-mono tabular-nums text-background/35 text-[0.7rem] mt-1 shrink-0 tracking-widest">
+                <span className="font-mono tabular-nums text-background/55 text-[0.7rem] mt-1 shrink-0 tracking-widest">
                   0{i + 1}
                 </span>
               </div>

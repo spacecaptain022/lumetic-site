@@ -2,11 +2,14 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { LazyMotion, domAnimation } from "framer-motion";
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Skip Lenis on touch devices — native iOS/Android scroll is smoother
     if (window.matchMedia("(pointer: coarse)").matches) return;
+    // Respect prefers-reduced-motion
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const lenis = new Lenis({
       duration: 1.1,
@@ -15,14 +18,18 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       wheelMultiplier: 1.0,
     });
 
+    let frameId = 0;
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      frameId = requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
+    frameId = requestAnimationFrame(raf);
 
-    return () => lenis.destroy();
+    return () => {
+      cancelAnimationFrame(frameId);
+      lenis.destroy();
+    };
   }, []);
 
-  return <>{children}</>;
+  return <LazyMotion features={domAnimation} strict>{children}</LazyMotion>;
 }

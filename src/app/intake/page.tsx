@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m as motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Send } from "lucide-react";
 import Image from "next/image";
 
@@ -131,12 +131,12 @@ export default function IntakePage() {
           >
             Brief sent.
           </h1>
-          <p className="font-sans text-foreground/45 text-sm leading-relaxed mb-10">
+          <p className="font-sans text-foreground/65 text-sm leading-relaxed mb-10">
             Your intake brief has been delivered to the Lumetic team. We&apos;ll be in touch within 24 hours.
           </p>
           <a
             href="/"
-            className="font-sans text-[11px] uppercase tracking-[0.18em] text-foreground/30 hover:text-foreground/60 transition-colors"
+            className="font-sans text-[11px] uppercase tracking-[0.18em] text-foreground/55 hover:text-foreground transition-colors"
           >
             Back to Lumetic
           </a>
@@ -153,7 +153,7 @@ export default function IntakePage() {
         <a href="/" className="opacity-50 hover:opacity-100 transition-opacity">
           <Image src="/Lumetic logo black no text.png" alt="Lumetic" width={22} height={22} />
         </a>
-        <p className="font-sans text-[9px] uppercase tracking-[0.22em] text-foreground/25">
+        <p className="font-sans text-[9px] uppercase tracking-[0.22em] text-foreground/55">
           Client Intake
         </p>
       </div>
@@ -216,23 +216,38 @@ export default function IntakePage() {
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 className="mt-4 border border-foreground/[0.08] rounded-3xl p-6"
               >
-                <p className="font-sans text-[9px] uppercase tracking-[0.22em] text-foreground/30 mb-3">
+                <p className="font-sans text-[9px] uppercase tracking-[0.22em] text-foreground/55 mb-3">
                   Ready to generate your brief
                 </p>
                 <p className="font-sans text-sm text-foreground/55 leading-relaxed mb-6">
                   Enter your email and we&apos;ll compile your brief and send it to the Lumetic team. Expect to hear from us within 24 hours.
                 </p>
-                <form onSubmit={generateBrief} className="flex flex-col gap-5">
+                <form
+                  onSubmit={generateBrief}
+                  aria-describedby={error ? "intake-brief-error" : undefined}
+                  className="flex flex-col gap-5"
+                >
+                  <label htmlFor="intake-email" className="sr-only">
+                    Your email address
+                  </label>
                   <input
+                    id="intake-email"
                     type="email"
                     placeholder="your@email.com"
                     value={clientEmail}
                     onChange={(e) => setClientEmail(e.target.value)}
                     required
-                    className="w-full bg-transparent border-b border-foreground/12 pb-3 font-sans text-sm text-foreground/70 placeholder:text-foreground/25 focus:border-foreground/35 outline-none transition-colors"
+                    aria-invalid={error ? true : undefined}
+                    className="w-full bg-transparent border-b border-foreground/20 pb-3 font-sans text-sm text-foreground/85 placeholder:text-foreground/45 focus:border-foreground/55 outline-none transition-colors"
                   />
                   {error && (
-                    <p className="font-sans text-xs text-red-500/70">{error}</p>
+                    <p
+                      id="intake-brief-error"
+                      role="alert"
+                      className="font-sans text-xs text-red-500/70"
+                    >
+                      {error}
+                    </p>
                   )}
                   <button
                     type="submit"
@@ -268,7 +283,7 @@ export default function IntakePage() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your response..."
               disabled={loading}
-              className="flex-1 bg-transparent font-sans text-sm text-foreground placeholder:text-foreground/25 outline-none disabled:opacity-40"
+              className="flex-1 bg-transparent font-sans text-sm text-foreground placeholder:text-foreground/45 outline-none disabled:opacity-40"
             />
             <button
               type="submit"

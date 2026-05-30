@@ -6,7 +6,7 @@ export const exploreServices = [
     titleLines: ["WEB3", "AI DEV", "SERVICES"] as const,
     description:
       "Web3, AI, and contracts: integration, deployment, and setup. Tools that fit how you already work.",
-    image: "/Card 4 graphic.png",
+    image: "/card-4-graphic.webp",
     exp: "EXP 001",
     year: "2026",
     tags: ["WEB3", "AI", "DEV"],

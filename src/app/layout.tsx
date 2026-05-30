@@ -3,7 +3,6 @@ import { Inter, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import Cursor from "@/components/layout/Cursor";
 import SmoothScroll from "@/components/layout/SmoothScroll";
-/* Quick Contact floater — off for now; to restore: import FloatingSubscribe from "@/components/layout/FloatingSubscribe" and render <FloatingSubscribe /> below SmoothScroll. */
 
 const inter = Inter({
   variable: "--font-inter",
@@ -18,6 +17,7 @@ const bebas = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://lumetic.io"),
   title: "Lumetic — Branding Agency",
   description: "We craft brand identities that define culture. Strategy, vision, and design for forward-thinking companies.",
   icons: {
@@ -25,12 +25,30 @@ export const metadata: Metadata = {
     apple: "/Lumetic logo black no text.png",
   },
   openGraph: {
+    title: "Lumetic — Branding Agency",
+    description: "We craft brand identities that define culture. Strategy, vision, and design for forward-thinking companies.",
+    url: "https://lumetic.io",
+    siteName: "Lumetic",
+    type: "website",
     images: [{ url: "/L Social share 2026.jpg" }],
   },
   twitter: {
     card: "summary_large_image",
+    title: "Lumetic — Branding Agency",
+    description: "We craft brand identities that define culture. Strategy, vision, and design for forward-thinking companies.",
     images: ["/L Social share 2026.jpg"],
   },
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Lumetic",
+  url: "https://lumetic.io",
+  logo: "https://lumetic.io/Lumetic logo black no text.png",
+  description:
+    "We craft brand identities that define culture. Strategy, vision, and design for forward-thinking companies.",
+  sameAs: ["https://x.com/LumeticStudio"],
 };
 
 export default function RootLayout({
@@ -41,6 +59,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${bebas.variable} antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <noscript>
           <style>{`* { opacity: 1 !important; transform: none !important; }`}</style>
         </noscript>

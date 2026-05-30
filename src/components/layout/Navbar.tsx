@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { m as motion, AnimatePresence } from "framer-motion";
 import { X, Menu } from "lucide-react";
 import Image from "next/image";
 
@@ -17,6 +17,7 @@ const navRight = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [inverted, setInverted] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ventures = document.getElementById("ventures");
@@ -30,6 +31,42 @@ export default function Navbar() {
     observer.observe(ventures);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const menuEl = menuRef.current;
+    const focusable = menuEl
+      ? Array.from(
+          menuEl.querySelectorAll<HTMLElement>(
+            'a[href], button, [tabindex]:not([tabindex="-1"])'
+          )
+        )
+      : [];
+    focusable[0]?.focus();
+
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        return;
+      }
+      if (e.key !== "Tab" || focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      previouslyFocused?.focus?.();
+    };
+  }, [menuOpen]);
 
   const navBg = inverted ? "bg-foreground/80" : "bg-background/60";
   const navBorder = inverted ? "border-background/10" : "border-foreground/[0.06]";
@@ -108,10 +145,14 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            ref={menuRef}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Main menu"
             className="fixed inset-0 z-[100] flex flex-col bg-background px-5 py-4 sm:px-8 sm:py-5"
           >
             <div className="flex items-center justify-between mb-10 sm:mb-16">

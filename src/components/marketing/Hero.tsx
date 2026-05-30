@@ -27,15 +27,11 @@ export default function Hero() {
         </div>
 
         <div className="relative w-full select-none overflow-visible">
-          <div className="relative w-full px-4 md:px-8">
-            <h1 className="font-display text-foreground uppercase" style={displayStyle}>DEFINE</h1>
-          </div>
-          <div className="relative w-full px-4 md:px-8">
-            <h1 className="font-display text-foreground uppercase" style={displayStyle}>YOUR</h1>
-          </div>
-          <div className="relative w-full px-4 md:px-8">
-            <h1 className="font-display text-foreground uppercase" style={displayStyle}>BRAND</h1>
-          </div>
+          <h1 className="font-display text-foreground uppercase">
+            <span className="relative block w-full px-4 md:px-8" style={displayStyle}>DEFINE</span>
+            <span className="relative block w-full px-4 md:px-8" style={displayStyle}>YOUR</span>
+            <span className="relative block w-full px-4 md:px-8" style={displayStyle}>BRAND</span>
+          </h1>
         </div>
 
         <div className="relative z-10 flex items-end justify-between w-full px-4 md:px-8 mt-8 md:mt-12 pb-10 md:pb-14">

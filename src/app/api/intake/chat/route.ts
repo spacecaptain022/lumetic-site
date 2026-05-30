@@ -1,8 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
 const SYSTEM_PROMPT = `You are Lumetic's client intake assistant. Lumetic is a premium branding studio and capital connector. Your job is to conduct a warm, professional discovery conversation to understand a new client's project needs.
 
 Ask ONE question at a time. Be concise, warm, and premium in tone — like a high-end agency, not a chatbot. Keep responses short.
@@ -23,6 +21,7 @@ Once you have covered all areas, or the client indicates they have nothing more 
 Do not mention [READY_TO_BRIEF] until you are truly done collecting information. Never ask more than one question per message.`;
 
 export async function POST(req: NextRequest) {
+  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   const { messages } = await req.json();
 
   if (!Array.isArray(messages)) {
