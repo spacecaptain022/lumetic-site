@@ -1,9 +1,11 @@
 import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/marketing/Hero";
-import Services from "@/components/marketing/Services";
+import WorkGrid from "@/components/marketing/WorkGrid";
+import CardScroller from "@/components/marketing/CardScroller";
 import About from "@/components/marketing/About";
-import Ventures from "@/components/marketing/Ventures";
+import Services from "@/components/marketing/Services";
 import Contact from "@/components/marketing/Contact";
+import FullWidthCta from "@/components/marketing/FullWidthCta";
 import Footer from "@/components/layout/Footer";
 
 export default function Home() {
@@ -15,25 +17,26 @@ export default function Home() {
         <Hero />
       </div>
 
-      <div id="services">
-        <Services />
+      <div id="work">
+        <WorkGrid />
       </div>
+
+      <CardScroller />
 
       <div id="about">
         <About />
       </div>
 
-      <div id="ventures">
-        <Ventures />
+      <div id="services">
+        <Services />
       </div>
 
       <div id="contact">
-        <div className="pt-16 md:pt-24">
-          <Contact />
-        </div>
+        <Contact />
       </div>
 
-      <Footer />
+      <FullWidthCta />
+      <Footer variant="dark" />
     </main>
   );
 }

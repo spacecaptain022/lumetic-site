@@ -126,8 +126,8 @@ export default function IntakePage() {
             className="mx-auto mb-10 opacity-30"
           />
           <h1
-            className="font-display text-foreground uppercase leading-none mb-6"
-            style={{ fontSize: "clamp(3.5rem, 12vw, 6rem)", letterSpacing: "0.03em" }}
+            className="mb-6 font-sans font-medium leading-none text-foreground"
+            style={{ fontSize: "clamp(2.5rem, 10vw, 4.5rem)", letterSpacing: "-0.025em" }}
           >
             Brief sent.
           </h1>

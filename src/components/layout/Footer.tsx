@@ -4,21 +4,13 @@ import { useRef } from "react";
 import { m as motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
-import { scrollRevealViewportSubtle } from "@/lib/motion";
-
-function fadeUp(delay: number) {
-  return {
-    initial: { opacity: 0, y: 28 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: scrollRevealViewportSubtle,
-    transition: { duration: 0.88, ease: [0.22, 1, 0.36, 1] as const, delay },
-  };
-}
+import FooterWordmark from "@/components/layout/FooterWordmark";
+import { fadeUpRevealSubtle, motionTransition, MOTION_EASE_STANDARD, MOTION_DURATION } from "@/lib/motion";
 
 const navLinks = [
   { label: "Services", href: "/#services" },
   { label: "About", href: "/#about" },
-  { label: "Ventures", href: "/#ventures" },
+  { label: "Work", href: "/work" },
   { label: "Contact", href: "/#contact" },
 ];
 
@@ -55,7 +47,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
 
         {/* Single row: logo + tagline left | nav center | social right */}
         <motion.div
-          {...fadeUp(0)}
+          {...fadeUpRevealSubtle(0)}
           className="flex flex-col md:flex-row md:items-start justify-between gap-8 md:gap-6 pb-10 md:pb-14"
         >
           {/* Brand */}
@@ -73,7 +65,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
           </div>
 
           {/* Nav */}
-          <motion.div {...fadeUp(0.06)} className="flex flex-col gap-3">
+          <motion.div {...fadeUpRevealSubtle(0.06)} className="flex flex-col gap-3">
             <p className={`font-sans uppercase tracking-[0.18em] ${textLabel} mb-1`} style={{ fontSize: "0.58rem" }}>
               Navigation
             </p>
@@ -90,7 +82,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
           </motion.div>
 
           {/* Social */}
-          <motion.div {...fadeUp(0.1)} className="flex flex-col gap-3">
+          <motion.div {...fadeUpRevealSubtle(0.1)} className="flex flex-col gap-3">
             <p className={`font-sans uppercase tracking-[0.18em] ${textLabel} mb-1`} style={{ fontSize: "0.58rem" }}>
               Social
             </p>
@@ -110,7 +102,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
           </motion.div>
 
           {/* CTA */}
-          <motion.div {...fadeUp(0.14)} className="flex flex-col gap-4 md:items-end">
+          <motion.div {...fadeUpRevealSubtle(0.14)} className="flex flex-col gap-4 md:items-end">
             <p className={`font-sans uppercase tracking-[0.18em] ${textLabel}`} style={{ fontSize: "0.58rem" }}>
               Ready to build?
             </p>
@@ -127,7 +119,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
         {/* Bottom strip */}
         <div className={`w-full h-px ${isDark ? "bg-white/8" : "bg-foreground/8"} mb-6`} />
         <motion.div
-          {...fadeUp(0.16)}
+          {...fadeUpRevealSubtle(0.16)}
           className="flex items-center justify-between"
         >
           <p className={`font-sans ${textSubtle} uppercase tracking-[0.14em]`} style={{ fontSize: "0.58rem" }}>
@@ -154,14 +146,13 @@ export default function Footer({ variant = "default" }: FooterProps) {
 
       {/* Large wordmark */}
       <div ref={wordmarkRef} className="w-full overflow-hidden select-none">
-        <motion.p
+        <motion.div
           animate={{ y: inView ? "0%" : "105%" }}
-          transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] as const }}
-          className={`font-display ${wordmark} uppercase w-full text-center leading-none`}
-          style={{ fontSize: "clamp(5rem, 20vw, 18rem)", letterSpacing: "0.01em", marginBottom: "-0.12em" }}
+          transition={motionTransition(MOTION_DURATION.slow, MOTION_EASE_STANDARD)}
+          className={`w-full ${wordmark}`}
         >
-          LUMETIC
-        </motion.p>
+          <FooterWordmark className={wordmark} holeFill={isDark ? "#000000" : "var(--background)"} />
+        </motion.div>
       </div>
 
     </footer>

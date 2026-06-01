@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     text: `Email: ${clean}\nSource: floating contact bar`,
     html: `
       <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#111;">
-        <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:#999;margin-bottom:16px;">Lumetic — Quick Contact</p>
+        <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:#999;margin-bottom:16px;">Lumetic: Quick Contact</p>
         <p style="font-size:14px;"><a href="mailto:${safeClean}" style="color:#111;">${safeClean}</a></p>
         <p style="font-size:12px;color:#999;margin-top:24px;">Submitted via site floating bar.</p>
       </div>

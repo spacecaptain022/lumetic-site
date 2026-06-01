@@ -6,7 +6,7 @@ import { LazyMotion, domAnimation } from "framer-motion";
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    // Skip Lenis on touch devices — native iOS/Android scroll is smoother
+    // Skip Lenis on touch devices; native iOS/Android scroll is smoother
     if (window.matchMedia("(pointer: coarse)").matches) return;
     // Respect prefers-reduced-motion
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;

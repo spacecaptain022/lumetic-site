@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import LegalPageShell from "@/components/layout/LegalPageShell";
 
 export const metadata: Metadata = {
-  title: "Terms of Service — Lumetic",
+  title: "Terms of Service | Lumetic",
   description: "Terms governing use of the Lumetic website and services.",
 };
 
@@ -23,8 +23,8 @@ export default function TermsPage() {
   return (
     <LegalPageShell title="Terms of Service">
       <h1
-        className="font-display text-foreground uppercase mb-3"
-        style={{ fontSize: "clamp(2.5rem, 8vw, 4rem)", letterSpacing: "0.03em", lineHeight: 0.95 }}
+        className="mb-3 font-sans font-medium text-foreground"
+        style={{ fontSize: "clamp(2rem, 6vw, 3.25rem)", letterSpacing: "-0.025em", lineHeight: 1.1 }}
       >
         Terms of Service
       </h1>
@@ -59,7 +59,7 @@ export default function TermsPage() {
 
       <Section title="Intellectual Property">
         <p>
-          All content on the Site — including text, graphics, logos, images, and design — is owned
+          All content on the Site, including text, graphics, logos, images, and design, is owned
           by Lumetic Studio LLC or its licensors and is protected by applicable intellectual property
           laws. You may not copy, reproduce, or distribute Site content without our prior written
           consent.

@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Bebas_Neue } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Cursor from "@/components/layout/Cursor";
+import CursorLabel from "@/components/layout/CursorLabel";
 import SmoothScroll from "@/components/layout/SmoothScroll";
+import ScrollProgress from "@/components/layout/ScrollProgress";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -10,22 +12,16 @@ const inter = Inter({
   weight: ["300", "400", "500", "600"],
 });
 
-const bebas = Bebas_Neue({
-  variable: "--font-bebas",
-  subsets: ["latin"],
-  weight: ["400"],
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://lumetic.io"),
-  title: "Lumetic — Branding Agency",
+  title: "Lumetic: Branding Agency",
   description: "We craft brand identities that define culture. Strategy, vision, and design for forward-thinking companies.",
   icons: {
     icon: "/Lumetic logo black no text.png",
     apple: "/Lumetic logo black no text.png",
   },
   openGraph: {
-    title: "Lumetic — Branding Agency",
+    title: "Lumetic: Branding Agency",
     description: "We craft brand identities that define culture. Strategy, vision, and design for forward-thinking companies.",
     url: "https://lumetic.io",
     siteName: "Lumetic",
@@ -34,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lumetic — Branding Agency",
+    title: "Lumetic: Branding Agency",
     description: "We craft brand identities that define culture. Strategy, vision, and design for forward-thinking companies.",
     images: ["/L Social share 2026.jpg"],
   },
@@ -58,7 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${bebas.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
@@ -66,7 +62,9 @@ export default function RootLayout({
         <noscript>
           <style>{`* { opacity: 1 !important; transform: none !important; }`}</style>
         </noscript>
+        <ScrollProgress />
         <Cursor />
+        <CursorLabel />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

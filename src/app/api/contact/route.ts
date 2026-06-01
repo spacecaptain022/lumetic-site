@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     text: `Name: ${name}\nEmail: ${email}\nService: ${service || "Not specified"}\n\n${message}`,
     html: `
       <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#111;">
-        <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:#999;margin-bottom:24px;">Lumetic — New Contact Form Submission</p>
+        <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:#999;margin-bottom:24px;">Lumetic: New Contact Form Submission</p>
         <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
           <tr><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:12px;color:#999;width:100px;">Name</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px;">${safeName}</td></tr>
           <tr><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:12px;color:#999;">Email</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px;"><a href="mailto:${safeEmail}" style="color:#111;">${safeEmail}</a></td></tr>
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
         <p style="font-size:12px;color:#999;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.1em;">Message</p>
         <p style="font-size:14px;line-height:1.7;white-space:pre-wrap;">${safeMessage}</p>
         <hr style="border:none;border-top:1px solid #eee;margin:32px 0;" />
-        <p style="font-size:11px;color:#bbb;">✳ Lumetic Studio — lumetic.io</p>
+        <p style="font-size:11px;color:#bbb;">✳ Lumetic Studio · lumetic.io</p>
       </div>
     `,
   });

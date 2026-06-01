@@ -26,12 +26,36 @@ function fadeIn(delay: number) {
   };
 }
 
-const focus = [
-  { label: "Brand-led Companies", desc: "Businesses where identity is the core competitive advantage." },
-  { label: "Creative Technology", desc: "Tools, platforms, and software shaping how brands are built." },
-  { label: "Consumer & Culture", desc: "Products at the intersection of culture, lifestyle, and community." },
-  { label: "Digital Infrastructure", desc: "The foundations powering the next generation of the web." },
-];
+const caseStudies = [
+  {
+    project: "Nova Grid",
+    challenge: "An AI infrastructure startup had strong technical traction but weak category recognition.",
+    approach: "Rebuilt positioning, naming architecture, and launch narrative across product, site, and investor deck.",
+    result: "+41% qualified inbound demos in 90 days",
+    year: "2026",
+  },
+  {
+    project: "Morrow Labs",
+    challenge: "A health-tech team looked fragmented across channels and struggled to earn trust quickly.",
+    approach: "Unified verbal identity and visual system, then shipped a conversion-focused web relaunch.",
+    result: "2.2x increase in consultation bookings",
+    year: "2026",
+  },
+  {
+    project: "Kite Commerce",
+    challenge: "A premium consumer product brand was competing on price instead of distinctiveness.",
+    approach: "Shifted messaging toward category authority and built a campaign-ready design language.",
+    result: "+63% lift in direct revenue from launch campaign",
+    year: "2025",
+  },
+  {
+    project: "Verde OS",
+    challenge: "A climate software platform had a complex offer that audiences could not parse quickly.",
+    approach: "Clarified IA, simplified story architecture, and produced a modular brand system for scale.",
+    result: "-37% drop in bounce rate on key pages",
+    year: "2025",
+  },
+] as const;
 
 export default function Ventures() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -65,7 +89,7 @@ export default function Ventures() {
         />
       </motion.div>
 
-      {/* Depth: vignette + soft top light — separates UI from terrain */}
+      {/* Depth: vignette + soft top light, separates UI from terrain */}
       <div
         className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-black/25 to-black/65"
         aria-hidden
@@ -95,8 +119,8 @@ export default function Ventures() {
             </motion.p>
             <motion.h2
               {...fadeUp(0.07)}
-              className="font-display text-background uppercase leading-none [text-shadow:0_1px_0_rgba(255,255,255,0.06),0_28px_90px_rgba(0,0,0,0.55),0_0_80px_rgba(0,0,0,0.35)]"
-              style={{ fontSize: "clamp(2.4rem, 10vw, 10rem)", letterSpacing: "0.02em", lineHeight: 0.9 }}
+              className="font-sans font-medium leading-none text-background [text-shadow:0_1px_0_rgba(255,255,255,0.06),0_28px_90px_rgba(0,0,0,0.55),0_0_80px_rgba(0,0,0,0.35)]"
+              style={{ fontSize: "clamp(2.4rem, 10vw, 10rem)", letterSpacing: "-0.025em", lineHeight: 0.92 }}
             >
               Lumetic
               <br />
@@ -137,18 +161,18 @@ export default function Ventures() {
         {/* Divider */}
         <div className="h-px w-full bg-gradient-to-r from-transparent via-background/25 to-transparent mb-10 md:mb-20" />
 
-        {/* Focus areas */}
+        {/* Case studies */}
         <motion.p
           {...fadeUp(0)}
           className="font-sans uppercase tracking-[0.22em] text-background/80 text-[0.65rem] mb-10"
         >
-          Areas of Focus
+          Selected Case Studies
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-          {focus.map((item, i) => (
+          {caseStudies.map((item, i) => (
             <motion.div
-              key={item.label}
+              key={item.project}
               {...fadeUp(i * 0.08)}
               className="group relative overflow-hidden rounded-[1.75rem] border border-background/14 bg-background/[0.055] p-6 backdrop-blur-xl backdrop-saturate-150 shadow-[0_20px_56px_-16px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.08)] transition-colors duration-300 hover:border-background/22 hover:bg-background/[0.08] md:p-9"
             >
@@ -158,14 +182,26 @@ export default function Ventures() {
               />
               <div className="relative flex items-start justify-between gap-4">
                 <div>
-                  <p
-                    className="font-display text-background uppercase mb-3 leading-tight"
-                    style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)", letterSpacing: "0.04em" }}
-                  >
-                    {item.label}
+                  <p className="mb-2 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-background/55">
+                    Project / {item.year}
                   </p>
-                  <p className="font-sans text-background/55 leading-relaxed" style={{ fontSize: "0.8rem" }}>
-                    {item.desc}
+                  <p className="mb-5 font-sans text-lg font-medium leading-tight text-background md:text-xl" style={{ letterSpacing: "-0.02em" }}>
+                    {item.project}
+                  </p>
+                  <p className="mb-2 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-background/58">
+                    Challenge
+                  </p>
+                  <p className="mb-4 font-sans text-background/72 leading-relaxed" style={{ fontSize: "0.79rem" }}>
+                    {item.challenge}
+                  </p>
+                  <p className="mb-2 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-background/58">
+                    Approach
+                  </p>
+                  <p className="mb-5 font-sans text-background/72 leading-relaxed" style={{ fontSize: "0.79rem" }}>
+                    {item.approach}
+                  </p>
+                  <p className="font-mono text-[0.64rem] uppercase tracking-[0.16em] text-background/95">
+                    Result / {item.result}
                   </p>
                 </div>
                 <span className="font-mono tabular-nums text-background/55 text-[0.7rem] mt-1 shrink-0 tracking-widest">
@@ -193,7 +229,7 @@ export default function Ventures() {
               className="font-sans uppercase tracking-[0.2em] text-background [text-shadow:0_0_32px_rgba(255,255,255,0.12)]"
               style={{ fontSize: "0.65rem" }}
             >
-              Lumetic Collective — Early Stage &amp; Beyond
+              Lumetic Collective. Built for measurable outcomes
             </span>
           </div>
           <a

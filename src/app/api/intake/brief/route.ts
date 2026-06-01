@@ -71,15 +71,15 @@ export async function POST(req: NextRequest) {
       from: "Lumetic Intake <hello@lumetic.io>",
       to: "Lumetic.io@gmail.com",
       replyTo: clientEmail,
-      subject: `New Client Brief — ${clientName || clientEmail}`,
+      subject: `New Client Brief | ${clientName || clientEmail}`,
       html: `
         <div style="font-family:sans-serif;max-width:680px;margin:0 auto;color:#111;padding:40px 0;">
-          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:#999;margin:0 0 6px;">Lumetic — AI Intake Brief</p>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:#999;margin:0 0 6px;">Lumetic: AI Intake Brief</p>
           <p style="font-size:12px;color:#bbb;margin:0 0 32px;">From: ${safeClientName} &lt;${safeClientEmail}&gt;</p>
           <hr style="border:none;border-top:1px solid #eee;margin:0 0 32px;" />
           ${briefHtml}
           <hr style="border:none;border-top:1px solid #eee;margin:40px 0 24px;" />
-          <p style="font-size:11px;color:#bbb;margin:0;">✳ Lumetic Studio — lumetic.io</p>
+          <p style="font-size:11px;color:#bbb;margin:0;">✳ Lumetic Studio · lumetic.io</p>
         </div>
       `,
     });

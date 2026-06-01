@@ -2,86 +2,89 @@
 
 import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
-
-const displayStyle = {
-  fontSize: "clamp(5rem, 19vw, 21rem)",
-  letterSpacing: "0.01em",
-  lineHeight: 0.9,
-} as const;
+import { m as motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import ScrollWordReveal from "@/components/layout/ScrollWordReveal";
+import HeroHeadline from "@/components/marketing/HeroHeadline";
+import { fadeUpEnter } from "@/lib/motion";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const reduce = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const visualY = useTransform(scrollYProgress, [0, 1], [0, 48]);
+  const headlineOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0.35]);
 
   return (
-    <section ref={sectionRef} className="relative w-full min-h-screen bg-background overflow-hidden flex flex-col">
-      {/* Main hero body */}
-      <div className="flex-1 relative flex flex-col justify-center pt-20 md:pt-28">
-        <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-          <div
-            className="relative w-[50vw] max-w-[600px] min-w-[260px] aspect-square pointer-events-auto"
-            style={{ overflow: "visible" }}
-          >
-            <Image src="/lumetic eye [Vectorized]2.svg" alt="Lumetic eye" fill sizes="(max-width: 768px) 50vw, 600px" className="object-contain" priority />
-          </div>
-        </div>
-
-        <div className="relative w-full select-none overflow-visible">
-          <h1 className="font-display text-foreground uppercase">
-            <span className="relative block w-full px-4 md:px-8" style={displayStyle}>CLARITY</span>
-            <span className="relative block w-full px-4 md:px-8" style={displayStyle}>OVER</span>
-            <span className="relative block w-full px-4 md:px-8" style={displayStyle}>NOISE</span>
-          </h1>
-        </div>
-
-        <div className="relative z-10 flex items-end justify-between w-full px-4 md:px-8 mt-8 md:mt-12 pb-10 md:pb-14">
-          <a
-            href="#services"
-            className="md:hidden inline-flex items-center gap-2 bg-foreground text-background font-sans font-medium px-6 py-3 rounded-full text-sm tracking-wide"
-          >
-            Services <ArrowRight size={13} strokeWidth={1.5} />
-          </a>
-
-          <div
-            className="relative hidden md:flex max-w-[min(380px,34vw)] flex-col gap-5 overflow-hidden text-right ml-auto rounded-[2rem] border border-foreground/[0.08] bg-card/90 p-8 pl-9 shadow-[0_28px_72px_-24px_rgba(0,0,0,0.14),0_12px_32px_-12px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.95)] ring-1 ring-foreground/[0.04] backdrop-blur-xl backdrop-saturate-150"
-          >
-            <div
-              className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-foreground/[0.07] to-transparent"
-              aria-hidden
-            />
-            <div
-              className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full bg-foreground/[0.04] blur-3xl"
-              aria-hidden
-            />
-
-            <p
-              className="relative text-foreground font-sans font-semibold uppercase leading-snug tracking-[0.12em]"
-              style={{ fontSize: "0.7rem" }}
-            >
-              Lumetic crafts identities that transcend trends
-            </p>
-            <p
-              className="relative text-foreground/65 font-sans font-light leading-[1.65]"
-              style={{ fontSize: "0.8rem" }}
-            >
-              Strategy, vision, and design converge to build brand systems that resonate deeply.
-              We partner with forward-thinking companies to create identities that lead, not follow.
-            </p>
-            <a
-              href="#services"
-              className="relative inline-flex items-center justify-end gap-2 text-foreground/55 transition-colors duration-200 hover:text-foreground group"
-              style={{ fontSize: "0.78rem" }}
-            >
-              <span className="font-sans font-medium tracking-wide">Services</span>
-              <ArrowRight size={12} strokeWidth={1.5} className="group-hover:translate-x-1 transition-transform duration-200" />
-            </a>
-          </div>
-        </div>
-
+    <section ref={sectionRef} className="relative w-full bg-background">
+      <div className="mx-auto max-w-5xl px-5 pt-24 pb-10 text-center md:px-12 md:pt-32 md:pb-12">
+        <motion.div
+          {...fadeUpEnter(0.05, 32)}
+          className="mx-auto max-w-4xl"
+          style={reduce ? undefined : { opacity: headlineOpacity }}
+        >
+          <HeroHeadline className="cursor-default" />
+        </motion.div>
       </div>
 
-      {/* Hairline border */}
-      <div className="w-full h-px bg-foreground/10" />
+      <motion.div
+        className="relative mx-auto w-full max-w-6xl px-4 md:px-12"
+        style={reduce ? undefined : { y: visualY }}
+      >
+        <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-foreground/[0.04] md:rounded-2xl">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            className="h-full w-full object-cover"
+            aria-label="Lumetic brand showreel"
+          >
+            <source src="/hero-showreel.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </motion.div>
+
+      <div className="mx-auto flex max-w-6xl flex-col items-end justify-between gap-8 px-4 py-12 md:flex-row md:items-end md:px-12 md:py-16">
+        <div className="md:hidden">
+          <p
+            className="font-sans font-medium text-foreground"
+            style={{ fontSize: "clamp(2.5rem, 12vw, 4rem)", lineHeight: 0.92, letterSpacing: "-0.02em" }}
+          >
+            Clarity over noise
+          </p>
+        </div>
+
+        <div className="hidden max-w-[min(380px,38vw)] flex-col gap-5 md:flex">
+          <p
+            className="font-sans font-semibold uppercase leading-snug tracking-[0.12em] text-foreground"
+            style={{ fontSize: "0.7rem" }}
+          >
+            Lumetic crafts identities that transcend trends
+          </p>
+          <ScrollWordReveal
+            text="Strategy, vision, and design converge to build brand systems that resonate deeply. We partner with forward-thinking companies to create identities that lead, not follow."
+            className="font-sans font-light leading-[1.65] text-foreground/65"
+            wordClassName="will-change-[opacity]"
+          />
+        </div>
+
+        <a
+          href="#services"
+          className="group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 font-sans text-sm font-medium tracking-wide text-background transition-opacity hover:opacity-85"
+          data-cursor-label="Explore services"
+        >
+          Services
+          <ArrowRight size={13} strokeWidth={1.5} className="transition-transform group-hover:translate-x-0.5" />
+        </a>
+      </div>
+
+      <div className="h-px w-full bg-foreground/10" />
     </section>
   );
 }

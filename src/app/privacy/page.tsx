@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import LegalPageShell from "@/components/layout/LegalPageShell";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Lumetic",
+  title: "Privacy Policy | Lumetic",
   description: "How Lumetic Studio LLC collects, uses, and protects your information.",
 };
 
@@ -23,8 +23,8 @@ export default function PrivacyPage() {
   return (
     <LegalPageShell title="Privacy Policy">
       <h1
-        className="font-display text-foreground uppercase mb-3"
-        style={{ fontSize: "clamp(2.5rem, 8vw, 4rem)", letterSpacing: "0.03em", lineHeight: 0.95 }}
+        className="mb-3 font-sans font-medium text-foreground"
+        style={{ fontSize: "clamp(2rem, 6vw, 3.25rem)", letterSpacing: "-0.025em", lineHeight: 1.1 }}
       >
         Privacy Policy
       </h1>
