@@ -1,6 +1,8 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 import { escapeHtml } from "@/lib/escape-html";
+import { formatTelegramInquiryNotification } from "@/lib/inquiry-message";
+import { isTelegramConfigured, sendTelegramMessage } from "@/lib/telegram";
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -42,6 +44,21 @@ export async function POST(req: NextRequest) {
   if (error) {
     console.error("Resend error:", error);
     return NextResponse.json({ error: "Failed to send message." }, { status: 500 });
+  }
+
+  if (isTelegramConfigured()) {
+    const telegramResult = await sendTelegramMessage(
+      formatTelegramInquiryNotification({
+        name: String(name),
+        email: email.trim(),
+        service: String(service || "Not specified"),
+        message: String(message),
+      })
+    );
+
+    if (!telegramResult.ok) {
+      console.error("Telegram notification error:", telegramResult.error);
+    }
   }
 
   return NextResponse.json({ success: true });
