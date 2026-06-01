@@ -7,8 +7,8 @@ import WatchReveal from "@/components/layout/WatchReveal";
 import InteractiveHeadline from "@/components/marketing/InteractiveHeadline";
 
 const STATS = [
-  { label: "Brand systems delivered", value: 20, suffix: "+" },
-  { label: "Year founded", value: 2021, suffix: "" },
+  { label: "Brand systems delivered", value: 30, suffix: "+" },
+  { label: "Year founded", value: 2025, suffix: "" },
   { label: "Industries served", value: 6, suffix: "+" },
   { label: "Bespoke client work", value: 100, suffix: "%" },
 ] as const;
@@ -133,8 +133,8 @@ export default function About() {
                   label={stat.label}
                   value={stat.value}
                   suffix={stat.suffix}
-                  from={stat.value === 2021 ? 2000 : 0}
-                  duration={stat.value === 2021 ? 2.2 : 1.6}
+                  from={stat.value === 2025 ? 2000 : 0}
+                  duration={stat.value === 2025 ? 2.2 : 1.6}
                   delay={0.08 + i * 0.06}
                 />
               ))}
