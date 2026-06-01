@@ -9,7 +9,8 @@
     "lint": "eslint",
     "telegram:discover": "node scripts/telegram-discover.mjs",
     "telegram:webhook": "node scripts/telegram-webhook.mjs",
-    "telegram:poll": "node scripts/telegram-poll-replies.mjs"
+    "telegram:poll": "node scripts/telegram-poll-replies.mjs",
+    "telegram:catchup": "node scripts/telegram-catchup.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",

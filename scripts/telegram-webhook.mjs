@@ -1,6 +1,6 @@
 /**
- * Registers the Telegram webhook on your live site.
- * Requires TELEGRAM_* vars in .env.local and deployed /api/telegram/webhook.
+ * Registers Telegram webhook → https://lumetic.io/api/telegram/webhook
+ * Run locally. Production must have the same TELEGRAM_* env vars in Vercel.
  *
  * Usage: npm run telegram:webhook
  */
@@ -25,25 +25,39 @@ function loadEnv() {
 }
 
 const env = loadEnv();
+const token = env.TELEGRAM_BOT_TOKEN;
+const webhookSecret = env.TELEGRAM_WEBHOOK_SECRET;
 const siteUrl = (env.NEXT_PUBLIC_SITE_URL ?? "https://lumetic.io").replace(/\/$/, "");
-const setupSecret = env.TELEGRAM_SETUP_SECRET;
+const webhookUrl = `${siteUrl}/api/telegram/webhook`;
 
-if (!setupSecret) {
-  console.error("Missing TELEGRAM_SETUP_SECRET in .env.local");
+if (!token?.includes(":") || !webhookSecret) {
+  console.error("Need TELEGRAM_BOT_TOKEN and TELEGRAM_WEBHOOK_SECRET in .env.local");
   process.exit(1);
 }
 
-const res = await fetch(`${siteUrl}/api/telegram/setup`, {
+const res = await fetch(`https://api.telegram.org/bot${token}/setWebhook`, {
   method: "POST",
-  headers: { Authorization: `Bearer ${setupSecret}` },
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    url: webhookUrl,
+    secret_token: webhookSecret,
+    allowed_updates: ["message"],
+    drop_pending_updates: false,
+  }),
 });
 
-const data = await res.json().catch(() => ({}));
-console.log(res.status, data);
+const data = await res.json();
+console.log(data);
 
-if (!res.ok) {
-  console.error("\nDeploy the site first, then add Telegram env vars in Vercel.");
+if (!data.ok) {
   process.exit(1);
 }
 
-console.log("\nWebhook active. Reply to inquiry messages in your Telegram group to email clients.");
+const info = await (await fetch(`https://api.telegram.org/bot${token}/getWebhookInfo`)).json();
+console.log("\nWebhook URL:", info.result?.url);
+console.log("Pending updates:", info.result?.pending_update_count);
+console.log(
+  "\n⚠️  Add these env vars in Vercel (Production), redeploy, then replies will work on lumetic.io:"
+);
+console.log("   TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, TELEGRAM_ADMIN_IDS,");
+console.log("   TELEGRAM_WEBHOOK_SECRET, RESEND_API_KEY");
