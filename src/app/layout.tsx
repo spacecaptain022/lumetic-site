@@ -14,25 +14,25 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://lumetic.io"),
-  title: "Lumetic: Branding Agency",
-  description: "We craft brand identities that define culture. Strategy, vision, and design for forward-thinking companies.",
+  title: "Lumetic",
+  description: "Clarity over noise.",
   icons: {
     icon: "/Lumetic logo black no text.png",
     apple: "/Lumetic logo black no text.png",
   },
   openGraph: {
-    title: "Lumetic: Branding Agency",
-    description: "We craft brand identities that define culture. Strategy, vision, and design for forward-thinking companies.",
+    title: "Lumetic",
+    description: "Clarity over noise.",
     url: "https://lumetic.io",
     siteName: "Lumetic",
     type: "website",
-    images: [{ url: "/L Social share 2026.jpg" }],
+    images: [{ url: "/lumetic-social-share.png", width: 1024, height: 350, alt: "Lumetic — Clarity over noise." }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lumetic: Branding Agency",
-    description: "We craft brand identities that define culture. Strategy, vision, and design for forward-thinking companies.",
-    images: ["/L Social share 2026.jpg"],
+    title: "Lumetic",
+    description: "Clarity over noise.",
+    images: ["/lumetic-social-share.png"],
   },
 };
 
@@ -42,8 +42,7 @@ const organizationJsonLd = {
   name: "Lumetic",
   url: "https://lumetic.io",
   logo: "https://lumetic.io/Lumetic logo black no text.png",
-  description:
-    "We craft brand identities that define culture. Strategy, vision, and design for forward-thinking companies.",
+  description: "Clarity over noise.",
   sameAs: ["https://x.com/LumeticStudio"],
 };
 
