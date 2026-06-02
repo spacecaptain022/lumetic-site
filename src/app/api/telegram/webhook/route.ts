@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
-import { parseInquiryNotification } from "@/lib/inquiry-message";
+import { parseClientFromNotification } from "@/lib/inbound-email-message";
 import { escapeHtml } from "@/lib/escape-html";
 import { getTelegramAdminIds, sendTelegramMessage } from "@/lib/telegram";
 
@@ -45,10 +45,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
-  const inquiry = parseInquiryNotification(message.reply_to_message.text);
+  const inquiry = parseClientFromNotification(message.reply_to_message.text);
   if (!inquiry) {
     await sendTelegramMessage(
-      "Could not find a client email on the message you replied to. Reply directly to a Lumetic inquiry notification.",
+      "Could not find a client email on the message you replied to. Reply directly to a Lumetic inquiry or client reply notification.",
       String(message.chat.id)
     );
     return NextResponse.json({ ok: true });

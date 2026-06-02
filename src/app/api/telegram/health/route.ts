@@ -17,5 +17,6 @@ export async function GET(req: NextRequest) {
     hasAdminIds: Boolean(process.env.TELEGRAM_ADMIN_IDS?.trim()),
     hasWebhookSecret: Boolean(process.env.TELEGRAM_WEBHOOK_SECRET?.trim()),
     hasResend: Boolean(process.env.RESEND_API_KEY?.trim()),
+    hasResendWebhookSecret: Boolean(process.env.RESEND_WEBHOOK_SECRET?.trim()),
   });
 }

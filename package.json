@@ -10,7 +10,9 @@
     "telegram:discover": "node scripts/telegram-discover.mjs",
     "telegram:webhook": "node scripts/telegram-webhook.mjs",
     "telegram:poll": "node scripts/telegram-poll-replies.mjs",
-    "telegram:catchup": "node scripts/telegram-catchup.mjs"
+    "telegram:catchup": "node scripts/telegram-catchup.mjs",
+    "resend:webhook": "node scripts/resend-webhook.mjs",
+    "resend:catchup": "node scripts/resend-catchup.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",

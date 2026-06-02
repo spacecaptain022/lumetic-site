@@ -5,7 +5,8 @@ export type InquiryPayload = {
   message: string;
 };
 
-const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export { parseClientFromNotification } from "@/lib/inbound-email-message";
+import { parseClientFromNotification } from "@/lib/inbound-email-message";
 
 export function formatTelegramInquiryNotification(inquiry: InquiryPayload): string {
   const service = inquiry.service.trim() || "Not specified";
@@ -25,13 +26,5 @@ export function formatTelegramInquiryNotification(inquiry: InquiryPayload): stri
 }
 
 export function parseInquiryNotification(text: string): Pick<InquiryPayload, "name" | "email"> | null {
-  const email = text.match(/^Email:\s*(.+)$/m)?.[1]?.trim();
-  const name = text.match(/^Name:\s*(.+)$/m)?.[1]?.trim();
-
-  if (!email || !emailRe.test(email)) return null;
-
-  return {
-    email,
-    name: name?.trim() || "there",
-  };
+  return parseClientFromNotification(text);
 }
