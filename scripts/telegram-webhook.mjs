@@ -27,7 +27,8 @@ function loadEnv() {
 const env = loadEnv();
 const token = env.TELEGRAM_BOT_TOKEN;
 const webhookSecret = env.TELEGRAM_WEBHOOK_SECRET;
-const siteUrl = (env.NEXT_PUBLIC_SITE_URL ?? "https://lumetic.io").replace(/\/$/, "");
+// Use www — bare lumetic.io 307-redirects and Telegram treats that as webhook failure
+const siteUrl = (env.NEXT_PUBLIC_SITE_URL ?? "https://www.lumetic.io").replace(/\/$/, "");
 const webhookUrl = `${siteUrl}/api/telegram/webhook`;
 
 if (!token?.includes(":") || !webhookSecret) {
