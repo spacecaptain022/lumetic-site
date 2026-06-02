@@ -8,10 +8,28 @@ import {
 import { sendTelegramMessage } from "@/lib/telegram";
 
 const INBOUND_TO = ["hello@lumetic.io"];
+const RECEIVING_FETCH_ATTEMPTS = 4;
+const RECEIVING_FETCH_DELAY_MS = 750;
 
 function isInboundTarget(to: string[]): boolean {
   const normalized = to.map((address) => address.toLowerCase());
   return INBOUND_TO.some((address) => normalized.includes(address));
+}
+
+async function fetchReceivingEmail(resend: Resend, emailId: string) {
+  let lastError: { message?: string } | null = null;
+
+  for (let attempt = 0; attempt < RECEIVING_FETCH_ATTEMPTS; attempt++) {
+    const { data, error } = await resend.emails.receiving.get(emailId);
+    if (data) return { data, error: null };
+
+    lastError = error;
+    if (attempt < RECEIVING_FETCH_ATTEMPTS - 1) {
+      await new Promise((resolve) => setTimeout(resolve, RECEIVING_FETCH_DELAY_MS * (attempt + 1)));
+    }
+  }
+
+  return { data: null, error: lastError };
 }
 
 export async function POST(req: NextRequest) {
@@ -62,20 +80,28 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true, skipped: "ignored sender" });
   }
 
-  const { data: email, error: fetchError } = await resend.emails.receiving.get(emailId);
+  const { data: email, error: fetchError } = await fetchReceivingEmail(resend, emailId);
+
+  const { email: fromEmail, name: fromName } = parseEmailAddress(from);
+  let body: string;
 
   if (fetchError || !email) {
     console.error("Resend inbound fetch error:", fetchError);
-    return NextResponse.json({ error: "Failed to fetch inbound email." }, { status: 500 });
+    body = [
+      "(Email body could not be loaded from Resend.)",
+      fetchError?.message ? `Error: ${fetchError.message}` : "",
+      "Check the Resend inbox or verify RESEND_API_KEY matches your Resend account.",
+    ]
+      .filter(Boolean)
+      .join("\n");
+  } else {
+    body = email.text?.trim() || stripHtml(email.html ?? "") || "(empty message)";
   }
-
-  const { email: fromEmail, name: fromName } = parseEmailAddress(email.from);
-  const body = email.text?.trim() || stripHtml(email.html ?? "") || "(empty message)";
 
   const telegramText = formatTelegramInboundNotification({
     from: fromEmail,
     fromName,
-    subject: email.subject || subject,
+    subject: email?.subject || subject,
     body,
     attachmentCount: attachments.length,
   });
@@ -87,7 +113,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: telegram.error }, { status: 502 });
   }
 
-  return NextResponse.json({ ok: true, telegram: "sent" });
+  return NextResponse.json({
+    ok: true,
+    telegram: "sent",
+    bodyLoaded: Boolean(email),
+  });
 }
 
 function stripHtml(html: string): string {

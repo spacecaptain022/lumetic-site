@@ -12,7 +12,8 @@
     "telegram:poll": "node scripts/telegram-poll-replies.mjs",
     "telegram:catchup": "node scripts/telegram-catchup.mjs",
     "resend:webhook": "node scripts/resend-webhook.mjs",
-    "resend:catchup": "node scripts/resend-catchup.mjs"
+    "resend:catchup": "node scripts/resend-catchup.mjs",
+    "resend:health": "node scripts/resend-health.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",
