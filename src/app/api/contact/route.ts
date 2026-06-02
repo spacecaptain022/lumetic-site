@@ -46,6 +46,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Failed to send message." }, { status: 500 });
   }
 
+  let telegram: "sent" | "skipped" | "failed" = "skipped";
+  let telegramError: string | undefined;
+
   if (isTelegramConfigured()) {
     const telegramResult = await sendTelegramMessage(
       formatTelegramInquiryNotification({
@@ -56,10 +59,18 @@ export async function POST(req: NextRequest) {
       })
     );
 
-    if (!telegramResult.ok) {
+    if (telegramResult.ok) {
+      telegram = "sent";
+    } else {
+      telegram = "failed";
+      telegramError = telegramResult.error;
       console.error("Telegram notification error:", telegramResult.error);
     }
   }
 
-  return NextResponse.json({ success: true });
+  return NextResponse.json({
+    success: true,
+    telegram,
+    ...(telegramError ? { telegramError } : {}),
+  });
 }
