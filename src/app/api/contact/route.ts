@@ -68,9 +68,20 @@ export async function POST(req: NextRequest) {
     }
   }
 
+  const chatId = process.env.TELEGRAM_CHAT_ID ?? "";
+
   return NextResponse.json({
     success: true,
     telegram,
     ...(telegramError ? { telegramError } : {}),
+    ...(telegram === "sent"
+      ? {
+          telegramTarget: chatId.startsWith("-100")
+            ? "group"
+            : chatId.startsWith("-")
+              ? "group"
+              : "direct",
+        }
+      : {}),
   });
 }
