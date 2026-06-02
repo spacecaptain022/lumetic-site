@@ -42,6 +42,36 @@ function parseEmailAddress(raw) {
   return { name: "there", email: raw.trim() };
 }
 
+function isPlausibleClientName(name) {
+  if (!name || name.length < 2 || name.length > 80) return false;
+  if (/@/.test(name)) return false;
+  if (/^(there|hello|hi|thanks|yes|no|client)$/i.test(name)) return false;
+  return true;
+}
+
+function extractClientNameFromEmailBody(body) {
+  if (!body?.trim()) return null;
+  const patterns = [
+    /(?:^|\n)(?:>\s*)*Hi\s+([^,\n<]+),/im,
+    /Hi\s+([^,\n<]+),[\s\S]{0,240}Lumetic Studio/i,
+    /(?:^|\n)Name:\s*(.+)$/im,
+  ];
+  for (const pattern of patterns) {
+    const match = body.match(pattern);
+    const candidate = match?.[1]?.trim();
+    if (candidate && isPlausibleClientName(candidate)) return candidate;
+  }
+  return null;
+}
+
+function resolveClientIdentity(fromHeader, body) {
+  const parsed = parseEmailAddress(fromHeader);
+  if (parsed.name !== "there") return parsed;
+  const fromBody = body ? extractClientNameFromEmailBody(body) : null;
+  if (fromBody) return { email: parsed.email, name: fromBody };
+  return parsed;
+}
+
 function shouldIgnore(from) {
   const { email } = parseEmailAddress(from);
   return IGNORE_FROM.some((pattern) => pattern.test(email));
@@ -64,11 +94,14 @@ function formatNotification({ from, fromName, subject, body, attachmentCount }) 
   const attachmentNote =
     attachmentCount > 0 ? `\nAttachments: ${attachmentCount} (view in Resend inbox)\n` : "";
 
+  const clientName = fromName.trim() || "Client";
+
   return [
-    "📨 Client email reply",
+    `📨 Client email reply — ${clientName}`,
     "",
-    `From: ${fromName} <${from}>`,
+    `Name: ${clientName}`,
     `Email: ${from}`,
+    `From: ${clientName} <${from}>`,
     `Subject: ${subject.trim() || "(no subject)"}`,
     attachmentNote,
     "Message:",
@@ -126,8 +159,8 @@ for (const summary of candidates) {
     continue;
   }
 
-  const { email: fromEmail, name: fromName } = parseEmailAddress(email.from);
   const body = email.text?.trim() || stripHtml(email.html ?? "") || "(empty message)";
+  const { email: fromEmail, name: fromName } = resolveClientIdentity(email.from, body);
   const text = formatNotification({
     from: fromEmail,
     fromName,

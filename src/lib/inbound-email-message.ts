@@ -16,6 +16,13 @@ export type InboundEmailPayload = {
   attachmentCount: number;
 };
 
+function isPlausibleClientName(name: string): boolean {
+  if (!name || name.length < 2 || name.length > 80) return false;
+  if (/@/.test(name)) return false;
+  if (/^(there|hello|hi|thanks|yes|no|client)$/i.test(name)) return false;
+  return true;
+}
+
 export function parseEmailAddress(raw: string): { email: string; name: string } {
   const angle = raw.match(/^(.+?)\s*<([^>]+)>$/);
   if (angle) {
@@ -24,6 +31,41 @@ export function parseEmailAddress(raw: string): { email: string; name: string } 
   }
 
   return { name: "there", email: raw.trim() };
+}
+
+export function extractClientNameFromEmailBody(body: string): string | null {
+  if (!body?.trim()) return null;
+
+  const patterns = [
+    /(?:^|\n)(?:>\s*)*Hi\s+([^,\n<]+),/im,
+    /Hi\s+([^,\n<]+),[\s\S]{0,240}Lumetic Studio/i,
+    /(?:^|\n)Name:\s*(.+)$/im,
+  ];
+
+  for (const pattern of patterns) {
+    const match = body.match(pattern);
+    const candidate = match?.[1]?.trim();
+    if (candidate && isPlausibleClientName(candidate)) {
+      return candidate;
+    }
+  }
+
+  return null;
+}
+
+export function resolveClientIdentity(fromHeader: string, body?: string): { email: string; name: string } {
+  const parsed = parseEmailAddress(fromHeader);
+
+  if (parsed.name !== "there") {
+    return parsed;
+  }
+
+  const fromBody = body ? extractClientNameFromEmailBody(body) : null;
+  if (fromBody) {
+    return { email: parsed.email, name: fromBody };
+  }
+
+  return parsed;
 }
 
 export function shouldIgnoreInboundSender(from: string): boolean {
@@ -43,11 +85,14 @@ export function formatTelegramInboundNotification(payload: InboundEmailPayload):
       ? `\nAttachments: ${payload.attachmentCount} (view in Resend inbox)\n`
       : "";
 
+  const clientName = payload.fromName.trim() || "Client";
+
   return [
-    "📨 Client email reply",
+    `📨 Client email reply — ${clientName}`,
     "",
-    `From: ${payload.fromName} <${payload.from}>`,
+    `Name: ${clientName}`,
     `Email: ${payload.from}`,
+    `From: ${clientName} <${payload.from}>`,
     `Subject: ${payload.subject.trim() || "(no subject)"}`,
     attachmentNote,
     "Message:",

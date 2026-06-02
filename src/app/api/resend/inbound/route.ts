@@ -2,7 +2,7 @@ import { Resend, type EmailReceivedEvent } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 import {
   formatTelegramInboundNotification,
-  parseEmailAddress,
+  resolveClientIdentity,
   shouldIgnoreInboundSender,
 } from "@/lib/inbound-email-message";
 import { sendTelegramMessage } from "@/lib/telegram";
@@ -82,7 +82,6 @@ export async function POST(req: NextRequest) {
 
   const { data: email, error: fetchError } = await fetchReceivingEmail(resend, emailId);
 
-  const { email: fromEmail, name: fromName } = parseEmailAddress(from);
   let body: string;
 
   if (fetchError || !email) {
@@ -98,9 +97,11 @@ export async function POST(req: NextRequest) {
     body = email.text?.trim() || stripHtml(email.html ?? "") || "(empty message)";
   }
 
+  const { email: fromEmail, name: fromName } = resolveClientIdentity(from, body);
+
   const telegramText = formatTelegramInboundNotification({
     from: fromEmail,
-    fromName,
+    fromName: fromName,
     subject: email?.subject || subject,
     body,
     attachmentCount: attachments.length,

@@ -11,10 +11,12 @@ import { parseClientFromNotification } from "@/lib/inbound-email-message";
 export function formatTelegramInquiryNotification(inquiry: InquiryPayload): string {
   const service = inquiry.service.trim() || "Not specified";
 
+  const clientName = inquiry.name.trim();
+
   return [
-    "📩 New Lumetic inquiry",
+    `📩 New inquiry — ${clientName}`,
     "",
-    `Name: ${inquiry.name.trim()}`,
+    `Name: ${clientName}`,
     `Email: ${inquiry.email.trim()}`,
     `Service: ${service}`,
     "",

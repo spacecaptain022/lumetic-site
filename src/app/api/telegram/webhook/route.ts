@@ -102,8 +102,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
+  const clientLabel =
+    inquiry.name !== "there" ? `${inquiry.name} · ${inquiry.email}` : inquiry.email;
+
   await sendTelegramMessage(
-    [`✅ Sent to ${inquiry.email}`, "", replyBody].join("\n"),
+    [`✅ Sent to ${clientLabel}`, "", replyBody].join("\n"),
     String(message.chat.id)
   );
 
