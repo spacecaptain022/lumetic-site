@@ -41,10 +41,12 @@ export default function Hero() {
             muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
+            poster="/hero-showreel-poster.jpg"
             className="h-full w-full object-cover"
             aria-label="Lumetic brand showreel"
           >
+            <source src="/hero-showreel.webm" type="video/webm" />
             <source src="/hero-showreel.mp4" type="video/mp4" />
           </video>
         </div>

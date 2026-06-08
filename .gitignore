@@ -22,6 +22,7 @@
 
 # misc
 .DS_Store
+*-original.mp4
 *.pem
 
 # debug

@@ -2,11 +2,22 @@ import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 import { escapeHtml } from "@/lib/escape-html";
 import { formatTelegramInquiryNotification } from "@/lib/inquiry-message";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { isTelegramConfigured, sendTelegramMessage } from "@/lib/telegram";
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const CONTACT_RATE_LIMIT = 5;
+const CONTACT_RATE_WINDOW_MS = 15 * 60 * 1000;
 
 export async function POST(req: NextRequest) {
+  const clientIp = getClientIp(req);
+  if (!checkRateLimit(`contact:${clientIp}`, CONTACT_RATE_LIMIT, CONTACT_RATE_WINDOW_MS)) {
+    return NextResponse.json(
+      { error: "Too many submissions. Please try again in a few minutes." },
+      { status: 429 }
+    );
+  }
+
   const resend = new Resend(process.env.RESEND_API_KEY);
   const { name, email, service, message } = await req.json();
 

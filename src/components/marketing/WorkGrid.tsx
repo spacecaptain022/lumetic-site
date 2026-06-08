@@ -2,12 +2,15 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { m as motion, useScroll, useTransform } from "framer-motion";
 import { featuredProjects } from "@/data/featuredProjects";
 import WatchReveal from "@/components/layout/WatchReveal";
 import { fadeUpReveal } from "@/lib/motion";
+import { projectImageAlt } from "@/lib/projects";
 
 function ProjectTile({
+  slug,
   title,
   excerpt,
   categories,
@@ -15,6 +18,7 @@ function ProjectTile({
   aspect,
   delay,
 }: {
+  slug: string;
   title: string;
   excerpt: string;
   categories: string[];
@@ -36,7 +40,11 @@ function ProjectTile({
       className="relative flex flex-col gap-4"
       data-cursor-label={`Explore ${title}`}
     >
-      <a href="#contact" className="absolute inset-0 z-20" aria-label={`Explore ${title}`} />
+      <Link
+        href={`/work/${slug}`}
+        className="absolute inset-0 z-20"
+        aria-label={`View ${title} case study`}
+      />
       <div
         className={`relative w-full overflow-hidden rounded-xl bg-foreground/[0.04] ${
           aspect === "16x9" ? "aspect-video" : aspect === "4x3" ? "aspect-[4/3]" : "aspect-square"
@@ -45,7 +53,7 @@ function ProjectTile({
         <motion.div className="absolute inset-0" style={{ y: imageY }}>
           <Image
             src={image}
-            alt=""
+            alt={projectImageAlt({ title, category: categories[0] ?? "Work", categories })}
             fill
             sizes="(max-width: 768px) 100vw, 40vw"
             className="object-cover"

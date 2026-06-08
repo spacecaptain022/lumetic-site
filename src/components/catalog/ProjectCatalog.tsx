@@ -6,6 +6,7 @@ import Link from "next/link";
 import { m as motion } from "framer-motion";
 import { catalogProjects } from "@/data/catalogProjects";
 import { MOTION_EASE_SWIFT } from "@/lib/motion";
+import { projectImageAlt } from "@/lib/projects";
 
 const CARD_WIDTH = 260;
 
@@ -40,7 +41,11 @@ function CatalogCard({
       >
         <Image
           src={project.image}
-          alt=""
+          alt={projectImageAlt({
+            title: project.title,
+            category: project.category,
+            categories: [project.category],
+          })}
           fill
           sizes="260px"
           className="object-cover"
@@ -180,6 +185,12 @@ export default function ProjectCatalog() {
               >
                 {active.description}
               </motion.p>
+              <Link
+                href={`/work/${active.slug}`}
+                className="mt-4 inline-flex font-sans text-[0.62rem] uppercase tracking-[0.2em] text-foreground/55 transition-colors hover:text-foreground"
+              >
+                View project →
+              </Link>
             </div>
 
             <div className="flex shrink-0 items-end gap-4 md:gap-6">
@@ -236,9 +247,15 @@ export default function ProjectCatalog() {
             </div>
           </div>
 
-          <p className="mx-auto mt-5 max-w-lg text-center font-sans text-sm font-medium text-foreground md:hidden">
-            {active.title}
-          </p>
+          <div className="mx-auto mt-5 flex max-w-lg flex-col items-center gap-3 text-center md:hidden">
+            <p className="font-sans text-sm font-medium text-foreground">{active.title}</p>
+            <Link
+              href={`/work/${active.slug}`}
+              className="font-sans text-[0.62rem] uppercase tracking-[0.2em] text-foreground/55 transition-colors hover:text-foreground"
+            >
+              View project →
+            </Link>
+          </div>
         </div>
       </section>
 

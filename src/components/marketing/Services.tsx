@@ -18,10 +18,12 @@ export default function Services() {
             muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
+            poster="/services-cta.png"
             className="h-full w-full object-cover object-center"
             aria-hidden
           >
+            <source src="/services-cta.webm" type="video/webm" />
             <source src="/services-cta.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-gradient-to-t from-black/88 via-black/50 to-black/30" />

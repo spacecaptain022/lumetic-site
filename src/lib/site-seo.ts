@@ -1,3 +1,5 @@
+import { allWorkProjects } from "@/lib/projects";
+
 export const SITE_URL = "https://www.lumetic.io";
 export const SITE_NAME = "Lumetic";
 export const SITE_TAGLINE = "Clarity over noise.";
@@ -186,5 +188,8 @@ ${SITE_SERVICES.map((service) => `- **${service.name}**: ${service.description}`
 - Work: ${SITE_URL}/work
 - Contact: ${SITE_URL}/#contact
 - Intake: ${SITE_URL}/intake
+
+## Selected work
+${allWorkProjects.map((project) => `- ${project.title}: ${SITE_URL}/work/${project.slug}`).join("\n")}
 `;
 }
