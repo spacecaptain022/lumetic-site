@@ -1,12 +1,25 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
-import Hero from "@/components/marketing/Hero";
-import WorkGrid from "@/components/marketing/WorkGrid";
-import CardScroller from "@/components/marketing/CardScroller";
+import Footer from "@/components/layout/Footer";
 import About from "@/components/marketing/About";
-import Services from "@/components/marketing/Services";
+import CardScroller from "@/components/marketing/CardScroller";
 import Contact from "@/components/marketing/Contact";
 import FullWidthCta from "@/components/marketing/FullWidthCta";
-import Footer from "@/components/layout/Footer";
+import Hero from "@/components/marketing/Hero";
+import Services from "@/components/marketing/Services";
+import WorkGrid from "@/components/marketing/WorkGrid";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site-seo";
+
+export const metadata: Metadata = {
+  title: `${SITE_NAME} — Branding Studio | ${SITE_TAGLINE}`,
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: SITE_URL },
+  openGraph: {
+    title: `${SITE_NAME} — Branding Studio`,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+  },
+};
 
 export default function Home() {
   return (

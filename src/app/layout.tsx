@@ -5,6 +5,17 @@ import Cursor from "@/components/layout/Cursor";
 import CursorLabel from "@/components/layout/CursorLabel";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import ScrollProgress from "@/components/layout/ScrollProgress";
+import {
+  SITE_DESCRIPTION,
+  SITE_KEYWORDS,
+  SITE_NAME,
+  SITE_TAGLINE,
+  SITE_URL,
+  faqJsonLd,
+  organizationJsonLd,
+  professionalServiceJsonLd,
+  websiteJsonLd,
+} from "@/lib/site-seo";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -13,37 +24,68 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://lumetic.io"),
-  title: "Lumetic",
-  description: "Clarity over noise.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — Branding Studio | ${SITE_TAGLINE}`,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  keywords: [...SITE_KEYWORDS],
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  category: "Design",
+  alternates: {
+    canonical: SITE_URL,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: "/Lumetic logo black no text.png",
     apple: "/Lumetic logo black no text.png",
   },
   openGraph: {
-    title: "Lumetic",
-    description: "Clarity over noise.",
-    url: "https://lumetic.io",
-    siteName: "Lumetic",
+    title: `${SITE_NAME} — Branding Studio`,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    locale: "en_US",
     type: "website",
-    images: [{ url: "/lumetic-social-share.png", width: 1024, height: 350, alt: "Lumetic — Clarity over noise." }],
+    images: [
+      {
+        url: "/lumetic-social-share.png",
+        width: 1024,
+        height: 350,
+        alt: `${SITE_NAME} — ${SITE_TAGLINE}`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lumetic",
-    description: "Clarity over noise.",
+    site: "@LumeticStudio",
+    creator: "@LumeticStudio",
+    title: `${SITE_NAME} — Branding Studio`,
+    description: SITE_DESCRIPTION,
     images: ["/lumetic-social-share.png"],
   },
 };
 
-const organizationJsonLd = {
+const jsonLdGraph = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Lumetic",
-  url: "https://lumetic.io",
-  logo: "https://lumetic.io/Lumetic logo black no text.png",
-  description: "Clarity over noise.",
-  sameAs: ["https://x.com/LumeticStudio"],
+  "@graph": [
+    organizationJsonLd(),
+    websiteJsonLd(),
+    professionalServiceJsonLd(),
+    faqJsonLd(),
+  ],
 };
 
 export default function RootLayout({
@@ -56,7 +98,7 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased`}>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph) }}
         />
         <noscript>
           <style>{`* { opacity: 1 !important; transform: none !important; }`}</style>
