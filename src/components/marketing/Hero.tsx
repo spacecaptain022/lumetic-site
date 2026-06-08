@@ -77,11 +77,11 @@ export default function Hero() {
         </div>
 
         <a
-          href="#services"
+          href="#contact"
           className="group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 font-sans text-sm font-medium tracking-wide text-background transition-opacity hover:opacity-85"
-          data-cursor-label="Explore services"
+          data-cursor-label="Get in touch"
         >
-          Services
+          Build today
           <ArrowRight size={13} strokeWidth={1.5} className="transition-transform group-hover:translate-x-0.5" />
         </a>
       </div>
