@@ -7,6 +7,7 @@ import SmoothScroll from "@/components/layout/SmoothScroll";
 import {
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
+  OG_IMAGE,
   SITE_NAME,
   SITE_TAGLINE,
   SITE_URL,
@@ -64,14 +65,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     locale: "en_US",
     type: "website",
-    images: [
-      {
-        url: "/lumetic-social-share.png",
-        width: 1024,
-        height: 350,
-        alt: `${SITE_NAME} — ${SITE_TAGLINE}`,
-      },
-    ],
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
@@ -79,7 +73,7 @@ export const metadata: Metadata = {
     creator: "@LumeticStudio",
     title: `${SITE_NAME} — Branding Studio`,
     description: SITE_DESCRIPTION,
-    images: ["/lumetic-social-share.png"],
+    images: [OG_IMAGE.url],
   },
 };
 

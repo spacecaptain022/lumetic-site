@@ -4,6 +4,14 @@ import { allWorkProjects } from "@/lib/projects";
 export const SITE_URL = "https://www.lumetic.io";
 export const SITE_NAME = "Lumetic";
 export const SITE_TAGLINE = "Clarity over noise.";
+
+/** 1200×630 share card. Child pages that set their own openGraph must include it again. */
+export const OG_IMAGE = {
+  url: "/og-image.jpg",
+  width: 1200,
+  height: 630,
+  alt: "Lumetic, a branding studio. Clarity. Over. Noise.",
+} as const;
 export const SITE_DESCRIPTION =
   "Lumetic is a branding studio blending strategy and creative craft. We build brand identity systems, web design, motion, and Web3/AI development for forward-thinking companies.";
 

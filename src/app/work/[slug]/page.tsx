@@ -35,6 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `${SITE_URL}/work/${slug}`,
       images: [{ url: project.image, alt: projectImageAlt(project) }],
     },
+    twitter: { card: "summary_large_image", site: "@LumeticStudio", images: [project.image] },
   };
 }
 

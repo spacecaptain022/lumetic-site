@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  @font-face { font-family: Inter; src: url(inter.woff2) format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: Instrument; src: url(instrument.woff2) format("woff2"); font-weight: 400 700; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; background: #f5f4f0; }
+  body { padding: 12px; font-family: Inter, sans-serif; -webkit-font-smoothing: antialiased; }
+  .frame {
+    position: relative; width: 100%; height: 100%; border-radius: 22px; overflow: hidden;
+    background: #0a0a0a url(poster.jpg) center 38% / cover no-repeat; color: #f5f4f0;
+  }
+  .scrim {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to top, rgba(10,10,10,.82) 0%, rgba(10,10,10,.34) 42%, rgba(10,10,10,.04) 70%, rgba(10,10,10,.18) 100%),
+      linear-gradient(to right, rgba(10,10,10,.38) 0%, rgba(10,10,10,0) 55%);
+  }
+  .top { position: absolute; left: 40px; right: 40px; top: 36px; display: flex; align-items: center; justify-content: space-between; }
+  .wordmark { height: 40px; display: block; }
+  .pill {
+    font-family: Instrument, sans-serif; font-weight: 500; font-size: 15px; letter-spacing: .03em; text-transform: uppercase;
+    padding: 10px 14px; border-radius: 10px; background: rgba(10,10,10,.55); backdrop-filter: blur(14px);
+  }
+  .bottom { position: absolute; left: 40px; right: 40px; bottom: 38px; display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; }
+  h1 { font-weight: 700; font-size: 124px; line-height: .9; letter-spacing: -0.04em; }
+  .card {
+    width: 330px; padding: 20px 22px; border-radius: 14px; background: rgba(10,10,10,.6); backdrop-filter: blur(16px);
+  }
+  .label { font-family: Instrument, sans-serif; font-weight: 500; font-size: 13px; letter-spacing: .03em; text-transform: uppercase; opacity: .7; }
+  .card p { margin-top: 12px; font-size: 21px; line-height: 1.25; font-weight: 500; letter-spacing: -0.01em; }
+  .url { margin-top: 18px; display: flex; align-items: center; justify-content: space-between; font-size: 17px; font-weight: 600; }
+  .chip { width: 30px; height: 30px; border-radius: 8px; background: #f5f4f0; color: #0a0a0a; display: grid; place-items: center; }
+</style>
+</head>
+<body>
+  <div class="frame">
+    <div class="scrim"></div>
+    <div class="top">
+      <img class="wordmark" src="wordmark.png" alt="Lumetic" />
+      <span class="pill">Branding studio</span>
+    </div>
+    <div class="bottom">
+      <h1>Clarity.<br />Over.<br />Noise.</h1>
+      <div class="card">
+        <span class="label">USA / Hong Kong</span>
+        <p>Brand systems, web design, motion, and Web3 &amp; AI for forward-thinking companies.</p>
+        <div class="url">
+          <span>lumetic.io</span>
+          <span class="chip"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M3.5 2H10v6.5" stroke="currentColor" stroke-width="1.6"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

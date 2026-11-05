@@ -3,7 +3,7 @@ import Footer from "@/components/layout/Footer";
 import SiteNav from "@/components/layout/SiteNav";
 import BlockLink from "@/components/ui/BlockLink";
 import WorkIndex from "@/components/work/WorkIndex";
-import { SITE_NAME, SITE_URL } from "@/lib/site-seo";
+import { OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/site-seo";
 
 export const metadata: Metadata = {
   title: "Work — Brand Systems & Digital Projects",
@@ -15,6 +15,7 @@ export const metadata: Metadata = {
     description:
       "Explore Lumetic brand identity systems, web design, motion, and digital work for forward-thinking companies.",
     url: `${SITE_URL}/work`,
+    images: [OG_IMAGE],
   },
 };
 
