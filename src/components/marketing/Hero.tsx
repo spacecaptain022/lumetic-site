@@ -36,8 +36,8 @@ export default function Hero() {
         {/* Scrim so the type always reads over a busy collage */}
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/25 to-ink/10" />
 
-        <div className="relative grid grid-cols-1 items-end gap-6 px-4 pb-4 md:grid-cols-12 md:px-8 md:pb-8">
-          <h1 className="h-hero md:col-span-8">
+        <div className="relative grid grid-cols-1 items-end gap-6 px-4 pb-4 md:px-8 md:pb-8 xl:grid-cols-12">
+          <h1 className="h-hero xl:col-span-8">
             <span className="sr-only">Lumetic, a branding studio. </span>
             {LINES.map((line, i) => (
               <span key={line} className="block overflow-clip pb-[0.06em] -mb-[0.06em]">
@@ -59,7 +59,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: MOTION_EASE_SWIFT, delay: 0.55 }}
-            className="group flex w-full items-stretch gap-2 justify-self-end rounded-[12px] bg-ink/55 p-2 backdrop-blur-xl transition-colors duration-300 hover:bg-ink/75 md:col-span-4 md:max-w-[24rem]"
+            className="group flex w-full items-stretch gap-2 justify-self-start rounded-[12px] bg-ink/55 p-2 backdrop-blur-xl transition-colors duration-300 hover:bg-ink/75 md:max-w-[26rem] xl:col-span-4 xl:max-w-[24rem] xl:justify-self-end"
           >
             <span className="flex flex-1 flex-col justify-between gap-6 p-2.5">
               <span className="label opacity-70">Studio status</span>
