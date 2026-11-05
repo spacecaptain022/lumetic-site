@@ -9,13 +9,13 @@ export const STATS = [
 
 export const ENGAGEMENTS = [
   {
-    timing: "4 weeks",
+    timing: "1 week",
     title: "Launch Sprint",
     description:
       "For founders who need to move now. Your brand identity, one-pager, and launch-ready web presence. Everything you need to show up properly from day one.",
   },
   {
-    timing: "6 to 8 weeks",
+    timing: "1.5 to 2 weeks",
     title: "Full Brand Build",
     description:
       "Our flagship engagement, strategy through execution. Positioning, complete visual identity, product design foundations, and a website that makes investors and customers pay attention.",
@@ -39,7 +39,7 @@ export const FAQ = [
   },
   {
     q: "How long does a project take?",
-    a: "A Launch Sprint runs four weeks and a Full Brand Build runs six to eight weeks. Studio Partnerships are ongoing.",
+    a: "A Launch Sprint runs one week and a Full Brand Build runs one and a half to two weeks. Studio Partnerships are ongoing.",
   },
   {
     q: "Where is Lumetic based?",

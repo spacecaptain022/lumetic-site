@@ -7,7 +7,7 @@ import { ENGAGEMENTS } from "@/data/studio";
 import { prefillContact } from "@/lib/contact-prefill";
 import { MOTION_EASE_SWIFT } from "@/lib/motion";
 
-/** Bars on a shared 0–8 week scale. Ongoing runs off the end. */
+/** Bars on a shared 0–2 week scale. Ongoing runs off the end. */
 const TIMELINE: Record<string, { solid: number; soft: number; format: string }> = {
   "Launch Sprint": { solid: 0.5, soft: 0, format: "Sprint" },
   "Full Brand Build": { solid: 0.75, soft: 0.25, format: "Full build" },
@@ -26,7 +26,7 @@ export default function Approach() {
             <span>Format</span>
             <span className="flex justify-between">
               <span>Week 0</span>
-              <span>Week 8</span>
+              <span>Week 2</span>
             </span>
             <span className="w-16" />
           </div>
@@ -52,7 +52,7 @@ export default function Approach() {
                     <span>
                       <span className="label mb-2 flex justify-between">
                         <span>{item.timing}</span>
-                        {t.solid < 1 && <span className="opacity-50 md:hidden">of 8 weeks</span>}
+                        {t.solid < 1 && <span className="opacity-50 md:hidden">of 2 weeks</span>}
                       </span>
                       <span className="relative block h-[3px] overflow-hidden rounded-full bg-ink/10">
                         <motion.span
