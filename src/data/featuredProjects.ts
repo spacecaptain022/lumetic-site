@@ -10,14 +10,14 @@ export type FeaturedProject = {
 
 export const featuredProjects: FeaturedProject[] = [
   {
-    slug: "web3-ai-dev-services",
-    title: "Web3 AI Dev Services",
+    slug: "brand-identity-strategy",
+    title: "Brand Identity & Strategy",
     excerpt:
-      "Web3, AI, and contracts: integration, deployment, and setup. Tools that fit how you already work.",
-    categories: ["Web3", "AI", "Dev"],
-    image: "/gallery/web3-ai-dev.png",
+      "Memorable identities built to last. Strategy, naming, and systems that stay clear everywhere you show up.",
+    categories: ["Brand", "Identity", "Systems"],
+    image: "/gallery/brand-identity.png",
     aspect: "16x9",
-    column: "left",
+    column: "right",
   },
   {
     slug: "web-design-digital-presence",
@@ -30,16 +30,6 @@ export const featuredProjects: FeaturedProject[] = [
     column: "left",
   },
   {
-    slug: "brand-identity-strategy",
-    title: "Brand Identity & Strategy",
-    excerpt:
-      "Memorable identities built to last. Strategy, naming, and systems that stay clear everywhere you show up.",
-    categories: ["Brand", "Identity", "Systems"],
-    image: "/gallery/brand-identity.png",
-    aspect: "16x9",
-    column: "right",
-  },
-  {
     slug: "motion-visual-content",
     title: "Motion & Visual Content",
     excerpt:
@@ -48,5 +38,15 @@ export const featuredProjects: FeaturedProject[] = [
     image: "/gallery/motion-visual-v2.png",
     aspect: "square",
     column: "right",
+  },
+  {
+    slug: "web3-ai-dev-services",
+    title: "Web3 AI Dev Services",
+    excerpt:
+      "Web3, AI, and contracts: integration, deployment, and setup. Tools that fit how you already work.",
+    categories: ["Web3", "AI", "Dev"],
+    image: "/gallery/web3-ai-dev.png",
+    aspect: "16x9",
+    column: "left",
   },
 ];

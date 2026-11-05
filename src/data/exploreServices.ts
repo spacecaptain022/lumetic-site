@@ -2,16 +2,6 @@
 
 export const exploreServices = [
   {
-    title: "Web3, AI & Dev Services",
-    titleLines: ["WEB3", "AI DEV", "SERVICES"] as const,
-    description:
-      "Web3, AI, and contracts: integration, deployment, and setup. Tools that fit how you already work.",
-    image: "/card-4-graphic.webp",
-    exp: "EXP 001",
-    year: "2026",
-    tags: ["WEB3", "AI", "DEV"],
-  },
-  {
     title: "Brand Identity & Strategy",
     titleLines: ["BRAND", "IDENTITY", "& STRATEGY"] as const,
     description:
@@ -40,5 +30,15 @@ export const exploreServices = [
     exp: "EXP 004",
     year: "2026",
     tags: ["MOTION", "CONTENT", "VISUAL"],
+  },
+  {
+    title: "Web3, AI & Dev Services",
+    titleLines: ["WEB3", "AI DEV", "SERVICES"] as const,
+    description:
+      "Web3, AI, and contracts: integration, deployment, and setup. Tools that fit how you already work.",
+    image: "/card-4-graphic.webp",
+    exp: "EXP 001",
+    year: "2026",
+    tags: ["WEB3", "AI", "DEV"],
   },
 ] as const;

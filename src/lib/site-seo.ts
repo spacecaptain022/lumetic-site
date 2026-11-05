@@ -1,8 +1,17 @@
+import { FAQ } from "@/data/studio";
 import { allWorkProjects } from "@/lib/projects";
 
 export const SITE_URL = "https://www.lumetic.io";
 export const SITE_NAME = "Lumetic";
 export const SITE_TAGLINE = "Clarity over noise.";
+
+/** 1200×630 share card. Child pages that set their own openGraph must include it again. */
+export const OG_IMAGE = {
+  url: "/og-image.jpg",
+  width: 1200,
+  height: 630,
+  alt: "Lumetic, a branding studio. Clarity. Over. Noise.",
+} as const;
 export const SITE_DESCRIPTION =
   "Lumetic is a branding studio blending strategy and creative craft. We build brand identity systems, web design, motion, and Web3/AI development for forward-thinking companies.";
 
@@ -123,40 +132,11 @@ export function faqJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "What is Lumetic?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Lumetic is a branding studio that blends strategy and creative craft to build brand identity systems, web design, motion, and Web3/AI development for forward-thinking companies.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What services does Lumetic offer?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Lumetic offers Brand Identity & Strategy, Web Design & Digital Presence, Motion & Visual Content, and Web3, AI & Dev Services.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How do I contact Lumetic?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Contact Lumetic at hello@lumetic.io or through the contact form at lumetic.io. The studio responds within 24 hours.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What is Lumetic's tagline?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Clarity over noise.",
-        },
-      },
-    ],
+    mainEntity: FAQ.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
   };
 }
 

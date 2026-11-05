@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 type LegalPageShellProps = {
   title: string;
@@ -9,7 +10,7 @@ export default function LegalPageShell({ title, children }: LegalPageShellProps)
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <header className="shrink-0 w-full px-6 py-4 md:px-12 border-b border-foreground/[0.07] flex items-center justify-between">
-        <a
+        <Link
           href="/"
           className="opacity-50 hover:opacity-100 transition-opacity"
           aria-label="Back to Lumetic home"
@@ -20,8 +21,8 @@ export default function LegalPageShell({ title, children }: LegalPageShellProps)
             width={22}
             height={22}
           />
-        </a>
-        <p className="font-sans text-[9px] uppercase tracking-[0.22em] text-foreground/55">
+        </Link>
+        <p className="label text-foreground/55">
           {title}
         </p>
       </header>
@@ -31,12 +32,12 @@ export default function LegalPageShell({ title, children }: LegalPageShellProps)
       </main>
 
       <footer className="shrink-0 border-t border-foreground/[0.07] px-6 py-8 md:px-12">
-        <a
+        <Link
           href="/"
-          className="font-sans text-[11px] uppercase tracking-[0.18em] text-foreground/55 hover:text-foreground transition-colors"
+          className="label text-foreground/55 hover:text-foreground transition-colors"
         >
           ← Back to Lumetic
-        </a>
+        </Link>
       </footer>
     </div>
   );
