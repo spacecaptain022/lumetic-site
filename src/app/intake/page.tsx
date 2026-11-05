@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { m as motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Send } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface Message {
   role: "user" | "assistant";
@@ -134,12 +135,12 @@ export default function IntakePage() {
           <p className="font-sans text-foreground/65 text-sm leading-relaxed mb-10">
             Your intake brief has been delivered to the Lumetic team. We&apos;ll be in touch within 24 hours.
           </p>
-          <a
+          <Link
             href="/"
-            className="font-sans text-[11px] uppercase tracking-[0.18em] text-foreground/55 hover:text-foreground transition-colors"
+            className="label text-foreground/55 hover:text-foreground transition-colors"
           >
             Back to Lumetic
-          </a>
+          </Link>
         </motion.div>
       </div>
     );
@@ -150,10 +151,10 @@ export default function IntakePage() {
 
       {/* Header */}
       <div className="shrink-0 w-full px-6 py-4 border-b border-foreground/[0.07] flex items-center justify-between">
-        <a href="/" className="opacity-50 hover:opacity-100 transition-opacity">
+        <Link href="/" className="opacity-50 hover:opacity-100 transition-opacity">
           <Image src="/Lumetic logo black no text.png" alt="Lumetic" width={22} height={22} />
-        </a>
-        <p className="font-sans text-[9px] uppercase tracking-[0.22em] text-foreground/55">
+        </Link>
+        <p className="label text-foreground/55">
           Client Intake
         </p>
       </div>
@@ -197,7 +198,7 @@ export default function IntakePage() {
                   {[0, 1, 2].map((i) => (
                     <motion.span
                       key={i}
-                      className="w-1.5 h-1.5 rounded-full bg-foreground/25"
+                      className="w-1.5 h-1.5 rounded-md bg-foreground/25"
                       animate={{ opacity: [0.25, 0.8, 0.25] }}
                       transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.18 }}
                     />
@@ -216,7 +217,7 @@ export default function IntakePage() {
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 className="mt-4 border border-foreground/[0.08] rounded-3xl p-6"
               >
-                <p className="font-sans text-[9px] uppercase tracking-[0.22em] text-foreground/55 mb-3">
+                <p className="label text-foreground/55 mb-3">
                   Ready to generate your brief
                 </p>
                 <p className="font-sans text-sm text-foreground/55 leading-relaxed mb-6">
@@ -252,7 +253,7 @@ export default function IntakePage() {
                   <button
                     type="submit"
                     disabled={briefLoading}
-                    className="self-start inline-flex items-center gap-2.5 bg-foreground text-background font-sans font-medium px-7 py-3 rounded-full text-sm tracking-wide hover:bg-foreground/85 disabled:opacity-40 transition-colors group"
+                    className="self-start inline-flex items-center gap-2.5 bg-foreground text-background font-sans font-medium px-7 py-3 rounded-md text-sm tracking-wide hover:bg-foreground/85 disabled:opacity-40 transition-colors group"
                   >
                     {briefLoading ? "Generating..." : "Send my brief"}
                     {!briefLoading && (
@@ -288,7 +289,7 @@ export default function IntakePage() {
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="w-9 h-9 rounded-full bg-foreground text-background flex items-center justify-center hover:bg-foreground/85 disabled:opacity-25 transition-all shrink-0"
+              className="w-9 h-9 rounded-md bg-foreground text-background flex items-center justify-center hover:bg-foreground/85 disabled:opacity-25 transition-all shrink-0"
             >
               <Send size={13} strokeWidth={1.5} />
             </button>

@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import SiteNav from "@/components/layout/SiteNav";
 import About from "@/components/marketing/About";
-import CardScroller from "@/components/marketing/CardScroller";
+import Approach from "@/components/marketing/Approach";
 import Contact from "@/components/marketing/Contact";
-import FullWidthCta from "@/components/marketing/FullWidthCta";
+import Faq from "@/components/marketing/Faq";
 import Hero from "@/components/marketing/Hero";
 import Services from "@/components/marketing/Services";
-import WorkGrid from "@/components/marketing/WorkGrid";
+import Statement from "@/components/marketing/Statement";
+import System from "@/components/marketing/System";
+import VideoCta from "@/components/marketing/VideoCta";
+import Work from "@/components/marketing/Work";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site-seo";
 
 export const metadata: Metadata = {
@@ -23,33 +26,37 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="bg-background min-h-screen">
-      <Navbar />
-
-      <div id="hero">
+    <>
+      <SiteNav />
+      <main id="main">
         <Hero />
-      </div>
-
-      <div id="work">
-        <WorkGrid />
-      </div>
-
-      <CardScroller />
-
-      <div id="about">
-        <About />
-      </div>
-
-      <div id="services">
-        <Services />
-      </div>
-
-      <div id="contact">
-        <Contact />
-      </div>
-
-      <FullWidthCta />
-      <Footer variant="dark" />
-    </main>
+        <div id="studio">
+          <Statement />
+        </div>
+        <div id="work">
+          <Work />
+        </div>
+        <div id="services">
+          <Services />
+        </div>
+        <div id="system">
+          <System />
+        </div>
+        <div id="about">
+          <About />
+        </div>
+        <div id="approach">
+          <Approach />
+        </div>
+        <div id="faq">
+          <Faq />
+        </div>
+        <VideoCta />
+        <div id="contact">
+          <Contact />
+        </div>
+      </main>
+      <Footer />
+    </>
   );
 }

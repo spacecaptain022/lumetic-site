@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Inter } from "next/font/google";
+import { Inter, Instrument_Sans } from "next/font/google";
 import "./globals.css";
-import Cursor from "@/components/layout/Cursor";
-import CursorLabel from "@/components/layout/CursorLabel";
 import SmoothScroll from "@/components/layout/SmoothScroll";
-import ScrollProgress from "@/components/layout/ScrollProgress";
 import {
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
@@ -22,7 +19,13 @@ import {
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  display: "swap",
+});
+
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -97,7 +100,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${inter.variable} ${instrumentSans.variable} antialiased`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph) }}
@@ -105,9 +108,6 @@ export default function RootLayout({
         <noscript>
           <style>{`* { opacity: 1 !important; transform: none !important; }`}</style>
         </noscript>
-        <ScrollProgress />
-        <Cursor />
-        <CursorLabel />
         <SmoothScroll>{children}</SmoothScroll>
         <Analytics />
         <SpeedInsights />

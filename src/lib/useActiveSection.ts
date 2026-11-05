@@ -10,7 +10,7 @@ export function sectionIdFromHref(href: string): string | null {
 }
 
 export function useActiveSection(sectionIds: readonly string[] = DEFAULT_SECTIONS) {
-  const [activeSection, setActiveSection] = useState<string>("hero");
+  const [activeSection, setActiveSection] = useState<string>("");
 
   useEffect(() => {
     const elements = sectionIds
@@ -27,8 +27,8 @@ export function useActiveSection(sectionIds: readonly string[] = DEFAULT_SECTION
           ratios.set(entry.target.id, entry.intersectionRatio);
         }
 
-        let bestId = "hero";
-        let bestRatio = -1;
+        let bestId = "";
+        let bestRatio = 0;
 
         for (const id of sectionIds) {
           const ratio = ratios.get(id) ?? 0;

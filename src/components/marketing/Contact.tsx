@@ -1,324 +1,261 @@
 "use client";
 
-import { useState } from "react";
-import { m as motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import LinkCharShift from "@/components/layout/LinkCharShift";
-import InteractiveHeadline from "@/components/marketing/InteractiveHeadline";
+import { useEffect, useRef, useState } from "react";
+import { Arrow } from "@/components/ui/BlockLink";
+import Reveal from "@/components/ui/Reveal";
 import { exploreServices } from "@/data/exploreServices";
-import { fadeUpReveal, MOTION_EASE_CSS_STANDARD } from "@/lib/motion";
+import { CONTACT_PREFILL_EVENT, type ContactPrefill } from "@/lib/contact-prefill";
 
-const HEADLINE = "Let's build something great.";
-const HEADLINE_ACCENT = ["build", "something", "great"];
+const SERVICE_OPTIONS = [...exploreServices.map((s) => s.title), "Not sure yet"];
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const serviceSelectOptions = [...exploreServices.map((s) => s.title), "Not sure yet"];
+type Errors = Partial<Record<"name" | "email" | "service" | "message", string>>;
 
-const contactDetails = [
-  {
-    label: "Email",
-    value: "hello@lumetic.io",
-    href: "mailto:hello@lumetic.io",
-  },
-  {
-    label: "Based in",
-    value: "USA / Hong Kong",
-  },
-] as const;
+function validate(data: Record<"name" | "email" | "service" | "message", string>): Errors {
+  const errors: Errors = {};
+  if (!data.name.trim()) errors.name = "Please add your name.";
+  if (!EMAIL_RE.test(data.email.trim())) errors.email = "That email doesn't look right.";
+  if (!data.service) errors.service = "Pick the closest fit, or “Not sure yet”.";
+  if (!data.message.trim()) errors.message = "A sentence or two is plenty.";
+  return errors;
+}
+
+const inputCls =
+  "h-12 w-full rounded-[10px] border border-transparent bg-paper px-4 text-[1rem] outline-none transition-colors duration-200 placeholder:text-ink/45 hover:bg-white focus:border-ink focus:bg-white aria-[invalid=true]:border-ink";
 
 export default function Contact() {
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [service, setService] = useState("");
+  const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState<Errors>({});
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [sendError, setSendError] = useState<string | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    function apply({ service: s, message: m }: ContactPrefill) {
+      if (s && SERVICE_OPTIONS.includes(s)) setService(s);
+      if (m) setMessage((current) => current || m);
+    }
+    // Arriving from another page: /?service=…#contact
+    const params = new URLSearchParams(window.location.search);
+    const fromUrl = {
+      service: params.get("service") ?? undefined,
+      message: params.get("message") ?? undefined,
+    };
+    if (fromUrl.service || fromUrl.message) {
+      apply(fromUrl);
+    }
+    const onPrefill = (e: Event) => apply((e as CustomEvent<ContactPrefill>).detail);
+    window.addEventListener(CONTACT_PREFILL_EVENT, onPrefill);
+    return () => window.removeEventListener(CONTACT_PREFILL_EVENT, onPrefill);
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-
     const form = e.currentTarget;
-    const data = {
-      name: (form.elements.namedItem("name") as HTMLInputElement).value,
-      email: (form.elements.namedItem("email") as HTMLInputElement).value,
-      service: (form.elements.namedItem("service") as HTMLSelectElement).value,
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
-    };
+    const value = (name: string) =>
+      (form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement).value;
+    const data = { name: value("name"), email: value("email"), service, message };
 
+    const nextErrors = validate(data);
+    setErrors(nextErrors);
+    const firstInvalid = Object.keys(nextErrors)[0];
+    if (firstInvalid) {
+      form.querySelector<HTMLElement>(`[data-field="${firstInvalid}"]`)?.focus();
+      return;
+    }
+
+    setStatus("sending");
+    setSendError(null);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error("Failed to send.");
-      setSubmitted(true);
-    } catch {
-      setError("Something went wrong. Please try again or email hello@lumetic.io directly.");
-    } finally {
-      setLoading(false);
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        throw new Error(res.status === 429 && body?.error ? body.error : "send-failed");
+      }
+      setStatus("sent");
+    } catch (err) {
+      setStatus("idle");
+      setSendError(
+        err instanceof Error && err.message !== "send-failed"
+          ? err.message
+          : "That didn't go through. Your message is still here, so try again, or email hello@lumetic.io."
+      );
     }
   }
 
   return (
-    <section className="relative isolate w-full overflow-hidden border-t border-foreground/10 bg-background">
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_0%_100%,rgba(213,149,175,0.07),transparent_55%),radial-gradient(ellipse_60%_50%_at_100%_0%,rgba(0,0,0,0.03),transparent_50%)]"
-        aria-hidden
-      />
+    <section className="pb-24 pt-20 md:pb-36 md:pt-32">
+      <div className="wrap grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+        <div className="flex flex-col justify-between gap-10 lg:col-span-5">
+          <Reveal>
+            <p className="label-mono mb-6">{"(    GET IN TOUCH    )"}</p>
+            <h2 className="h-big max-w-[7em]">Start a project.</h2>
+            <p className="lede mt-6 max-w-[26rem] text-ink/70">
+              Share your brand, timeline, and ambitions. We respond with clarity and a point of view,
+              not a template.
+            </p>
+          </Reveal>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col px-4 py-20 md:px-12 md:py-32 lg:py-36">
-        <div className="grid grid-cols-1 gap-14 md:grid-cols-12 md:gap-10 lg:gap-16">
-          <div className="flex flex-col justify-between gap-12 md:col-span-5 md:min-h-[min(560px,72vh)] lg:col-span-5">
+          <dl className="grid max-w-[28rem] grid-cols-2 gap-6 border-t pt-5">
             <div>
-              <motion.p
-                {...fadeUpReveal(0)}
-                className="mb-6 font-sans text-[0.62rem] font-medium uppercase tracking-[0.22em] text-foreground/55"
-              >
-                Get in touch
-              </motion.p>
-
-              <motion.div {...fadeUpReveal(0.06)}>
-                <InteractiveHeadline
-                  as="h2"
-                  text={HEADLINE}
-                  accentWords={HEADLINE_ACCENT}
-                  className="cursor-default font-medium"
-                  style={{
-                    fontSize: "clamp(2.35rem, 5.8vw, 4.75rem)",
-                    letterSpacing: "-0.03em",
-                    lineHeight: 1.06,
-                  }}
-                />
-              </motion.div>
-
-              <motion.p
-                {...fadeUpReveal(0.12)}
-                className="mt-8 max-w-[34ch] font-sans text-[0.92rem] leading-relaxed text-foreground/58 md:text-[0.95rem]"
-              >
-                Share your brand, timeline, and ambitions. We respond with clarity and a point of view,
-                not a template.
-              </motion.p>
+              <dt className="label mb-1.5 opacity-60">Email</dt>
+              <dd>
+                <a href="mailto:hello@lumetic.io" className="group text-[1rem] font-medium">
+                  <span className="link-line">hello@lumetic.io</span>
+                </a>
+              </dd>
             </div>
+            <div>
+              <dt className="label mb-1.5 opacity-60">Based in</dt>
+              <dd className="text-[1rem] font-medium">USA / Hong Kong</dd>
+            </div>
+          </dl>
+        </div>
 
-            <motion.div {...fadeUpReveal(0.18)} className="flex flex-col gap-8">
-              <div className="h-px w-full max-w-[12rem] bg-foreground/12" />
-              <dl className="grid gap-6 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
-                {contactDetails.map((item) => (
-                  <div key={item.label}>
-                    <dt className="mb-1.5 font-sans text-[0.58rem] uppercase tracking-[0.2em] text-foreground/48">
-                      {item.label}
-                    </dt>
-                    <dd className="font-sans text-[0.9rem] text-foreground/82">
-                      {"href" in item ? (
-                        <LinkCharShift
-                          href={item.href}
-                          className="text-foreground/82 hover:text-foreground"
-                        >
-                          {item.value}
-                        </LinkCharShift>
-                      ) : (
-                        item.value
-                      )}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </motion.div>
-          </div>
-
-          <motion.div
-            {...fadeUpReveal(0.1)}
-            className="relative md:col-span-7 lg:col-span-7"
-          >
-            <div className="relative overflow-hidden rounded-[1.75rem] bg-background p-8 shadow-[0_28px_90px_rgba(0,0,0,0.07)] ring-1 ring-foreground/[0.07] md:p-11 md:pl-12 lg:p-12">
-              <div
-                className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[#D595AF]/10 blur-3xl"
-                aria-hidden
-              />
-
-              {submitted ? (
-                <div className="relative flex min-h-[min(420px,52vh)] flex-col justify-center gap-5 py-6">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#D595AF]/15 font-sans text-sm font-medium text-foreground">
-                    ✓
-                  </span>
-                  <h3
-                    className="font-sans font-medium text-foreground"
-                    style={{
-                      fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
-                      letterSpacing: "-0.025em",
-                      lineHeight: 1.1,
-                    }}
-                  >
-                    Message sent.
-                  </h3>
-                  <p className="max-w-sm font-sans text-sm leading-relaxed text-foreground/58">
-                    Thanks for reaching out. We&apos;ll review your note and respond within one business
-                    day.
-                  </p>
-                </div>
-              ) : (
-                <form
-                  onSubmit={handleSubmit}
-                  aria-describedby={error ? "contact-form-error" : undefined}
-                  className="relative flex flex-col gap-9"
-                >
-                  <div role="status" aria-live="polite" className="sr-only">
-                    {loading ? "Sending message…" : ""}
-                  </div>
-
-                  {error && (
-                    <p
-                      id="contact-form-error"
-                      role="alert"
-                      className="rounded-xl border border-red-500/20 bg-red-500/[0.04] px-4 py-3 font-sans text-sm text-red-600/90"
-                    >
-                      {error}
-                    </p>
-                  )}
-
-                  <div className="grid gap-9 sm:grid-cols-2">
-                    <Field label="Name" id="name" type="text" placeholder="Your name" required />
-                    <Field label="Email" id="email" type="email" placeholder="your@email.com" required />
-                  </div>
-
-                  <SelectField label="Service" id="service" options={serviceSelectOptions} />
-
-                  <TextareaField
-                    label="Message"
-                    id="message"
-                    placeholder="Tell us about your project, goals, and timeline..."
-                    rows={5}
+        <div className="rounded-[16px] bg-card p-5 md:p-8 lg:col-span-7">
+          {status === "sent" ? (
+            <div role="status" className="flex min-h-[30rem] flex-col justify-end">
+              <p className="label mb-4 opacity-60">Received</p>
+              <h3 className="h-big">Message sent.</h3>
+              <p className="lede mt-5 max-w-[26rem] text-ink/70">
+                Thanks for reaching out. We&apos;ll review your note and respond within one business day.
+              </p>
+            </div>
+          ) : (
+            <form ref={formRef} onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
+              <div className="grid gap-6 sm:grid-cols-2 sm:gap-4">
+                <Field label="Name" error={errors.name} id="name">
+                  <input
+                    id="name"
+                    name="name"
+                    data-field="name"
+                    type="text"
+                    autoComplete="name"
                     required
+                    placeholder="Your name"
+                    aria-invalid={Boolean(errors.name)}
+                    aria-describedby={errors.name ? "name-error" : undefined}
+                    className={inputCls}
                   />
+                </Field>
+                <Field label="Email" error={errors.email} id="email">
+                  <input
+                    id="email"
+                    name="email"
+                    data-field="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    placeholder="your@email.com"
+                    aria-invalid={Boolean(errors.email)}
+                    aria-describedby={errors.email ? "email-error" : undefined}
+                    className={inputCls}
+                  />
+                </Field>
+              </div>
 
-                  <div className="flex flex-col gap-4 border-t border-foreground/[0.08] pt-8 sm:flex-row sm:items-center sm:justify-between">
-                    <p className="max-w-xs font-sans text-[0.72rem] leading-relaxed text-foreground/45">
-                      By sending this form you agree we may store your details to respond to your inquiry.
-                    </p>
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className="group inline-flex shrink-0 items-center justify-center gap-2.5 rounded-full bg-foreground px-8 py-3.5 font-sans text-sm font-medium tracking-wide text-background transition-[opacity,transform] duration-300 hover:opacity-88 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-45"
-                      style={{ transitionTimingFunction: MOTION_EASE_CSS_STANDARD }}
-                    >
-                      {loading ? "Sending..." : "Send message"}
-                      {!loading && (
-                        <ArrowRight
-                          size={14}
-                          strokeWidth={1.5}
-                          className="transition-transform duration-300 group-hover:translate-x-0.5"
-                          style={{ transitionTimingFunction: MOTION_EASE_CSS_STANDARD }}
-                        />
-                      )}
-                    </button>
-                  </div>
-                </form>
+              <fieldset aria-describedby={errors.service ? "service-error" : undefined}>
+                <legend className="label mb-2.5 opacity-70">What do you need?</legend>
+                <div className="flex flex-wrap gap-2">
+                  {SERVICE_OPTIONS.map((option, i) => (
+                    <label key={option} className="relative cursor-pointer">
+                      <input
+                        type="radio"
+                        name="service"
+                        value={option}
+                        data-field={i === 0 ? "service" : undefined}
+                        checked={service === option}
+                        onChange={() => setService(option)}
+                        className="peer absolute inset-0 opacity-0"
+                      />
+                      <span className="flex min-h-10 items-center rounded-[8px] bg-paper px-3.5 py-2 text-[0.9rem] leading-tight transition-colors duration-200 hover:bg-white peer-checked:bg-ink peer-checked:text-paper peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ink">
+                        {option}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+                {errors.service && (
+                  <p id="service-error" className="mt-2 text-[0.88rem] font-medium">
+                    {errors.service}
+                  </p>
+                )}
+              </fieldset>
+
+              <Field label="Message" error={errors.message} id="message">
+                <textarea
+                  id="message"
+                  name="message"
+                  data-field="message"
+                  rows={5}
+                  required
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Tell us about your project, goals, and timeline..."
+                  aria-invalid={Boolean(errors.message)}
+                  aria-describedby={errors.message ? "message-error" : undefined}
+                  className={`${inputCls} h-auto resize-y py-3`}
+                />
+              </Field>
+
+              {sendError && (
+                <p role="alert" className="rounded-[10px] bg-ink px-4 py-3 text-[0.92rem] text-paper">
+                  {sendError}
+                </p>
               )}
-            </div>
-          </motion.div>
+
+              <div className="flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <p className="max-w-[20rem] text-[0.82rem] leading-snug text-ink/60">
+                  By sending this form you agree we may store your details to respond to your inquiry.
+                </p>
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="group inline-flex h-12 shrink-0 items-center gap-4 self-start rounded-[10px] bg-ink pl-4 pr-1.5 text-[0.92rem] font-medium text-paper transition-colors hover:bg-ink/88 disabled:opacity-60 sm:self-auto"
+                >
+                  {status === "sending" ? "Sending…" : "Send message"}
+                  <span className="flex h-9 w-9 items-center justify-center rounded-[7px] bg-paper/14 transition-colors group-hover:bg-paper group-hover:text-ink">
+                    <Arrow />
+                  </span>
+                </button>
+              </div>
+              <div role="status" aria-live="polite" className="sr-only">
+                {status === "sending" ? "Sending message" : ""}
+              </div>
+            </form>
+          )}
         </div>
       </div>
     </section>
   );
 }
 
-const fieldClass =
-  "w-full bg-transparent pb-3 font-sans text-[0.92rem] text-foreground outline-none transition-[border-color,color] duration-300 placeholder:text-foreground/38 focus:border-[#D595AF]";
-
 function Field({
   label,
   id,
-  type,
-  placeholder,
-  required,
+  error,
+  children,
 }: {
   label: string;
   id: string;
-  type: string;
-  placeholder: string;
-  required?: boolean;
+  error?: string;
+  children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-2.5">
-      <label htmlFor={id} className="font-sans text-[0.58rem] uppercase tracking-[0.2em] text-foreground/50">
+    <div>
+      <label htmlFor={id} className="label mb-2 block opacity-70">
         {label}
       </label>
-      <input
-        id={id}
-        name={id}
-        type={type}
-        placeholder={placeholder}
-        required={required}
-        className={`${fieldClass} border-b border-foreground/16`}
-      />
-    </div>
-  );
-}
-
-function SelectField({
-  label,
-  id,
-  options,
-}: {
-  label: string;
-  id: string;
-  options: string[];
-}) {
-  return (
-    <div className="flex flex-col gap-2.5">
-      <label htmlFor={id} className="font-sans text-[0.58rem] uppercase tracking-[0.2em] text-foreground/50">
-        {label}
-      </label>
-      <div className="relative border-b border-foreground/16 focus-within:border-[#D595AF] transition-colors duration-300">
-        <select
-          id={id}
-          name={id}
-          defaultValue=""
-          required
-          className={`${fieldClass} cursor-pointer appearance-none pr-8`}
-        >
-          <option value="" disabled>
-            Select a service
-          </option>
-          {options.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-        <span className="pointer-events-none absolute right-0 bottom-3 text-[0.65rem] text-foreground/40">
-          ▾
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function TextareaField({
-  label,
-  id,
-  placeholder,
-  rows,
-  required,
-}: {
-  label: string;
-  id: string;
-  placeholder: string;
-  rows: number;
-  required?: boolean;
-}) {
-  return (
-    <div className="flex flex-col gap-2.5">
-      <label htmlFor={id} className="font-sans text-[0.58rem] uppercase tracking-[0.2em] text-foreground/50">
-        {label}
-      </label>
-      <textarea
-        id={id}
-        name={id}
-        rows={rows}
-        placeholder={placeholder}
-        required={required}
-        className={`${fieldClass} min-h-[7.5rem] resize-none border-b border-foreground/16`}
-      />
+      {children}
+      {error && (
+        <p id={`${id}-error`} className="mt-1.5 text-[0.88rem] font-medium">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
