@@ -7,7 +7,10 @@ import {
 } from "@/lib/inbound-email-message";
 import { sendTelegramMessage } from "@/lib/telegram";
 
-const INBOUND_TO = ["hello@lumetic.io"];
+// hello@lumetic.io is hosted on Google Workspace. A Workspace routing rule
+// sends a copy of each message to hello@inbound.lumetic.io (Resend inbound),
+// and the event may list either address depending on which header Resend reads.
+const INBOUND_TO = ["hello@lumetic.io", "hello@inbound.lumetic.io"];
 const RECEIVING_FETCH_ATTEMPTS = 4;
 const RECEIVING_FETCH_DELAY_MS = 750;
 
