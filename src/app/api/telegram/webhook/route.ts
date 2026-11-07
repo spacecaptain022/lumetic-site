@@ -1,8 +1,13 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
+import { buildClientReplyEmail, parseDraftFromTelegram, SEND_DRAFT_CALLBACK } from "@/lib/first-reply";
 import { parseClientFromNotification } from "@/lib/inbound-email-message";
-import { escapeHtml } from "@/lib/escape-html";
-import { getTelegramAdminIds, sendTelegramMessage } from "@/lib/telegram";
+import {
+  answerTelegramCallback,
+  getTelegramAdminIds,
+  removeTelegramButtons,
+  sendTelegramMessage,
+} from "@/lib/telegram";
 
 type TelegramUpdate = {
   message?: {
@@ -14,7 +19,79 @@ type TelegramUpdate = {
       text?: string;
     };
   };
+  callback_query?: {
+    id: string;
+    data?: string;
+    from: { id: number };
+    message?: { message_id: number; text?: string; chat: { id: number } };
+  };
 };
+
+type Client = { name: string; email: string };
+
+/** Emails a reply to the client from hello@lumetic.io. Returns an error message, or null when sent. */
+async function emailClient(client: Client, body: string, system: boolean): Promise<string | null> {
+  const resendKey = process.env.RESEND_API_KEY;
+  if (!resendKey) return "Email is not configured on the server, so the reply was not sent.";
+
+  const { error } = await new Resend(resendKey).emails.send({
+    from: "Lumetic <hello@lumetic.io>",
+    to: client.email,
+    replyTo: "hello@lumetic.io",
+    ...buildClientReplyEmail({ name: client.name, body, system }),
+  });
+
+  if (error) {
+    console.error("Telegram reply email error:", error);
+    return `Failed to email ${client.email}. Check server logs and try again.`;
+  }
+  return null;
+}
+
+function clientLabel(client: Client) {
+  return client.name !== "there" ? `${client.name} · ${client.email}` : client.email;
+}
+
+/** The ✶ Send button under a drafted first reply. */
+async function handleSendDraft(query: NonNullable<TelegramUpdate["callback_query"]>) {
+  const message = query.message;
+  if (!message?.text) {
+    await answerTelegramCallback(query.id, "That draft is no longer available.");
+    return;
+  }
+  const chatId = String(message.chat.id);
+
+  if (!getTelegramAdminIds().includes(String(query.from.id))) {
+    await answerTelegramCallback(query.id, "Only Lumetic admins can send replies.");
+    return;
+  }
+
+  const client = parseClientFromNotification(message.text);
+  const draft = parseDraftFromTelegram(message.text);
+  if (!client || !draft) {
+    await answerTelegramCallback(query.id, "Could not read the client or the draft from this message.");
+    return;
+  }
+
+  // Taking the button away first means a double tap cannot send twice.
+  const lock = await removeTelegramButtons(chatId, message.message_id);
+  if (!lock.ok) {
+    await answerTelegramCallback(query.id, "Already sent.");
+    return;
+  }
+
+  const error = await emailClient(client, draft, true);
+  if (error) {
+    await answerTelegramCallback(query.id, "Send failed.");
+    await sendTelegramMessage(`${error} Reply to the draft with the text to retry.`, chatId, {
+      replyToMessageId: message.message_id,
+    });
+    return;
+  }
+
+  await answerTelegramCallback(query.id, "Sent.");
+  await sendTelegramMessage(`✅ Sent to ${clientLabel(client)}`, chatId, { replyToMessageId: message.message_id });
+}
 
 export async function POST(req: NextRequest) {
   const webhookSecret = process.env.TELEGRAM_WEBHOOK_SECRET;
@@ -28,6 +105,16 @@ export async function POST(req: NextRequest) {
   }
 
   const update = (await req.json()) as TelegramUpdate;
+
+  if (update.callback_query) {
+    if (update.callback_query.data === SEND_DRAFT_CALLBACK) {
+      await handleSendDraft(update.callback_query);
+    } else {
+      await answerTelegramCallback(update.callback_query.id);
+    }
+    return NextResponse.json({ ok: true });
+  }
+
   const message = update.message;
 
   if (!message?.text?.trim() || !message.reply_to_message?.text) {
@@ -54,59 +141,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
-  const resendKey = process.env.RESEND_API_KEY;
-  if (!resendKey) {
-    await sendTelegramMessage(
-      "Email is not configured on the server, so the reply was not sent.",
-      String(message.chat.id)
-    );
-    return NextResponse.json({ ok: true });
-  }
-
-  const resend = new Resend(resendKey);
   const replyBody = message.text.trim();
-  const safeName = escapeHtml(inquiry.name);
-  const safeReplyBody = escapeHtml(replyBody);
-
-  const { error } = await resend.emails.send({
-    from: "Lumetic <hello@lumetic.io>",
-    to: inquiry.email,
-    replyTo: "hello@lumetic.io",
-    subject: "Re: Your inquiry to Lumetic",
-    text: [
-      `Hi ${inquiry.name},`,
-      "",
-      replyBody,
-      "",
-      "—",
-      "Lumetic Studio",
-      "hello@lumetic.io",
-      "lumetic.io",
-    ].join("\n"),
-    html: `
-      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#111;">
-        <p style="font-size:14px;line-height:1.7;">Hi ${safeName},</p>
-        <p style="font-size:14px;line-height:1.7;white-space:pre-wrap;">${safeReplyBody}</p>
-        <hr style="border:none;border-top:1px solid #eee;margin:28px 0;" />
-        <p style="font-size:13px;color:#666;margin:0;">Lumetic Studio<br />hello@lumetic.io · lumetic.io</p>
-      </div>
-    `,
-  });
-
+  const error = await emailClient(inquiry, replyBody, false);
   if (error) {
-    console.error("Telegram reply email error:", error);
-    await sendTelegramMessage(
-      `Failed to email ${inquiry.email}. Check server logs and try again.`,
-      String(message.chat.id)
-    );
+    await sendTelegramMessage(error, String(message.chat.id));
     return NextResponse.json({ ok: true });
   }
-
-  const clientLabel =
-    inquiry.name !== "there" ? `${inquiry.name} · ${inquiry.email}` : inquiry.email;
 
   await sendTelegramMessage(
-    [`✅ Sent to ${clientLabel}`, "", replyBody].join("\n"),
+    [`✅ Sent to ${clientLabel(inquiry)}`, "", replyBody].join("\n"),
     String(message.chat.id)
   );
 
