@@ -4,6 +4,7 @@ import { featuredProjects } from "@/data/featuredProjects";
 import { escapeHtml } from "@/lib/escape-html";
 import { withoutEmDashes } from "@/lib/no-em-dash";
 import type { InquiryPayload } from "@/lib/inquiry-message";
+import { sendTelegramMessage } from "@/lib/telegram";
 
 /*
  * Instant first reply: when a brief arrives, Claude drafts a tailored reply and posts it to
@@ -121,6 +122,33 @@ export function parseDraftFromTelegram(text: string): string | null {
   if (start === -1 || end <= start) return null;
   const draft = text.slice(start + DRAFT_START.length, end).trim();
   return draft || null;
+}
+
+/** Drafts the first reply and posts it under the inquiry in Telegram, with a Send button. */
+export async function postFirstReplyDraft(
+  inquiry: InquiryPayload,
+  inquiryMessageId: number
+) {
+  try {
+    const draft = await draftFirstReply(inquiry);
+    if (draft.kind === "skip") {
+      await sendTelegramMessage(formatTelegramDraftSkipped(inquiry, draft.reason), undefined, {
+        replyToMessageId: inquiryMessageId,
+      });
+      return;
+    }
+    await sendTelegramMessage(formatTelegramDraft(inquiry, draft.text), undefined, {
+      replyToMessageId: inquiryMessageId,
+      replyMarkup: { inline_keyboard: [[{ text: "✶ Send this reply", callback_data: SEND_DRAFT_CALLBACK }]] },
+    });
+  } catch (err) {
+    console.error("First reply draft error:", err);
+    await sendTelegramMessage(
+      formatTelegramDraftSkipped(inquiry, "drafting failed, see server logs"),
+      undefined,
+      { replyToMessageId: inquiryMessageId }
+    );
+  }
 }
 
 /* ---------- Client email ---------- */

@@ -3,13 +3,7 @@ import { after, NextRequest, NextResponse } from "next/server";
 import { escapeHtml } from "@/lib/escape-html";
 import { formatTelegramInquiryNotification } from "@/lib/inquiry-message";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
-import {
-  draftFirstReply,
-  formatTelegramDraft,
-  formatTelegramDraftSkipped,
-  isFirstReplyConfigured,
-  SEND_DRAFT_CALLBACK,
-} from "@/lib/first-reply";
+import { isFirstReplyConfigured, postFirstReplyDraft } from "@/lib/first-reply";
 import { isTelegramConfigured, sendTelegramMessage } from "@/lib/telegram";
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -105,31 +99,4 @@ export async function POST(req: NextRequest) {
         }
       : {}),
   });
-}
-
-/** Drafts the first reply and posts it under the inquiry in Telegram, with a Send button. */
-async function postFirstReplyDraft(
-  inquiry: { name: string; email: string; service: string; message: string },
-  inquiryMessageId: number
-) {
-  try {
-    const draft = await draftFirstReply(inquiry);
-    if (draft.kind === "skip") {
-      await sendTelegramMessage(formatTelegramDraftSkipped(inquiry, draft.reason), undefined, {
-        replyToMessageId: inquiryMessageId,
-      });
-      return;
-    }
-    await sendTelegramMessage(formatTelegramDraft(inquiry, draft.text), undefined, {
-      replyToMessageId: inquiryMessageId,
-      replyMarkup: { inline_keyboard: [[{ text: "✶ Send this reply", callback_data: SEND_DRAFT_CALLBACK }]] },
-    });
-  } catch (err) {
-    console.error("First reply draft error:", err);
-    await sendTelegramMessage(
-      formatTelegramDraftSkipped(inquiry, "drafting failed, see server logs"),
-      undefined,
-      { replyToMessageId: inquiryMessageId }
-    );
-  }
 }
