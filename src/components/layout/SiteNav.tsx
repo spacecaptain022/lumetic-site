@@ -147,7 +147,7 @@ export default function SiteNav() {
               transition={{ duration: 0.5, ease: MOTION_EASE_SWIFT }}
             >
               <ul className="px-3.5 pt-2">
-                {LINKS.map((link, i) => {
+                {LINKS.map((link) => {
                   const href = isHome && link.section ? `#${link.section}` : link.href;
                   const current = link.section ? isHome && activeSection === link.section : pathname.startsWith("/work");
                   const cls =
@@ -157,7 +157,6 @@ export default function SiteNav() {
                       <span className={current ? "" : "opacity-70 transition-opacity group-hover:opacity-100"}>
                         {link.label}
                       </span>
-                      <span className="label opacity-50">{String(i + 1).padStart(2, "0")}</span>
                     </>
                   );
                   return (
