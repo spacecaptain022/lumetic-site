@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter, Instrument_Sans } from "next/font/google";
 import "./globals.css";
+import ProjectDock from "@/components/dock/ProjectDock";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import {
   SHARE_DESCRIPTION,
@@ -104,7 +105,10 @@ export default function RootLayout({
         <noscript>
           <style>{`* { opacity: 1 !important; transform: none !important; }`}</style>
         </noscript>
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          {children}
+          <ProjectDock />
+        </SmoothScroll>
         <Analytics />
         <SpeedInsights />
       </body>
