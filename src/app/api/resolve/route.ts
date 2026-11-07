@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 import { escapeHtml } from "@/lib/escape-html";
+import { isResolveEnabled } from "@/lib/features";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { cleanResolveName, parseResolveStyle, renderResolvedImage } from "@/lib/resolve-image";
 import { isTelegramConfigured, sendTelegramMessage } from "@/lib/telegram";
@@ -12,6 +13,8 @@ const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
  * The image is rendered here from the name alone, so this can't be used to mail arbitrary content.
  */
 export async function POST(req: NextRequest) {
+  if (!isResolveEnabled()) return NextResponse.json({ error: "Not found." }, { status: 404 });
+
   if (!checkRateLimit(`resolve:${getClientIp(req)}`, 5, 15 * 60 * 1000)) {
     return NextResponse.json({ error: "Too many requests. Try again in a few minutes." }, { status: 429 });
   }

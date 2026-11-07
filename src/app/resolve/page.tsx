@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Footer from "@/components/layout/Footer";
 import SiteNav from "@/components/layout/SiteNav";
 import ResolveTool from "@/components/resolve/ResolveTool";
+import { isResolveEnabled } from "@/lib/features";
 import { SITE_NAME, SITE_URL } from "@/lib/site-seo";
 
 const description = "Type your company name and watch it come out of the noise. Get the image free.";
@@ -26,6 +28,8 @@ export const metadata: Metadata = {
 };
 
 export default function ResolvePage() {
+  if (!isResolveEnabled()) notFound();
+
   return (
     <>
       <SiteNav />

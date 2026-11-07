@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Mark from "@/components/ui/Mark";
+import { isResolveEnabled } from "@/lib/features";
 
 const NAV = [
   { label: "Home", href: "/" },
@@ -7,7 +8,7 @@ const NAV = [
   { label: "Services", href: "/#services" },
   { label: "About", href: "/#about" },
   { label: "Contact", href: "/#contact" },
-  { label: "Resolve your brand", href: "/resolve" },
+  ...(isResolveEnabled() ? [{ label: "Resolve your brand", href: "/resolve" }] : []),
 ];
 
 export default function Footer() {
