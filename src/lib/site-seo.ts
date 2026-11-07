@@ -5,6 +5,10 @@ export const SITE_URL = "https://www.lumetic.io";
 export const SITE_NAME = "Lumetic";
 export const SITE_TAGLINE = "Clarity over noise.";
 
+/** Short copy for link previews (Open Graph, X), which crop anything long. */
+export const SHARE_TITLE = `${SITE_NAME} · Branding Studio`;
+export const SHARE_DESCRIPTION = "Brand identity, web, motion and Web3 & AI for forward-thinking companies.";
+
 /** 1200×630 share card. Child pages that set their own openGraph must include it again. */
 export const OG_IMAGE = {
   url: "/og-image.jpg",

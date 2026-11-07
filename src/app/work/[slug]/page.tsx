@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = getWorkProject(slug);
   if (!project) return {};
 
-  const title = `${project.title} — ${project.category}`;
+  const title = `${project.title} · ${project.category}`;
   const description = `${project.description} Brand and design work by Lumetic Studio.`;
 
   return {
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: { canonical: `${SITE_URL}/work/${slug}` },
     openGraph: {
       title: `${title} | ${SITE_NAME}`,
-      description,
+      description: project.description,
       url: `${SITE_URL}/work/${slug}`,
       images: [{ url: project.image, alt: projectImageAlt(project) }],
     },

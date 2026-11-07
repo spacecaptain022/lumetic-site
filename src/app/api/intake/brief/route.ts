@@ -2,6 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 import { escapeHtml } from "@/lib/escape-html";
+import { withoutEmDashes } from "@/lib/no-em-dash";
 
 const BRIEF_PROMPT = `Based on the following client intake conversation, generate a comprehensive, well-structured project brief for the Lumetic creative team.
 
@@ -17,7 +18,7 @@ Format the brief with these exact sections using **Section Title** markdown bold
 **Constraints & Must-Haves**
 **Initial Recommendations**
 
-Be professional, concise, and actionable. Initial Recommendations should include 2–3 strategic suggestions from Lumetic's perspective. If a section has no information, write "Not discussed."`;
+Be professional, concise, and actionable. Initial Recommendations should include 2–3 strategic suggestions from Lumetic's perspective. If a section has no information, write "Not discussed." Never use em dashes.`;
 
 export async function POST(req: NextRequest) {
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -46,7 +47,7 @@ export async function POST(req: NextRequest) {
       ],
     });
 
-    const brief = response.content[0].type === "text" ? response.content[0].text : "";
+    const brief = withoutEmDashes(response.content[0].type === "text" ? response.content[0].text : "");
 
     // Convert to HTML
     const briefHtml = brief

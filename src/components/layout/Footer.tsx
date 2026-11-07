@@ -7,6 +7,7 @@ const NAV = [
   { label: "Services", href: "/#services" },
   { label: "About", href: "/#about" },
   { label: "Contact", href: "/#contact" },
+  { label: "Resolve your brand", href: "/resolve" },
 ];
 
 export default function Footer() {
@@ -53,8 +54,8 @@ export default function Footer() {
         </div>
       </div>
       <div className="wrap label flex items-center justify-between border-t border-paper/15 py-5 text-paper/55">
-        <p>© 2026 Lumetic Studio LLC.</p>
-        <p>USA — Hong Kong</p>
+        <p>© 2026 Lumetic LLC.</p>
+        <p>USA / Hong Kong</p>
       </div>
     </footer>
   );

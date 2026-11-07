@@ -88,7 +88,7 @@ export function formatTelegramInboundNotification(payload: InboundEmailPayload):
   const clientName = payload.fromName.trim() || "Client";
 
   return [
-    `📨 Client email reply — ${clientName}`,
+    `📨 Client email reply: ${clientName}`,
     "",
     `Name: ${clientName}`,
     `Email: ${payload.from}`,

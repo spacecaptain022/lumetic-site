@@ -5,6 +5,8 @@ import { Inter, Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import {
+  SHARE_DESCRIPTION,
+  SHARE_TITLE,
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
   OG_IMAGE,
@@ -32,7 +34,7 @@ const instrumentSans = Instrument_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — Branding Studio | ${SITE_TAGLINE}`,
+    default: `${SHARE_TITLE} | ${SITE_TAGLINE}`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -59,8 +61,8 @@ export const metadata: Metadata = {
     apple: "/Lumetic logo black no text.png",
   },
   openGraph: {
-    title: `${SITE_NAME} — Branding Studio`,
-    description: SITE_DESCRIPTION,
+    title: SHARE_TITLE,
+    description: SHARE_DESCRIPTION,
     url: SITE_URL,
     siteName: SITE_NAME,
     locale: "en_US",
@@ -71,8 +73,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@LumeticStudio",
     creator: "@LumeticStudio",
-    title: `${SITE_NAME} — Branding Studio`,
-    description: SITE_DESCRIPTION,
+    title: SHARE_TITLE,
+    description: SHARE_DESCRIPTION,
     images: [OG_IMAGE.url],
   },
 };

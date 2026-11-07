@@ -56,5 +56,5 @@ export function getAllWorkSlugs(): string[] {
 
 export function projectImageAlt(project: Pick<WorkProject, "title" | "category" | "categories">): string {
   const tags = project.categories.length > 0 ? project.categories.join(", ") : project.category;
-  return `${project.title} — ${tags} project by Lumetic`;
+  return `${project.title}: ${tags} project by Lumetic`;
 }

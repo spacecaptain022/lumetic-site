@@ -11,15 +11,15 @@ import Statement from "@/components/marketing/Statement";
 import System from "@/components/marketing/System";
 import VideoCta from "@/components/marketing/VideoCta";
 import Work from "@/components/marketing/Work";
-import { OG_IMAGE, SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site-seo";
+import { OG_IMAGE, SHARE_DESCRIPTION, SHARE_TITLE, SITE_DESCRIPTION, SITE_TAGLINE, SITE_URL } from "@/lib/site-seo";
 
 export const metadata: Metadata = {
-  title: `${SITE_NAME} — Branding Studio | ${SITE_TAGLINE}`,
+  title: `${SHARE_TITLE} | ${SITE_TAGLINE}`,
   description: SITE_DESCRIPTION,
   alternates: { canonical: SITE_URL },
   openGraph: {
-    title: `${SITE_NAME} — Branding Studio`,
-    description: SITE_DESCRIPTION,
+    title: SHARE_TITLE,
+    description: SHARE_DESCRIPTION,
     url: SITE_URL,
     images: [OG_IMAGE],
   },

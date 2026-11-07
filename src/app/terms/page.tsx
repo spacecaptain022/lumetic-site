@@ -29,7 +29,7 @@ export default function TermsPage() {
         Terms of Service
       </h1>
       <p className="font-sans text-xs text-foreground/50 mb-12">
-        Effective May 29, 2026 · Lumetic Studio LLC
+        Effective May 29, 2026 · Lumetic LLC
       </p>
 
       <Section title="Agreement">
@@ -60,7 +60,7 @@ export default function TermsPage() {
       <Section title="Intellectual Property">
         <p>
           All content on the Site, including text, graphics, logos, images, and design, is owned
-          by Lumetic Studio LLC or its licensors and is protected by applicable intellectual property
+          by Lumetic LLC or its licensors and is protected by applicable intellectual property
           laws. You may not copy, reproduce, or distribute Site content without our prior written
           consent.
         </p>
@@ -93,7 +93,7 @@ export default function TermsPage() {
 
       <Section title="Limitation of Liability">
         <p>
-          To the fullest extent permitted by law, Lumetic Studio LLC shall not be liable for any
+          To the fullest extent permitted by law, Lumetic LLC shall not be liable for any
           indirect, incidental, special, or consequential damages arising from your use of the Site.
           Our total liability for any claim related to the Site shall not exceed one hundred U.S.
           dollars (USD $100).
