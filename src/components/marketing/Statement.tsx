@@ -11,10 +11,11 @@ const DISCIPLINES: { label: string; glyph: GlyphName }[] = [
   { label: "Brand identity", glyph: "brand" },
   { label: "Strategy & naming", glyph: "spark" },
   { label: "Web design", glyph: "web" },
+  { label: "E-commerce", glyph: "commerce" },
   { label: "Motion & content", glyph: "motion" },
   { label: "Web3 & AI", glyph: "web3" },
   { label: "Brand systems", glyph: "brand" },
-  { label: "Digital presence", glyph: "web" },
+  { label: "Packaging", glyph: "commerce" },
 ];
 
 function Word({ word, i, n, progress }: { word: string; i: number; n: number; progress: MotionValue<number> }) {

@@ -7,7 +7,7 @@ export const SITE_TAGLINE = "Clarity over noise.";
 
 /** Short copy for link previews (Open Graph, X), which crop anything long. */
 export const SHARE_TITLE = `${SITE_NAME} · Branding Studio`;
-export const SHARE_DESCRIPTION = "Brand identity, web, motion and Web3 & AI for forward-thinking companies.";
+export const SHARE_DESCRIPTION = "Brand identity, web and e-commerce, motion, and Web3 & AI for forward-thinking companies.";
 
 /** 1200×630 share card. Child pages that set their own openGraph must include it again. */
 export const OG_IMAGE = {
@@ -17,7 +17,7 @@ export const OG_IMAGE = {
   alt: "Lumetic, a branding studio. Clarity. Over. Noise.",
 } as const;
 export const SITE_DESCRIPTION =
-  "Lumetic is a branding studio blending strategy and creative craft. We build brand identity systems, web design, motion, and Web3/AI development for forward-thinking companies.";
+  "Lumetic is a branding studio blending strategy and creative craft. We build brand identity systems, websites and online stores, motion, and Web3/AI development for forward-thinking companies.";
 
 export const SITE_KEYWORDS = [
   "branding studio",
@@ -25,6 +25,11 @@ export const SITE_KEYWORDS = [
   "brand strategy",
   "brand systems",
   "web design",
+  "e-commerce design",
+  "Shopify design",
+  "Shopify development",
+  "online store design",
+  "packaging design",
   "digital design",
   "motion design",
   "visual identity",
@@ -43,22 +48,22 @@ export const SITE_SERVICES = [
   {
     name: "Brand Identity & Strategy",
     description:
-      "Memorable identities built to last. Strategy, naming, and systems that stay clear everywhere you show up.",
+      "Memorable identities built to last. Strategy, naming, packaging, and systems that stay clear everywhere you show up.",
   },
   {
-    name: "Web Design & Digital Presence",
+    name: "Web Design & E-commerce",
     description:
-      "Intuitive sites with UX, performance, and craft. Fast, confident, and built to turn visitors into believers.",
+      "Sites and online stores with UX, performance, and craft. Shopify or custom, built to turn visitors into customers.",
   },
   {
     name: "Motion & Visual Content",
     description:
-      "Visuals, animation, and content that bring your brand to life. Intentional motion on every channel.",
+      "Product visuals, animation, and launch content that bring your brand to life and help it sell on every channel.",
   },
   {
     name: "Web3, AI & Dev Services",
     description:
-      "Web3, AI, and contracts: integration, deployment, and setup. Tools that fit how you already work.",
+      "Web3, AI, and contracts: integration, deployment, and setup, from token-gated drops to AI shopping tools.",
   },
 ] as const;
 

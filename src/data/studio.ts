@@ -12,30 +12,34 @@ export const ENGAGEMENTS = [
     timing: "1 week",
     title: "Launch Sprint",
     description:
-      "For founders who need to move now. Your brand identity, one-pager, and launch-ready web presence. Everything you need to show up properly from day one.",
+      "For founders who need to move now. Your brand identity, one-pager, and a launch-ready site or storefront. Everything you need to show up properly from day one.",
   },
   {
     timing: "1.5 to 2 weeks",
     title: "Full Brand Build",
     description:
-      "Our flagship engagement, strategy through execution. Positioning, complete visual identity, product design foundations, and a website that makes investors and customers pay attention.",
+      "Our flagship engagement, strategy through execution. Positioning, complete visual identity, packaging and product design foundations, and a website or online store that makes investors and customers pay attention.",
   },
   {
     timing: "Ongoing",
     title: "Studio Partnership",
     description:
-      "Lumetic as your embedded creative team. A rolling retainer for consistent, high-calibre creative output without the overhead of an in-house studio.",
+      "Lumetic as your embedded creative team. A rolling retainer for campaigns, product drops, store updates, and consistent, high-calibre creative output without the overhead of an in-house studio.",
   },
 ] as const;
 
 export const FAQ = [
   {
     q: "What is Lumetic?",
-    a: "Lumetic is a branding studio that blends strategy and creative craft to build brand identity systems, web design, motion, and Web3/AI development for forward-thinking companies.",
+    a: "Lumetic is a branding studio that blends strategy and creative craft to build brand identity systems, websites and online stores, motion, and Web3/AI development for forward-thinking companies.",
   },
   {
     q: "What services does Lumetic offer?",
-    a: "Brand Identity & Strategy, Web Design & Digital Presence, Motion & Visual Content, and Web3, AI & Dev Services.",
+    a: "Brand Identity & Strategy, Web Design & E-commerce, Motion & Visual Content, and Web3, AI & Dev Services.",
+  },
+  {
+    q: "Do you build online stores?",
+    a: "Yes. We design and build e-commerce on Shopify or a custom stack, and connect it to the rest of the brand: packaging, product pages, checkout, product imagery, and launch content. One team, so the store looks and sells like the brand.",
   },
   {
     q: "How long does a project take?",
