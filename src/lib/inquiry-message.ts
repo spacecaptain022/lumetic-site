@@ -14,7 +14,7 @@ export function formatTelegramInquiryNotification(inquiry: InquiryPayload): stri
   const clientName = inquiry.name.trim();
 
   return [
-    `📩 New inquiry — ${clientName}`,
+    `📩 New inquiry: ${clientName}`,
     "",
     `Name: ${clientName}`,
     `Email: ${inquiry.email.trim()}`,

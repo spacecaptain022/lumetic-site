@@ -3,7 +3,7 @@ import LegalPageShell from "@/components/layout/LegalPageShell";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Lumetic",
-  description: "How Lumetic Studio LLC collects, uses, and protects your information.",
+  description: "How Lumetic LLC collects, uses, and protects your information.",
 };
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -29,12 +29,12 @@ export default function PrivacyPage() {
         Privacy Policy
       </h1>
       <p className="font-sans text-xs text-foreground/50 mb-12">
-        Effective May 29, 2026 · Lumetic Studio LLC
+        Effective May 29, 2026 · Lumetic LLC
       </p>
 
       <Section title="Overview">
         <p>
-          Lumetic Studio LLC (&quot;Lumetic,&quot; &quot;we,&quot; &quot;us&quot;) respects your privacy.
+          Lumetic LLC (&quot;Lumetic,&quot; &quot;we,&quot; &quot;us&quot;) respects your privacy.
           This policy explains what information we collect when you visit lumetic.io, use our contact
           forms, or participate in our client intake experience, and how we use it.
         </p>

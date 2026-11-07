@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
+import { withoutEmDashes } from "@/lib/no-em-dash";
 
 const SYSTEM_PROMPT = `You are Lumetic's client intake assistant. Lumetic is a premium branding studio and capital connector. Your job is to conduct a warm, professional discovery conversation to understand a new client's project needs.
 
@@ -18,7 +19,7 @@ Collect the following through natural conversation:
 
 Once you have covered all areas, or the client indicates they have nothing more to add, end your final message with exactly: [READY_TO_BRIEF]
 
-Do not mention [READY_TO_BRIEF] until you are truly done collecting information. Never ask more than one question per message.`;
+Do not mention [READY_TO_BRIEF] until you are truly done collecting information. Never ask more than one question per message. Never use em dashes.`;
 
 export async function POST(req: NextRequest) {
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -43,7 +44,7 @@ export async function POST(req: NextRequest) {
 
     const text = response.content[0].type === "text" ? response.content[0].text : "";
     const isReady = text.includes("[READY_TO_BRIEF]");
-    const cleanText = text.replace("[READY_TO_BRIEF]", "").trim();
+    const cleanText = withoutEmDashes(text.replace("[READY_TO_BRIEF]", "").trim());
 
     return NextResponse.json({ response: cleanText, isReady });
   } catch (err) {

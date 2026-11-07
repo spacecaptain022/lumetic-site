@@ -2,6 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { ENGAGEMENTS } from "@/data/studio";
 import { featuredProjects } from "@/data/featuredProjects";
 import { escapeHtml } from "@/lib/escape-html";
+import { withoutEmDashes } from "@/lib/no-em-dash";
 import type { InquiryPayload } from "@/lib/inquiry-message";
 
 /*
@@ -12,7 +13,7 @@ import type { InquiryPayload } from "@/lib/inquiry-message";
 
 const MODEL = "claude-opus-5-5";
 
-const SYSTEM_PROMPT = `You draft the first reply from Lumetic, a branding studio, to someone who just sent a project inquiry through lumetic.io. A person at the studio reads your draft and decides whether to send it, so write the email you would want them to send as-is.
+const SYSTEM_PROMPT = `You write the first reply from Lumetic, a small branding studio, to someone who just sent a project inquiry through lumetic.io. Someone at the studio reads your draft and sends it from their own inbox, so it should read like they sat down and wrote it themselves: a thoughtful studio lead replying personally, not a company sending a template.
 
 What Lumetic does:
 ${featuredProjects.map((s) => `- ${s.title}: ${s.excerpt}`).join("\n")}
@@ -20,13 +21,21 @@ ${featuredProjects.map((s) => `- ${s.title}: ${s.excerpt}`).join("\n")}
 How clients work with Lumetic:
 ${ENGAGEMENTS.map((e) => `- ${e.title} (${e.timing}): ${e.description}`).join("\n")}
 
-The reply should:
-- Show you read their message: reflect back what they are building and what they need, in a sentence or two, using their specifics.
-- Recommend the engagement that fits and say briefly why. If it is genuinely unclear, name the two that could fit and what would decide it.
-- Outline a first-pass scope as 3 to 5 short lines starting with "- ", drawn from what they asked for.
-- End with one clear next step: ask them to reply with a couple of times for a 20-minute call this week, plus anything they did not cover that you need (for example a launch date or reference brands).
+What a good reply does:
+- Opens with a genuine, specific reaction to their project, something only their message could prompt. Not a thank-you for reaching out.
+- Shows you understood what they need, in your own words rather than repeating theirs back.
+- Suggests the way of working that fits and why, woven into the conversation rather than announced. If two could fit, say what would decide it.
+- Sketches what you would focus on first, in a sentence or two. Use a short list only if they asked for several distinct things.
+- Asks one or two real questions a designer would want answered, the kind that show you are already thinking about their brand.
+- Ends with an easy next step, like a quick call, and asks for a couple of times that suit them.
 
-Voice: clear before clever, short and certain, warm without gushing. Plain text, under 180 words. No greeting line and no sign-off, because the email template adds "Hi {name}," and the studio signature. Never quote prices, discounts or specific calendar dates, never promise anything the studio has not offered above, and never claim to be a person or mention that you are an AI.
+How it should sound:
+- Like a person: warm, relaxed, confident, a little conversational. Use "I" and "we" naturally.
+- Match their tone and length. A two-line note gets a short, friendly reply; a detailed brief earns a fuller one. Stay under 160 words either way.
+- Plain sentences in two to four short paragraphs. Vary your openings from one email to the next.
+- Avoid stock phrases that make an email feel automated: "Thanks for reaching out", "I hope this finds you well", "We'd love to", "excited to", "elevate", "seamless", "cutting-edge", "take your brand to the next level", "Great question". No em dashes, at most one exclamation mark, no emoji.
+
+Rules: plain text only. No greeting line and no sign-off, because the email template adds "Hi {first name}," and the signature. Never quote prices, discounts or specific calendar dates, never promise anything not described above, and never mention AI or that this was drafted.
 
 If the message is spam, a sales pitch to Lumetic, a job application, or has no real project in it, reply with exactly SKIP: followed by a few words on why, and nothing else.`;
 
@@ -78,7 +87,7 @@ export async function draftFirstReply(inquiry: InquiryPayload): Promise<FirstRep
   if (!text) return { kind: "skip", reason: "the model returned an empty draft" };
   if (text.startsWith("SKIP:")) return { kind: "skip", reason: text.slice(5).trim() || "not a project inquiry" };
 
-  return { kind: "draft", text };
+  return { kind: "draft", text: withoutEmDashes(text) };
 }
 
 /* ---------- Telegram message ---------- */
@@ -89,7 +98,7 @@ export const SEND_DRAFT_CALLBACK = "send_first_reply";
 
 export function formatTelegramDraft(inquiry: InquiryPayload, draft: string): string {
   return [
-    `✶ First reply drafted — ${inquiry.name.trim()}`,
+    `✶ First reply drafted: ${inquiry.name.trim()}`,
     "",
     `Name: ${inquiry.name.trim()}`,
     `Email: ${inquiry.email.trim()}`,
@@ -116,32 +125,34 @@ export function parseDraftFromTelegram(text: string): string | null {
 
 /* ---------- Client email ---------- */
 
-/** The email a client receives from the studio. `system` adds the quiet mark for system-drafted replies. */
+/** "maya chen" → "Maya", so the greeting reads like a person wrote it. */
+export function greetingName(name: string): string {
+  const first = name.trim().split(/\s+/)[0]?.replace(/[^\p{L}\p{M}'-]/gu, "") ?? "";
+  if (!first || first.toLowerCase() === "there") return "there";
+  const oneCase = first === first.toLowerCase() || first === first.toUpperCase();
+  return oneCase ? first[0].toUpperCase() + first.slice(1).toLowerCase() : first;
+}
+
+/**
+ * The email a client receives from the studio, written to look like a personal reply.
+ * REPLY_SIGNER_NAME (for example "Preston") signs it from a person; without it, from the studio.
+ * `system` adds the quiet mark for replies drafted by the system.
+ */
 export function buildClientReplyEmail({ name, body, system }: { name: string; body: string; system: boolean }) {
-  const safeName = escapeHtml(name);
-  const safeBody = escapeHtml(body);
+  const greeting = greetingName(name);
+  const signer = process.env.REPLY_SIGNER_NAME?.trim();
+  const signature = signer ? [signer, "Lumetic Studio · lumetic.io"] : ["Lumetic Studio", "lumetic.io"];
   const mark = "✶ Drafted by the Lumetic system, reviewed and sent by the studio.";
 
   return {
     subject: "Re: Your inquiry to Lumetic",
-    text: [
-      `Hi ${name},`,
-      "",
-      body,
-      "",
-      "—",
-      "Lumetic Studio",
-      "hello@lumetic.io",
-      "lumetic.io",
-      ...(system ? ["", mark] : []),
-    ].join("\n"),
+    text: [`Hi ${greeting},`, "", body, "", ...signature, ...(system ? ["", mark] : [])].join("\n"),
     html: `
-      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#111;">
-        <p style="font-size:14px;line-height:1.7;">Hi ${safeName},</p>
-        <p style="font-size:14px;line-height:1.7;white-space:pre-wrap;">${safeBody}</p>
-        <hr style="border:none;border-top:1px solid #eee;margin:28px 0;" />
-        <p style="font-size:13px;color:#666;margin:0;">Lumetic Studio<br />hello@lumetic.io · lumetic.io</p>
-        ${system ? `<p style="font-size:11px;color:#aaa;margin:18px 0 0;letter-spacing:0.02em;">${mark}</p>` : ""}
+      <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;max-width:560px;color:#111;font-size:15px;line-height:1.6;">
+        <p style="margin:0 0 16px;">Hi ${escapeHtml(greeting)},</p>
+        <p style="margin:0 0 20px;white-space:pre-wrap;">${escapeHtml(body)}</p>
+        <p style="margin:0;">${signature.map(escapeHtml).join("<br />")}</p>
+        ${system ? `<p style="font-size:11px;color:#aaa;margin:28px 0 0;">${mark}</p>` : ""}
       </div>
     `,
   };
