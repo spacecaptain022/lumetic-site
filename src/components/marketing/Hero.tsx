@@ -6,12 +6,15 @@ import { m as motion } from "framer-motion";
 import AutoVideo from "@/components/ui/AutoVideo";
 import { Arrow } from "@/components/ui/BlockLink";
 import ResolveImage from "@/components/ui/ResolveImage";
+import { useIntroDone } from "@/lib/intro";
 import { MOTION_EASE_SWIFT } from "@/lib/motion";
 
 const LINES = ["Clarity.", "Over.", "Noise."];
 
 export default function Hero() {
   const [posterDone, setPosterDone] = useState(false);
+  // Waits for the logo intro to hand off, so the headline rises as the intro clears.
+  const ready = useIntroDone();
 
   return (
     <section className="bg-paper p-[6px] md:p-2">
@@ -44,7 +47,7 @@ export default function Hero() {
                 <motion.span
                   className="block"
                   initial={{ y: "105%" }}
-                  animate={{ y: 0 }}
+                  animate={ready ? { y: 0 } : undefined}
                   transition={{ duration: 1.1, ease: MOTION_EASE_SWIFT, delay: 0.15 + i * 0.09 }}
                 >
                   {line}
@@ -57,7 +60,7 @@ export default function Hero() {
           <motion.a
             href="#contact"
             initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={ready ? { opacity: 1, y: 0 } : undefined}
             transition={{ duration: 0.9, ease: MOTION_EASE_SWIFT, delay: 0.55 }}
             className="group flex w-full items-stretch gap-2 justify-self-start rounded-[12px] bg-ink/55 p-2 backdrop-blur-xl transition-colors duration-300 hover:bg-ink/75 md:max-w-[26rem] xl:col-span-4 xl:max-w-[24rem] xl:justify-self-end"
           >

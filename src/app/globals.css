@@ -240,3 +240,69 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Home page logo intro (components/intro). Hidden unless the gate script says to play. */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+  clip-path: inset(0 round 0);
+  transition:
+    clip-path 760ms var(--ease-swift),
+    opacity 560ms var(--ease-standard) 240ms;
+  /* Failsafe: never trap the page if the script stalls. */
+  animation: intro-failsafe 1ms linear 9s forwards;
+}
+html:not([data-intro="play"]) .intro {
+  display: none;
+}
+.intro[data-phase="exit"] {
+  clip-path: inset(6px round 16px);
+  opacity: 0;
+  pointer-events: none;
+}
+@media (min-width: 768px) {
+  .intro[data-phase="exit"] {
+    clip-path: inset(8px round 20px);
+  }
+}
+.intro-content {
+  position: absolute;
+  inset: 0;
+  transition:
+    opacity 360ms var(--ease-standard),
+    transform 760ms var(--ease-swift);
+}
+.intro[data-phase="exit"] .intro-content {
+  opacity: 0;
+  transform: scale(0.94);
+}
+.intro-words {
+  position: absolute;
+  inset-inline: 0;
+  /* Just under the mark, which the canvas centres at 46% and sizes like this. */
+  top: calc(46% + min(14dvh, 20vw) + 1.75rem);
+  display: flex;
+  justify-content: center;
+  gap: 0.4em;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.intro-words span {
+  opacity: 0.18;
+  transition: opacity 320ms var(--ease-standard);
+}
+.intro-words span[data-lit] {
+  opacity: 1;
+}
+@keyframes intro-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
