@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Intro from "@/components/intro/Intro";
 import Footer from "@/components/layout/Footer";
 import SiteNav from "@/components/layout/SiteNav";
 import About from "@/components/marketing/About";
@@ -28,6 +29,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
+      <Intro />
       <SiteNav />
       <main id="main">
         <Hero />
