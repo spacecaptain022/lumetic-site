@@ -42,11 +42,12 @@ export default function Hero() {
         <div className="relative grid grid-cols-1 items-end gap-6 px-4 pb-4 md:px-8 md:pb-8 xl:grid-cols-12">
           <h1 className="h-hero xl:col-span-8">
             <span className="sr-only">Lumetic, a branding studio. </span>
+            {/* Each line's mask leaves room below for descenders (the y in Clarity); the negative margin cancels it. */}
             {LINES.map((line, i) => (
-              <span key={line} className="block overflow-clip pb-[0.06em] -mb-[0.06em]">
+              <span key={line} className="block overflow-clip pb-[0.24em] -mb-[0.24em]">
                 <motion.span
                   className="block"
-                  initial={{ y: "105%" }}
+                  initial={{ y: "135%" }}
                   animate={ready ? { y: 0 } : undefined}
                   transition={{ duration: 1.1, ease: MOTION_EASE_SWIFT, delay: 0.15 + i * 0.09 }}
                 >
