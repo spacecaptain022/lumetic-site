@@ -13,7 +13,7 @@ export const featuredProjects: FeaturedProject[] = [
     slug: "brand-identity-strategy",
     title: "Brand Identity & Strategy",
     excerpt:
-      "Memorable identities built to last. Strategy, naming, and systems that stay clear everywhere you show up.",
+      "Memorable identities built to last. Strategy, naming, packaging, and systems that stay clear everywhere you show up.",
     categories: ["Brand", "Identity", "Systems"],
     image: "/gallery/brand-identity.png",
     aspect: "16x9",
@@ -21,10 +21,10 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     slug: "web-design-digital-presence",
-    title: "Web Design & Digital Presence",
+    title: "Web Design & E-commerce",
     excerpt:
-      "Intuitive sites with UX, performance, and craft. Fast, confident, and built to turn visitors into believers.",
-    categories: ["Web", "UX", "Digital"],
+      "Sites and online stores with UX, performance, and craft. Shopify or custom, built to turn visitors into customers.",
+    categories: ["Web", "E-commerce", "UX"],
     image: "/gallery/web-design-digital-v2.png",
     aspect: "4x3",
     column: "left",
@@ -33,7 +33,7 @@ export const featuredProjects: FeaturedProject[] = [
     slug: "motion-visual-content",
     title: "Motion & Visual Content",
     excerpt:
-      "Visuals, animation, and content that bring your brand to life. Intentional motion on every channel.",
+      "Product visuals, animation, and launch content that bring your brand to life and help it sell on every channel.",
     categories: ["Motion", "Content", "Visual"],
     image: "/gallery/motion-visual-v2.png",
     aspect: "square",
@@ -43,7 +43,7 @@ export const featuredProjects: FeaturedProject[] = [
     slug: "web3-ai-dev-services",
     title: "Web3 AI Dev Services",
     excerpt:
-      "Web3, AI, and contracts: integration, deployment, and setup. Tools that fit how you already work.",
+      "Web3, AI, and contracts: integration, deployment, and setup, from token-gated drops to AI shopping tools.",
     categories: ["Web3", "AI", "Dev"],
     image: "/gallery/web3-ai-dev.png",
     aspect: "16x9",

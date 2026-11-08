@@ -30,7 +30,7 @@ export default function About() {
           </div>
 
           {[
-            { value: "6+", label: "Industries served", note: "From Web3 and AI to culture and consumer." },
+            { value: "6+", label: "Industries served", note: "From Web3 and AI to consumer goods and e-commerce." },
             { value: "100%", label: "Bespoke client work", note: "No templates. Every system built for one brand." },
           ].map((stat) => (
             <div key={stat.label} className="flex min-h-[22rem] flex-col justify-between rounded-[16px] bg-card p-6 lg:aspect-[3/4]">
