@@ -9,6 +9,9 @@ export const SITE_TAGLINE = "Clarity over noise.";
 export const SHARE_TITLE = `${SITE_NAME} · Autonomous by design`;
 export const SHARE_DESCRIPTION = "Imagine it. Lumetic builds it. Then it runs on its own.";
 
+/** Search result title for the home page: the brand line plus what Lumetic makes. */
+export const HOME_TITLE = `${SHARE_TITLE} | Brands, Websites & Systems`;
+
 /** 1200×630 share card. Child pages that set their own openGraph must include it again. */
 export const OG_IMAGE = {
   url: "/og-image.jpg",
@@ -152,6 +155,19 @@ export function faqJsonLd() {
       "@type": "Question",
       name: item.q,
       acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+}
+
+export function breadcrumbJsonLd(trail: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: trail.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: `${SITE_URL}${item.path}`,
     })),
   };
 }

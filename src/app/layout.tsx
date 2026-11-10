@@ -7,14 +7,13 @@ import ProjectDock from "@/components/dock/ProjectDock";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import {
   SHARE_DESCRIPTION,
+  HOME_TITLE,
   SHARE_TITLE,
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
   OG_IMAGE,
   SITE_NAME,
-  SITE_TAGLINE,
   SITE_URL,
-  faqJsonLd,
   organizationJsonLd,
   professionalServiceJsonLd,
   websiteJsonLd,
@@ -35,7 +34,7 @@ const instrumentSans = Instrument_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SHARE_TITLE} | ${SITE_TAGLINE}`,
+    default: HOME_TITLE,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -44,9 +43,6 @@ export const metadata: Metadata = {
   creator: SITE_NAME,
   publisher: SITE_NAME,
   category: "Design",
-  alternates: {
-    canonical: SITE_URL,
-  },
   robots: {
     index: true,
     follow: true,
@@ -86,7 +82,6 @@ const jsonLdGraph = {
     organizationJsonLd(),
     websiteJsonLd(),
     professionalServiceJsonLd(),
-    faqJsonLd(),
   ],
 };
 

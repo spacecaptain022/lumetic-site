@@ -13,6 +13,7 @@ const LINES = ["Clarity.", "Over.", "Noise."];
 
 export default function Hero() {
   const [posterDone, setPosterDone] = useState(false);
+  const [playing, setPlaying] = useState(false);
   // Waits for the logo intro to hand off, so the headline rises as the intro clears.
   const ready = useIntroDone();
 
@@ -26,13 +27,13 @@ export default function Hero() {
             { src: "/hero-showreel.webm", type: "video/webm" },
             { src: "/hero-showreel.mp4", type: "video/mp4" },
           ]}
-          poster="/hero-showreel-poster.jpg"
           label="Lumetic brand showreel"
+          onPlaying={() => setPlaying(true)}
         />
-        {/* Poster resolves from mosaic to sharp on load, then hands off to the live video. */}
+        {/* Poster resolves from mosaic to sharp on load, then hands off once the video is playing. */}
         <div
           aria-hidden
-          className={`pointer-events-none absolute inset-0 transition-opacity duration-500 ${posterDone ? "opacity-0" : "opacity-100"}`}
+          className={`pointer-events-none absolute inset-0 transition-opacity duration-500 ${posterDone && playing ? "opacity-0" : "opacity-100"}`}
         >
           <ResolveImage src="/hero-showreel-poster.jpg" alt="" sizes="100vw" priority onDone={() => setPosterDone(true)} />
         </div>
