@@ -6,15 +6,15 @@ export const SITE_NAME = "Lumetic";
 export const SITE_TAGLINE = "Clarity over noise.";
 
 /** Short copy for link previews (Open Graph, X), which crop anything long. */
-export const SHARE_TITLE = `${SITE_NAME} · Build what you imagine`;
-export const SHARE_DESCRIPTION = "Whatever you can imagine, Lumetic builds. Brands, websites, software, and autonomous systems that run on their own.";
+export const SHARE_TITLE = `${SITE_NAME} · Autonomous by design`;
+export const SHARE_DESCRIPTION = "Imagine it. Lumetic builds it. Then it runs on its own.";
 
 /** 1200×630 share card. Child pages that set their own openGraph must include it again. */
 export const OG_IMAGE = {
   url: "/og-image.jpg",
   width: 1200,
   height: 630,
-  alt: "Lumetic. Whatever you can imagine, Lumetic builds. Clarity. Over. Noise.",
+  alt: "Lumetic, autonomous by design. Imagine it. Lumetic builds it. Then it runs on its own.",
 } as const;
 export const SITE_DESCRIPTION =
   "Lumetic is an autonomous, agentic builder. Bring it the idea or the problem, and it designs and builds the solution: brands, websites and online stores, motion, custom software, and systems that run on their own.";
