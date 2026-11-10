@@ -22,14 +22,17 @@ const tones: Record<Tone, { body: string; chip: string }> = {
   },
 };
 
-export function Arrow({ className = "", dir = "up-right" }: { className?: string; dir?: "up-right" | "right" }) {
+/** The site's one arrow: a chevron. Points right unless told otherwise. */
+export function Arrow({ className = "", dir = "right" }: { className?: string; dir?: "right" | "left" }) {
   return (
     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className={className} aria-hidden>
-      {dir === "right" ? (
-        <path d="M0.5 6h10M6.5 2l4 4-4 4" stroke="currentColor" strokeWidth="1.4" />
-      ) : (
-        <path d="M2 10L10 2M3.5 2H10v6.5" stroke="currentColor" strokeWidth="1.4" />
-      )}
+      <path
+        d={dir === "left" ? "M7.75 1.75L3.5 6l4.25 4.25" : "M4.25 1.75L8.5 6l-4.25 4.25"}
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -61,8 +64,8 @@ export default function BlockLink({
       <span className="whitespace-nowrap font-medium">{children}</span>
       <span className={`flex items-center justify-center overflow-hidden rounded-[7px] transition-colors duration-300 ${chip} ${t.chip}`}>
         <span className="relative block h-3 w-3 overflow-hidden">
-          <Arrow className="absolute inset-0 transition-transform duration-500 ease-swift group-hover:-translate-y-[160%] group-hover:translate-x-[160%]" />
-          <Arrow className="absolute inset-0 -translate-x-[160%] translate-y-[160%] transition-transform duration-500 ease-swift group-hover:translate-x-0 group-hover:translate-y-0" />
+          <Arrow className="absolute inset-0 transition-transform duration-500 ease-swift group-hover:translate-x-[160%]" />
+          <Arrow className="absolute inset-0 -translate-x-[160%] transition-transform duration-500 ease-swift group-hover:translate-x-0" />
         </span>
       </span>
     </>
