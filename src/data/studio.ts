@@ -9,28 +9,20 @@ export const STATS = [
 
 export const ENGAGEMENTS = [
   {
-    timing: "1 week",
     title: "Launch Sprint",
-    description:
-      "For founders who need to move now. Your brand identity, one-pager, and a launch-ready site or storefront. Everything you need to show up properly from day one.",
+    description: "For founders who need to move now. Identity, a one-pager, and a launch-ready site or storefront.",
   },
   {
-    timing: "1.5 to 2 weeks",
     title: "Full Brand Build",
-    description:
-      "The flagship engagement, strategy through execution. Positioning, complete visual identity, packaging and product design foundations, and a website or online store that makes investors and customers pay attention.",
+    description: "Strategy through execution. Positioning, a complete identity, packaging, and a website or online store.",
   },
   {
-    timing: "Ongoing",
     title: "Studio Partnership",
-    description:
-      "Lumetic embedded in your business. A rolling retainer for campaigns, product drops, store updates, and consistent, high-calibre output without the overhead of an in-house team.",
+    description: "Lumetic embedded in your business, on a rolling retainer for campaigns, product drops, and ongoing output.",
   },
   {
-    timing: "Scoped, then ongoing",
     title: "Build & Run",
-    description:
-      "For autonomous systems and custom software. Lumetic maps the workflow, builds the system around your tools and data, launches it, then hosts, monitors, and improves it on a monthly plan.",
+    description: "Autonomous systems and custom software, built around your tools and data, then hosted and improved every month.",
   },
 ] as const;
 
@@ -52,8 +44,8 @@ export const FAQ = [
     a: "Yes. Lumetic builds agents, automations, internal tools, and custom software around how your business already works, then hosts, monitors, and improves them. This site runs on its own systems: the Lumetic Assistant turns a short chat into a project brief, and every inquiry gets a personal first reply within one business day.",
   },
   {
-    q: "How long does a project take?",
-    a: "A Launch Sprint runs one week and a Full Brand Build runs one and a half to two weeks. Studio Partnerships are ongoing, and a Build & Run is scoped to the system, then runs on a monthly plan.",
+    q: "How fast does Lumetic move?",
+    a: "Fast, without cutting corners. Every engagement is scoped to move at the speed of the idea, with the same care from the first sketch to launch.",
   },
   {
     q: "Where is Lumetic based?",
