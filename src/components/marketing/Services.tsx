@@ -9,7 +9,7 @@ const GLYPH_BY_SLUG: Record<string, GlyphName> = {
   "brand-identity-strategy": "brand",
   "web-design-digital-presence": "web",
   "motion-visual-content": "motion",
-  "web3-ai-dev-services": "web3",
+  "web3-ai-dev-services": "chip",
 };
 
 export default function Services() {

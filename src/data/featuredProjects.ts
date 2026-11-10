@@ -41,10 +41,10 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     slug: "web3-ai-dev-services",
-    title: "Web3 AI Dev Services",
+    title: "AI Systems & Custom Software",
     excerpt:
-      "Web3, AI, and contracts: integration, deployment, and setup, from token-gated drops to AI shopping tools.",
-    categories: ["Web3", "AI", "Dev"],
+      "AI agents, automations, and custom software built around how you work, plus Web3 when it fits. We build it and keep it running.",
+    categories: ["AI", "Software", "Web3"],
     image: "/gallery/web3-ai-dev.png",
     aspect: "16x9",
     column: "left",

@@ -26,24 +26,34 @@ export const ENGAGEMENTS = [
     description:
       "Lumetic as your embedded creative team. A rolling retainer for campaigns, product drops, store updates, and consistent, high-calibre creative output without the overhead of an in-house studio.",
   },
+  {
+    timing: "Scoped, then ongoing",
+    title: "Build & Run",
+    description:
+      "For AI systems and custom software. We map the workflow, build the system around your tools and data, launch it, then host, monitor, and improve it on a monthly plan.",
+  },
 ] as const;
 
 export const FAQ = [
   {
     q: "What is Lumetic?",
-    a: "Lumetic is a branding studio that blends strategy and creative craft to build brand identity systems, websites and online stores, motion, and Web3/AI development for forward-thinking companies.",
+    a: "Lumetic is a branding studio that blends strategy and creative craft to build brand identity systems, websites and online stores, motion, and AI systems and custom software for forward-thinking companies.",
   },
   {
     q: "What services does Lumetic offer?",
-    a: "Brand Identity & Strategy, Web Design & E-commerce, Motion & Visual Content, and Web3, AI & Dev Services.",
+    a: "Brand Identity & Strategy, Web Design & E-commerce, Motion & Visual Content, and AI Systems & Custom Software.",
   },
   {
     q: "Do you build online stores?",
     a: "Yes. We design and build e-commerce on Shopify or a custom stack, and connect it to the rest of the brand: packaging, product pages, checkout, product imagery, and launch content. One team, so the store looks and sells like the brand.",
   },
   {
+    q: "Do you build custom software or AI systems?",
+    a: "Yes. We build AI agents, automations, internal tools, and custom software around how your business already works, then host, monitor, and improve them. This site runs on our own: the Lumetic Assistant turns a short chat into a project brief, and every inquiry gets a personal first reply drafted for the studio to review and send.",
+  },
+  {
     q: "How long does a project take?",
-    a: "A Launch Sprint runs one week and a Full Brand Build runs one and a half to two weeks. Studio Partnerships are ongoing.",
+    a: "A Launch Sprint runs one week and a Full Brand Build runs one and a half to two weeks. Studio Partnerships are ongoing, and a Build & Run is scoped to the system, then runs on a monthly plan.",
   },
   {
     q: "Where is Lumetic based?",

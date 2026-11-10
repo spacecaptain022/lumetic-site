@@ -7,7 +7,7 @@ export const SITE_TAGLINE = "Clarity over noise.";
 
 /** Short copy for link previews (Open Graph, X), which crop anything long. */
 export const SHARE_TITLE = `${SITE_NAME} · Branding Studio`;
-export const SHARE_DESCRIPTION = "Brand identity, web and e-commerce, motion, and Web3 & AI for forward-thinking companies.";
+export const SHARE_DESCRIPTION = "Brand identity, web and e-commerce, motion, and AI systems for forward-thinking companies.";
 
 /** 1200×630 share card. Child pages that set their own openGraph must include it again. */
 export const OG_IMAGE = {
@@ -17,7 +17,7 @@ export const OG_IMAGE = {
   alt: "Lumetic, a branding studio. Clarity. Over. Noise.",
 } as const;
 export const SITE_DESCRIPTION =
-  "Lumetic is a branding studio blending strategy and creative craft. We build brand identity systems, websites and online stores, motion, and Web3/AI development for forward-thinking companies.";
+  "Lumetic is a branding studio blending strategy and creative craft. We build brand identity systems, websites and online stores, motion, and AI systems and custom software for forward-thinking companies.";
 
 export const SITE_KEYWORDS = [
   "branding studio",
@@ -35,6 +35,11 @@ export const SITE_KEYWORDS = [
   "visual identity",
   "Web3 design",
   "AI development",
+  "AI systems",
+  "AI agents",
+  "AI automation",
+  "AI integration",
+  "custom software development",
   "Lumetic",
   "Lumetic Studio",
 ] as const;
@@ -61,9 +66,9 @@ export const SITE_SERVICES = [
       "Product visuals, animation, and launch content that bring your brand to life and help it sell on every channel.",
   },
   {
-    name: "Web3, AI & Dev Services",
+    name: "AI Systems & Custom Software",
     description:
-      "Web3, AI, and contracts: integration, deployment, and setup, from token-gated drops to AI shopping tools.",
+      "AI agents, automations, and custom software built around how you work, plus Web3 when it fits. We build it and keep it running.",
   },
 ] as const;
 

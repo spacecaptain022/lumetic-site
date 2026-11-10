@@ -12,13 +12,14 @@ const TIMELINE: Record<string, { solid: number; soft: number; format: string }> 
   "Launch Sprint": { solid: 0.5, soft: 0, format: "Sprint" },
   "Full Brand Build": { solid: 0.75, soft: 0.25, format: "Full build" },
   "Studio Partnership": { solid: 1, soft: 0, format: "Retainer" },
+  "Build & Run": { solid: 1, soft: 0, format: "Build + run" },
 };
 
 export default function Approach() {
   return (
     <section className="pb-24 md:pb-36">
       <div className="wrap">
-        <SectionHead title={["Three ways", "to work with us."]} tag="ENGAGEMENTS" note="Pick a starting point" />
+        <SectionHead title={["Four ways", "to work with us."]} tag="ENGAGEMENTS" note="Pick a starting point" />
 
         <div className="mt-10 md:mt-14">
           <div className="label hidden grid-cols-[1.5fr_0.7fr_1.4fr_auto] gap-8 pb-3 opacity-55 md:grid">

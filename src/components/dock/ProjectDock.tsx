@@ -20,6 +20,7 @@ const NO_SECTIONS: readonly string[] = [];
 const STARTERS = [
   "Launching soon, need a brand and a site",
   "Launching or redoing an online store",
+  "Building an AI tool or custom software",
   "Rebranding an existing company",
   "Ongoing design help for my team",
 ];

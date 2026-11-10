@@ -13,7 +13,9 @@ const DISCIPLINES: { label: string; glyph: GlyphName }[] = [
   { label: "Web design", glyph: "web" },
   { label: "E-commerce", glyph: "commerce" },
   { label: "Motion & content", glyph: "motion" },
-  { label: "Web3 & AI", glyph: "web3" },
+  { label: "AI systems", glyph: "chip" },
+  { label: "Custom software", glyph: "chip" },
+  { label: "Web3", glyph: "web3" },
   { label: "Brand systems", glyph: "brand" },
   { label: "Packaging", glyph: "commerce" },
 ];
