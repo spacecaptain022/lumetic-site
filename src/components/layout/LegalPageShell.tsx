@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Arrow } from "@/components/ui/BlockLink";
 
 type LegalPageShellProps = {
   title: string;
@@ -34,9 +35,10 @@ export default function LegalPageShell({ title, children }: LegalPageShellProps)
       <footer className="shrink-0 border-t border-foreground/[0.07] px-6 py-8 md:px-12">
         <Link
           href="/"
-          className="label text-foreground/55 hover:text-foreground transition-colors"
+          className="label inline-flex items-center gap-1.5 text-foreground/55 hover:text-foreground transition-colors"
         >
-          ← Back to Lumetic
+          <Arrow dir="left" />
+          Back to Lumetic
         </Link>
       </footer>
     </div>

@@ -245,7 +245,7 @@ export default function ProjectDock() {
           >
             <PixelGlyph name="spark" className="h-3.5 w-3.5 text-mauve" />
             {view === "chat" && messages.length > 0 ? "Continue your brief" : "Start a project"}
-            <span className="flex h-8 w-8 items-center justify-center rounded-[8px] bg-paper text-ink transition-transform duration-300 group-hover:-translate-y-0.5">
+            <span className="flex h-8 w-8 items-center justify-center rounded-[8px] bg-paper text-ink transition-transform duration-300 group-hover:translate-x-0.5">
               <Arrow />
             </span>
           </motion.button>

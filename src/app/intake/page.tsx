@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { m as motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Send } from "lucide-react";
+import { ChevronRight, Send } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -257,7 +257,7 @@ export default function IntakePage() {
                   >
                     {briefLoading ? "Generating..." : "Send my brief"}
                     {!briefLoading && (
-                      <ArrowRight size={13} strokeWidth={1.5} className="group-hover:translate-x-0.5 transition-transform" />
+                      <ChevronRight size={14} strokeWidth={1.75} className="group-hover:translate-x-0.5 transition-transform" />
                     )}
                   </button>
                 </form>
