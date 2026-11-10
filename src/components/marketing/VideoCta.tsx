@@ -20,17 +20,17 @@ export default function VideoCta() {
         <div aria-hidden className="absolute inset-0 bg-ink/55" />
 
         <Reveal className="relative px-5 py-24 text-center">
-          <h2 className="h-big mx-auto max-w-[9em]">Let&apos;s build something great.</h2>
+          <h2 className="h-big mx-auto max-w-[9em]">Imagine it. Lumetic builds it.</h2>
           <p className="lede mx-auto mt-6 max-w-[30rem] text-paper/75">
-            Curious how branding can elevate your business? Book a free consultation and discover how
-            Lumetic can grow your brand.
+            Describe the idea or the problem in a few lines. Lumetic shapes it into a plan and builds
+            the solution, whatever it turns out to be.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <BlockLink href="#contact" tone="paper">
               Start a project
             </BlockLink>
             <BlockLink href="mailto:hello@lumetic.io" tone="glass">
-              Email the studio
+              Email Lumetic
             </BlockLink>
           </div>
         </Reveal>

@@ -19,7 +19,7 @@ export default function Services() {
         <SectionHead title={["Four", "practices."]} tag="WHAT WE DO" note="Idea through launch" />
         <p className="lede mt-6 max-w-[36rem] text-ink/70">
           Every project starts with something you can picture but can&apos;t build yet. These are the
-          four ways we usually build it, combined however the problem needs.
+          four ways Lumetic usually builds it, combined however the problem needs.
         </p>
       </div>
 

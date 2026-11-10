@@ -96,8 +96,8 @@ export default function Contact() {
             <p className="label-mono mb-6">{"(    GET IN TOUCH    )"}</p>
             <h2 className="h-big max-w-[7em]">Start a project.</h2>
             <p className="lede mt-6 max-w-[26rem] text-ink/70">
-              Share your brand, timeline, and ambitions. We respond with clarity and a point of view,
-              not a template.
+              Share the idea, the problem, and your timeline. Lumetic responds with clarity and a point
+              of view, not a template.
             </p>
           </Reveal>
 
@@ -123,7 +123,7 @@ export default function Contact() {
               <p className="label mb-4 opacity-60">Received</p>
               <h3 className="h-big">Message sent.</h3>
               <p className="lede mt-5 max-w-[26rem] text-ink/70">
-                Thanks for reaching out. We&apos;ll review your note and respond within one business day.
+                Thanks for reaching out. Lumetic will review your note and respond within one business day.
               </p>
             </div>
           ) : (
@@ -195,7 +195,7 @@ export default function Contact() {
                   required
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Tell us about your project, goals, and timeline..."
+                  placeholder="Describe the project, the problem, and your timeline..."
                   aria-invalid={Boolean(errors.message)}
                   aria-describedby={errors.message ? "message-error" : undefined}
                   className={`${inputCls} h-auto resize-y py-3`}
@@ -210,7 +210,7 @@ export default function Contact() {
 
               <div className="flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <p className="max-w-[20rem] text-[0.82rem] leading-snug text-ink/60">
-                  By sending this form you agree we may store your details to respond to your inquiry.
+                  By sending this form you agree Lumetic may store your details to respond to your inquiry.
                 </p>
                 <button
                   type="submit"

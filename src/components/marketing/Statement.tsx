@@ -5,7 +5,7 @@ import { m as motion, useReducedMotion, useScroll, useTransform, type MotionValu
 import PixelGlyph, { type GlyphName } from "@/components/ui/PixelGlyph";
 
 const TEXT =
-  "Whatever you can imagine, we build. Bring us the idea or the problem, and we bring the solution to light.";
+  "You imagine it. Lumetic builds it. Bring any idea or problem, and the solution comes to light, then runs on its own.";
 
 const DISCIPLINES: { label: string; glyph: GlyphName }[] = [
   { label: "Brand identity", glyph: "brand" },
@@ -13,7 +13,7 @@ const DISCIPLINES: { label: string; glyph: GlyphName }[] = [
   { label: "Web design", glyph: "web" },
   { label: "E-commerce", glyph: "commerce" },
   { label: "Motion & content", glyph: "motion" },
-  { label: "AI systems", glyph: "chip" },
+  { label: "Agentic systems", glyph: "chip" },
   { label: "Custom software", glyph: "chip" },
   { label: "Web3", glyph: "web3" },
   { label: "Autonomous systems", glyph: "chip" },

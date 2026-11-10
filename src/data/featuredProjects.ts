@@ -41,10 +41,10 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     slug: "web3-ai-dev-services",
-    title: "AI Systems & Custom Software",
+    title: "Autonomous Systems & Software",
     excerpt:
-      "AI agents, automations, and custom software built around how you work, plus Web3 when it fits. We build it and keep it running.",
-    categories: ["AI", "Software", "Web3"],
+      "Agents, automations, and custom software built around how you work, plus Web3 when it fits. Lumetic builds it, then keeps it running.",
+    categories: ["Autonomous", "Software", "Web3"],
     image: "/gallery/web3-ai-dev.png",
     aspect: "16x9",
     column: "left",
