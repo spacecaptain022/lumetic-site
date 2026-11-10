@@ -32,13 +32,13 @@ export const exploreServices = [
     tags: ["MOTION", "CONTENT", "VISUAL"],
   },
   {
-    title: "Web3, AI & Dev Services",
-    titleLines: ["WEB3", "AI DEV", "SERVICES"] as const,
+    title: "Autonomous Systems & Software",
+    titleLines: ["AUTONOMOUS", "SYSTEMS &", "SOFTWARE"] as const,
     description:
-      "Web3, AI, and contracts: integration, deployment, and setup, from token-gated drops to AI shopping tools.",
+      "Agents, automations, and custom software built around how you work, plus Web3 when it fits. Lumetic builds it, then keeps it running.",
     image: "/card-4-graphic.webp",
     exp: "EXP 001",
     year: "2026",
-    tags: ["WEB3", "AI", "DEV"],
+    tags: ["AUTONOMOUS", "SOFTWARE", "WEB3"],
   },
 ] as const;

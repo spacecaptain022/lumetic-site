@@ -41,7 +41,7 @@ export default function Hero() {
 
         <div className="relative grid grid-cols-1 items-end gap-6 px-4 pb-4 md:px-8 md:pb-8 xl:grid-cols-12">
           <h1 className="h-hero xl:col-span-8">
-            <span className="sr-only">Lumetic, a branding studio. </span>
+            <span className="sr-only">Lumetic builds whatever you can imagine. </span>
             {/* Each line's mask leaves room below for descenders (the y in Clarity); the negative margin cancels it. */}
             {LINES.map((line, i) => (
               <span key={line} className="block overflow-clip pb-[0.24em] -mb-[0.24em]">
@@ -66,7 +66,7 @@ export default function Hero() {
             className="group flex w-full items-stretch gap-2 justify-self-start rounded-[12px] bg-ink/55 p-2 backdrop-blur-xl transition-colors duration-300 hover:bg-ink/75 md:max-w-[26rem] xl:col-span-4 xl:max-w-[24rem] xl:justify-self-end"
           >
             <span className="flex flex-1 flex-col justify-between gap-6 p-2.5">
-              <span className="label opacity-70">Studio status</span>
+              <span className="label opacity-70">Status</span>
               <span className="text-[1.05rem] font-medium leading-snug">
                 Taking on a small number of projects each quarter.
                 <span className="mt-2 flex items-center gap-1.5 text-[0.85rem] text-paper/70 group-hover:text-paper">

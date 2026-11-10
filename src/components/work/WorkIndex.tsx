@@ -58,7 +58,7 @@ export default function WorkIndex() {
     <section className="wrap pb-20 pt-[calc(var(--nav-h)+2.5rem)] md:pb-32 md:pt-[calc(var(--nav-h)+4rem)]">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-8">
         <p className="label md:col-span-3">Work / {catalogProjects.length} projects</p>
-        <h1 className="h-big md:col-span-9">Brand systems built to lead.</h1>
+        <h1 className="h-big md:col-span-9">Ideas, brought to light.</h1>
       </div>
 
       <div className="sticky top-0 z-20 -mx-[var(--gutter)] mt-12 border-b bg-paper/92 px-[var(--gutter)] py-3 backdrop-blur-md md:mt-16">

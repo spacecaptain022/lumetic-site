@@ -20,6 +20,7 @@ const NO_SECTIONS: readonly string[] = [];
 const STARTERS = [
   "Launching soon, need a brand and a site",
   "Launching or redoing an online store",
+  "Automating part of my business",
   "Rebranding an existing company",
   "Ongoing design help for my team",
 ];
@@ -30,11 +31,11 @@ const SECTION_CONTEXT: Record<string, { prompt: string; context: string }> = {
   work: { prompt: "Something like your work, for my brand", context: "the Selected work section" },
   system: { prompt: "Something like your work, for my brand", context: "the From strategy to system section" },
   approach: { prompt: "Which engagement fits my project?", context: "the Engagements section" },
-  faq: { prompt: "I have a question before we start", context: "the FAQ" },
+  faq: { prompt: "I have a question first", context: "the FAQ" },
 };
 
 const GREETING =
-  "Hi, I'm the Lumetic Assistant. Tell me what you're working on and I'll shape it into a brief for the team.";
+  "Hi, I'm the Lumetic Assistant. Tell me what you're imagining and I'll shape it into a brief.";
 
 function loadSaved(): Saved | null {
   try {
@@ -319,7 +320,7 @@ export default function ProjectDock() {
                   <div>
                     <p className="text-[1.45rem] font-semibold leading-tight tracking-[-0.025em]">What are you working on?</p>
                     <p className="mt-2 text-[0.92rem] leading-snug text-paper/60">
-                      Chat for a minute and the assistant turns it into a brief. The studio replies within one business day.
+                      Chat for a minute and the assistant turns it into a brief. Lumetic replies within one business day.
                     </p>
                   </div>
                   <ul className="flex flex-col gap-2">
@@ -379,7 +380,7 @@ export default function ProjectDock() {
                   <PixelGlyph name="spark" className="h-8 w-8 text-mauve" />
                   <p className="text-[1.45rem] font-semibold leading-tight tracking-[-0.025em]">Brief sent.</p>
                   <p className="text-[0.95rem] leading-snug text-paper/65">
-                    The studio will reply to {sentTo || "you"} within one business day. Keep an eye on your inbox.
+                    Lumetic will reply to {sentTo || "you"} within one business day. Keep an eye on your inbox.
                   </p>
                 </div>
               )}
@@ -391,7 +392,7 @@ export default function ProjectDock() {
               <div className="border-t border-paper/10 p-3">
                 {showSend ? (
                   <form onSubmit={sendBrief} className="flex flex-col gap-2">
-                    <p className="px-1 text-[0.88rem] text-paper/65">Where should the studio reply?</p>
+                    <p className="px-1 text-[0.88rem] text-paper/65">Where should Lumetic reply?</p>
                     <div className="grid grid-cols-2 gap-2">
                       <label className="sr-only" htmlFor="dock-name">Name</label>
                       <input id="dock-name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" autoComplete="name" required className={fieldCls} />

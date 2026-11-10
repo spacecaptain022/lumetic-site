@@ -154,7 +154,7 @@ export default function ResolveTool() {
           <p className="label-mono mb-6">{"(    RESOLVE YOUR BRAND    )"}</p>
           <h1 className="h-big max-w-[8em]">Your name, out of the noise.</h1>
           <p className="lede mt-6 max-w-[26rem] text-ink/70">
-            Type your company or project name and watch it come into focus. Then we&apos;ll send you
+            Type your company or project name and watch it come into focus. Then Lumetic sends you
             the full-size image.
           </p>
         </div>
@@ -251,7 +251,7 @@ export default function ResolveTool() {
                   </button>
                 </div>
                 <p className="text-[0.8rem] leading-snug text-ink/55">
-                  We&apos;ll email your image and the occasional studio note. Unsubscribe any time.
+                  Lumetic will email your image and the occasional note. Unsubscribe any time.
                 </p>
               </form>
             )}

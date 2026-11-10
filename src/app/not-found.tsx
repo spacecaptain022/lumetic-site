@@ -10,7 +10,7 @@ export default function NotFound() {
         <p className="label">404</p>
         <h1 className="h-big mt-4 max-w-[8em]">This page isn&apos;t here.</h1>
         <p className="lede mt-6 max-w-[30rem]">
-          It may have moved. Head back to explore our work and services.
+          It may have moved. Head back to explore Lumetic&apos;s work and services.
         </p>
         <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
           <BlockLink href="/">Back to home</BlockLink>

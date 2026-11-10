@@ -5,7 +5,7 @@ import { m as motion, useReducedMotion, useScroll, useTransform, type MotionValu
 import PixelGlyph, { type GlyphName } from "@/components/ui/PixelGlyph";
 
 const TEXT =
-  "Lumetic is a branding studio blending strategy and creative craft to build identities that lead, not follow.";
+  "You imagine it. Lumetic builds it. Bring any idea or problem, and the solution comes to light, then runs on its own.";
 
 const DISCIPLINES: { label: string; glyph: GlyphName }[] = [
   { label: "Brand identity", glyph: "brand" },
@@ -13,8 +13,10 @@ const DISCIPLINES: { label: string; glyph: GlyphName }[] = [
   { label: "Web design", glyph: "web" },
   { label: "E-commerce", glyph: "commerce" },
   { label: "Motion & content", glyph: "motion" },
-  { label: "Web3 & AI", glyph: "web3" },
-  { label: "Brand systems", glyph: "brand" },
+  { label: "Agentic systems", glyph: "chip" },
+  { label: "Custom software", glyph: "chip" },
+  { label: "Web3", glyph: "web3" },
+  { label: "Autonomous systems", glyph: "chip" },
   { label: "Packaging", glyph: "commerce" },
 ];
 

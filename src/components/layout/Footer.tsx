@@ -18,8 +18,8 @@ export default function Footer() {
         <div className="flex flex-col justify-between gap-10">
           <Mark className="h-24 w-auto self-start md:h-32" />
           <p className="max-w-[26rem] text-[0.95rem] leading-[1.5] text-paper/70">
-            Lumetic is a branding studio and venture firm for the forward-thinking. We build brand
-            identity systems, websites and online stores, motion, and Web3 and AI tools that lead, not follow.
+            Lumetic is an autonomous, agentic builder and venture firm. Whatever you can imagine, it
+            builds: brands, websites and online stores, motion, custom software, and systems that run on their own.
           </p>
         </div>
 

@@ -133,7 +133,7 @@ export default function IntakePage() {
             Brief sent.
           </h1>
           <p className="font-sans text-foreground/65 text-sm leading-relaxed mb-10">
-            Your intake brief has been delivered to the Lumetic team. We&apos;ll be in touch within 24 hours.
+            Your intake brief has been delivered. Lumetic will be in touch within 24 hours.
           </p>
           <Link
             href="/"
@@ -221,7 +221,7 @@ export default function IntakePage() {
                   Ready to generate your brief
                 </p>
                 <p className="font-sans text-sm text-foreground/55 leading-relaxed mb-6">
-                  Enter your email and we&apos;ll compile your brief and send it to the Lumetic team. Expect to hear from us within 24 hours.
+                  Enter your email and Lumetic will compile your brief. Expect a reply within 24 hours.
                 </p>
                 <form
                   onSubmit={generateBrief}

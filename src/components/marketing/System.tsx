@@ -108,11 +108,11 @@ export default function System() {
       <div className="wrap pb-24 pt-8 text-center md:pb-36 md:pt-14">
         <Reveal>
           <p className="mx-auto max-w-[26em] text-[clamp(1.35rem,2.2vw,2.1rem)] font-semibold leading-[1.15] tracking-[-0.025em]">
-            From strategy to system, our team transforms clarity into expression, distilling bold ideas
-            into brand systems that scale with intention.
+            From the first idea to a system that runs on its own, Lumetic turns what you imagine into something
+            real, clear, and built to last.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <BlockLink href="#approach">Our approach</BlockLink>
+            <BlockLink href="#approach">How it works</BlockLink>
             <BlockLink href="/work" tone="outline">
               All work
             </BlockLink>

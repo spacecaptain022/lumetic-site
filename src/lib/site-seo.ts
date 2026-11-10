@@ -6,20 +6,23 @@ export const SITE_NAME = "Lumetic";
 export const SITE_TAGLINE = "Clarity over noise.";
 
 /** Short copy for link previews (Open Graph, X), which crop anything long. */
-export const SHARE_TITLE = `${SITE_NAME} · Branding Studio`;
-export const SHARE_DESCRIPTION = "Brand identity, web and e-commerce, motion, and Web3 & AI for forward-thinking companies.";
+export const SHARE_TITLE = `${SITE_NAME} · Build what you imagine`;
+export const SHARE_DESCRIPTION = "Whatever you can imagine, Lumetic builds. Brands, websites, software, and autonomous systems that run on their own.";
 
 /** 1200×630 share card. Child pages that set their own openGraph must include it again. */
 export const OG_IMAGE = {
   url: "/og-image.jpg",
   width: 1200,
   height: 630,
-  alt: "Lumetic, a branding studio. Clarity. Over. Noise.",
+  alt: "Lumetic. Whatever you can imagine, Lumetic builds. Clarity. Over. Noise.",
 } as const;
 export const SITE_DESCRIPTION =
-  "Lumetic is a branding studio blending strategy and creative craft. We build brand identity systems, websites and online stores, motion, and Web3/AI development for forward-thinking companies.";
+  "Lumetic is an autonomous, agentic builder. Bring it the idea or the problem, and it designs and builds the solution: brands, websites and online stores, motion, custom software, and systems that run on their own.";
 
 export const SITE_KEYWORDS = [
+  "design and build studio",
+  "custom solutions",
+  "autonomous systems",
   "branding studio",
   "brand identity",
   "brand strategy",
@@ -34,7 +37,11 @@ export const SITE_KEYWORDS = [
   "motion design",
   "visual identity",
   "Web3 design",
-  "AI development",
+  "agentic systems",
+  "autonomous agents",
+  "business automation",
+  "workflow automation",
+  "custom software development",
   "Lumetic",
   "Lumetic Studio",
 ] as const;
@@ -61,9 +68,9 @@ export const SITE_SERVICES = [
       "Product visuals, animation, and launch content that bring your brand to life and help it sell on every channel.",
   },
   {
-    name: "Web3, AI & Dev Services",
+    name: "Autonomous Systems & Software",
     description:
-      "Web3, AI, and contracts: integration, deployment, and setup, from token-gated drops to AI shopping tools.",
+      "Agents, automations, and custom software built around how you work, plus Web3 when it fits. Lumetic builds it, then keeps it running.",
   },
 ] as const;
 
@@ -73,7 +80,7 @@ export const SITE_FACTS = {
   industriesServed: "6+",
   bespokeWork: "100%",
   positioning:
-    "A studio of strategists and designers bringing distinctive brand systems to life through clarity, craft, and intentional design.",
+    "An autonomous, agentic builder that turns ideas into working things, from the first sketch to systems that run on their own.",
 } as const;
 
 export function organizationJsonLd() {
@@ -163,7 +170,7 @@ ${SITE_SERVICES.map((service) => `- **${service.name}**: ${service.description}`
 
 ## Facts
 - Founded: ${SITE_FACTS.founded}
-- Brand systems delivered: ${SITE_FACTS.brandSystemsDelivered}
+- Projects delivered: ${SITE_FACTS.brandSystemsDelivered}
 - Industries served: ${SITE_FACTS.industriesServed}
 - Client work: ${SITE_FACTS.bespokeWork} bespoke
 

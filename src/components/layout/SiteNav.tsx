@@ -11,10 +11,10 @@ import { useActiveSection } from "@/lib/useActiveSection";
 
 /** The centre of the pill names where you are. */
 const SECTION_LABELS: Record<string, string> = {
-  studio: "The studio",
+  studio: "What is Lumetic",
   work: "Selected work",
   services: "Four practices",
-  system: "From strategy to system",
+  system: "From idea to system",
   about: "Lumetic today",
   approach: "Engagements",
   faq: "Questions",
