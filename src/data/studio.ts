@@ -1,7 +1,7 @@
 /** Studio facts, engagement models and FAQ. One source for the page and the structured data. */
 
 export const STATS = [
-  { label: "Brand systems delivered", value: "30+" },
+  { label: "Projects delivered", value: "30+" },
   { label: "Year founded", value: "2025" },
   { label: "Industries served", value: "6+" },
   { label: "Bespoke client work", value: "100%" },
@@ -37,11 +37,11 @@ export const ENGAGEMENTS = [
 export const FAQ = [
   {
     q: "What is Lumetic?",
-    a: "Lumetic is a branding studio that blends strategy and creative craft to build brand identity systems, websites and online stores, motion, and AI systems and custom software for forward-thinking companies.",
+    a: "Lumetic builds whatever you can imagine. Bring us an idea or a problem and we design and build the solution, whether that is a brand, a website or online store, motion and content, custom software, or an AI system that runs on its own.",
   },
   {
-    q: "What services does Lumetic offer?",
-    a: "Brand Identity & Strategy, Web Design & E-commerce, Motion & Visual Content, and AI Systems & Custom Software.",
+    q: "What can Lumetic build?",
+    a: "Anything you can picture. Most projects draw on four practices: Brand Identity & Strategy, Web Design & E-commerce, Motion & Visual Content, and AI Systems & Custom Software. We combine them however the problem needs.",
   },
   {
     q: "Do you build online stores?",

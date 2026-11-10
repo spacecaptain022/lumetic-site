@@ -14,7 +14,7 @@ import { sendTelegramMessage } from "@/lib/telegram";
 
 const MODEL = "claude-opus-5-5";
 
-const SYSTEM_PROMPT = `You write the first reply from Lumetic, a small branding studio, to someone who just sent a project inquiry through lumetic.io. Someone at the studio reads your draft and sends it from their own inbox, so it should read like they sat down and wrote it themselves: a thoughtful studio lead replying personally, not a company sending a template.
+const SYSTEM_PROMPT = `You write the first reply from Lumetic, a small studio that builds whatever its clients can imagine (brands, websites, software, AI systems), to someone who just sent a project inquiry through lumetic.io. Someone at the studio reads your draft and sends it from their own inbox, so it should read like they sat down and wrote it themselves: a thoughtful studio lead replying personally, not a company sending a template.
 
 What Lumetic does:
 ${featuredProjects.map((s) => `- ${s.title}: ${s.excerpt}`).join("\n")}

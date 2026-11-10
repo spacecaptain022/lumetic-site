@@ -6,13 +6,13 @@ import WorkIndex from "@/components/work/WorkIndex";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/site-seo";
 
 export const metadata: Metadata = {
-  title: "Work: Brand Systems & Digital Projects",
+  title: "Work: Brands, Websites & Systems",
   description:
-    "Explore Lumetic brand identity systems, web design, motion, and digital work for forward-thinking companies.",
+    "Brands, websites, motion, and systems Lumetic has imagined and built with its clients.",
   alternates: { canonical: `${SITE_URL}/work` },
   openGraph: {
     title: `Work | ${SITE_NAME}`,
-    description: "Brand systems, websites and motion work by Lumetic.",
+    description: "Brands, websites, motion, and systems built by Lumetic.",
     url: `${SITE_URL}/work`,
     images: [OG_IMAGE],
   },
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@LumeticStudio",
     title: `Work | ${SITE_NAME}`,
-    description: "Brand systems, websites and motion work by Lumetic.",
+    description: "Brands, websites, motion, and systems built by Lumetic.",
     images: [OG_IMAGE.url],
   },
 };

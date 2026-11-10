@@ -16,10 +16,10 @@ export default function Services() {
   return (
     <section className="pb-24 md:pb-36">
       <div className="wrap">
-        <SectionHead title={["Four", "practices."]} tag="WHAT WE DO" note="Strategy through launch" />
+        <SectionHead title={["Four", "practices."]} tag="WHAT WE DO" note="Idea through launch" />
         <p className="lede mt-6 max-w-[36rem] text-ink/70">
-          Brands thrive by forging deeper connections with their audience. What we create matters, but
-          what we make possible matters more.
+          Every project starts with something you can picture but can&apos;t build yet. These are the
+          four ways we usually build it, combined however the problem needs.
         </p>
       </div>
 

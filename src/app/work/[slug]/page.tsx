@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!project) return {};
 
   const title = `${project.title} · ${project.category}`;
-  const description = `${project.description} Brand and design work by Lumetic Studio.`;
+  const description = `${project.description} Built by Lumetic.`;
 
   return {
     title,

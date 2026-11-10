@@ -12,7 +12,7 @@ export default function About() {
             <div className="flex items-start gap-4">
               <p className="text-[clamp(3.5rem,5vw,5rem)] font-semibold leading-none tracking-[-0.045em]">30+</p>
               <p className="mt-1 max-w-[12rem] text-[0.9rem] leading-snug text-paper/70">
-                Brand systems delivered for forward-thinking companies.
+                Projects delivered for people building what comes next.
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -23,15 +23,15 @@ export default function About() {
 
           <div className="flex min-h-[22rem] flex-col justify-between rounded-[16px] bg-card p-6 sm:col-span-1 lg:col-span-1 lg:aspect-[3/4]">
             <p className="text-[clamp(1.25rem,1.6vw,1.55rem)] font-semibold leading-[1.2] tracking-[-0.02em]">
-              We&apos;re a studio of strategists and designers bringing distinctive brand systems to life
-              through clarity, craft, and intentional design.
+              We&apos;re builders, designers, and engineers. If you can imagine it, we can build it, from
+              the first sketch to systems that run on their own.
             </p>
             <p className="label opacity-60">Lumetic Studio</p>
           </div>
 
           {[
             { value: "6+", label: "Industries served", note: "From Web3 and AI to consumer goods and e-commerce." },
-            { value: "100%", label: "Bespoke client work", note: "No templates. Every system built for one brand." },
+            { value: "100%", label: "Bespoke client work", note: "No templates. Everything built for one client and one problem." },
           ].map((stat) => (
             <div key={stat.label} className="flex min-h-[22rem] flex-col justify-between rounded-[16px] bg-card p-6 lg:aspect-[3/4]">
               <p className="label opacity-60">{stat.label}</p>

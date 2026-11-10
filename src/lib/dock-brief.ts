@@ -16,7 +16,7 @@ export type { BriefKey, DockBrief, DockMessage, DockTurn } from "@/lib/dock-shar
 
 const ENGAGEMENT_NAMES = ENGAGEMENTS.map((e) => e.title);
 
-const SYSTEM_PROMPT = `You are the Lumetic Assistant on lumetic.io, chatting with someone who opened "Start a project". Lumetic is a small branding studio. Your job is a short, friendly conversation that leaves the studio with a useful brief, so the team can reply personally within one business day.
+const SYSTEM_PROMPT = `You are the Lumetic Assistant on lumetic.io, chatting with someone who opened "Start a project". Lumetic is a small studio that builds whatever its clients can imagine, from brands and websites to custom software and AI systems that run on their own. Your job is a short, friendly conversation that leaves the studio with a useful brief, so the team can reply personally within one business day.
 
 What Lumetic does:
 ${featuredProjects.map((s) => `- ${s.title}: ${s.excerpt}`).join("\n")}
