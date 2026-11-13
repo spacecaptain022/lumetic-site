@@ -19,10 +19,6 @@ export default function PayPage() {
             <div className="flex flex-col gap-6 lg:col-span-5">
               <p className="label-mono">{"(    PAYMENTS    )"}</p>
               <h1 className="h-big max-w-[7em]">Make a payment.</h1>
-              <p className="lede max-w-[26rem] text-ink/70">
-                Pay the amount we agreed on for your project. You&apos;ll get a receipt by email, and we&apos;re
-                notified the moment it goes through.
-              </p>
               <p className="max-w-[26rem] text-[0.92rem] text-ink/60">
                 Have a question about an amount?{" "}
                 <a href="mailto:hello@lumetic.io" className="link-line font-medium text-ink">
