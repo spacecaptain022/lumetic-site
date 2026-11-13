@@ -10,12 +10,10 @@ export default function manifest(): MetadataRoute.Manifest {
     display: "standalone",
     background_color: "#ffffff",
     theme_color: "#111111",
+    // The pink app icon. Favicon, tab and Apple icons come from src/app/{favicon.ico,icon.png,apple-icon.png}.
     icons: [
-      {
-        src: "/Lumetic logo black no text.png",
-        sizes: "512x512",
-        type: "image/png",
-      },
+      { src: "/icon.png", sizes: "512x512", type: "image/png", purpose: "any" },
+      { src: "/icon-maskable.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
   };
 }
