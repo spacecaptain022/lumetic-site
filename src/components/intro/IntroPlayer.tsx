@@ -18,7 +18,7 @@ const RESOLVE_END = LEAD_MS + STEPS.length * STEP_MS;
 const PAPER = "245 244 240";
 
 /** The mark's height in CSS pixels. */
-const markHeight = () => Math.min(window.innerHeight * 0.28, window.innerWidth * 0.4);
+const markHeight = () => Math.min(window.innerHeight * 0.2, window.innerWidth * 0.3);
 
 /** Rasterises the mark once, then makes an area-averaged mosaic for each step. */
 async function buildMosaics(): Promise<{ sharp: HTMLCanvasElement; steps: Map<number, HTMLCanvasElement> }> {
