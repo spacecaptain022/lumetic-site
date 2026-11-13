@@ -12,10 +12,10 @@ import Statement from "@/components/marketing/Statement";
 import System from "@/components/marketing/System";
 import VideoCta from "@/components/marketing/VideoCta";
 import Work from "@/components/marketing/Work";
-import { OG_IMAGE, SHARE_DESCRIPTION, SHARE_TITLE, SITE_DESCRIPTION, SITE_TAGLINE, SITE_URL } from "@/lib/site-seo";
+import { HOME_TITLE, OG_IMAGE, SHARE_DESCRIPTION, SHARE_TITLE, SITE_DESCRIPTION, SITE_URL, faqJsonLd } from "@/lib/site-seo";
 
 export const metadata: Metadata = {
-  title: `${SHARE_TITLE} | ${SITE_TAGLINE}`,
+  title: { absolute: HOME_TITLE },
   description: SITE_DESCRIPTION,
   alternates: { canonical: SITE_URL },
   openGraph: {
@@ -52,6 +52,7 @@ export default function Home() {
           <Approach />
         </div>
         <div id="faq">
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd()) }} />
           <Faq />
         </div>
         <VideoCta />

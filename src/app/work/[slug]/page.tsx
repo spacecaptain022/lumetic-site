@@ -9,7 +9,7 @@ import ResolveImage from "@/components/ui/ResolveImage";
 import { exploreServices } from "@/data/exploreServices";
 import { contactHref } from "@/lib/contact-prefill";
 import { allWorkProjects, getAllWorkSlugs, getWorkProject, projectImageAlt } from "@/lib/projects";
-import { SITE_NAME, SITE_URL } from "@/lib/site-seo";
+import { SITE_NAME, SITE_URL, breadcrumbJsonLd } from "@/lib/site-seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -35,7 +35,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `${SITE_URL}/work/${slug}`,
       images: [{ url: project.image, alt: projectImageAlt(project) }],
     },
-    twitter: { card: "summary_large_image", site: "@LumeticStudio", images: [project.image] },
+    twitter: {
+      card: "summary_large_image",
+      site: "@LumeticStudio",
+      title: `${title} | ${SITE_NAME}`,
+      description: project.description,
+      images: [project.image],
+    },
   };
 }
 
@@ -68,11 +74,18 @@ export default async function WorkProjectPage({ params }: Props) {
     url: `${SITE_URL}/work/${slug}`,
   };
 
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: "Home", path: "" },
+    { name: "Work", path: "/work" },
+    { name: project.title, path: `/work/${slug}` },
+  ]);
+
   return (
     <>
       <SiteNav />
       <main id="main" className="bg-paper">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
 
         <article className="wrap pb-20 pt-[calc(var(--nav-h)+2rem)] md:pb-28 md:pt-[calc(var(--nav-h)+3rem)]">
           <nav aria-label="Breadcrumb" className="label flex items-center gap-2 opacity-70">

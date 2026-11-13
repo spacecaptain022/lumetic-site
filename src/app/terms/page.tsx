@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import LegalPageShell from "@/components/layout/LegalPageShell";
+import { SITE_URL } from "@/lib/site-seo";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Lumetic",
+  title: "Terms of Service",
   description: "Terms governing use of the Lumetic website and services.",
+  alternates: { canonical: `${SITE_URL}/terms` },
 };
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {

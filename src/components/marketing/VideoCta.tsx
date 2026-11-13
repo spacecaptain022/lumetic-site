@@ -14,7 +14,8 @@ export default function VideoCta() {
             { src: "/services-cta.webm", type: "video/webm" },
             { src: "/services-cta.mp4", type: "video/mp4" },
           ]}
-          poster="/services-cta.png"
+          poster="/services-cta-poster.webp"
+          lazy
           label="Lumetic motion study"
         />
         <div aria-hidden className="absolute inset-0 bg-ink/55" />
