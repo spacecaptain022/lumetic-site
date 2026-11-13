@@ -41,13 +41,14 @@ Lumetic bills by invoice: projects are scoped on a call, then invoices are sent 
 
 - `src/lib/stripe.ts`: server-only Stripe client (API version `2026-09-30.endive`).
 - `src/app/api/stripe/webhook/route.ts`: verifies the Stripe signature, then sends a Telegram message and an email to Lumetic.io@gmail.com for `invoice.paid`, `invoice.payment_failed`, `invoice.overdue`, `charge.refunded` and `charge.dispute.created`. It returns 500 (so Stripe retries) if neither channel succeeds.
+- `src/app/pay` + `src/app/api/checkout/route.ts`: the "Make a payment" page (linked in the footer). The client picks a service, enters the agreed amount ($50–$25,000) and a project reference, and pays on Stripe Checkout. Payment methods come from the Dashboard; automatic tax is off until there's a tax registration. The webhook also handles `checkout.session.completed`, `checkout.session.async_payment_succeeded` and `checkout.session.async_payment_failed`.
 - `scripts/stripe-catalog.mjs`: creates one Product per service line. Invoices set their own amount, so products have no fixed price.
 
 Environment variables (`.env.local` locally, sensitive variables in Vercel for production):
 
 | Variable | Local | Production |
 | --- | --- | --- |
-| `STRIPE_SECRET_KEY` | sandbox `sk_test_` / `rk_test_` | live restricted key `rk_live_` |
+| `STRIPE_SECRET_KEY` | sandbox `sk_test_` / `rk_test_` | live restricted key `rk_live_` (Products: write, Checkout Sessions: write) |
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | `pk_test_` | `pk_live_` (not used by the site yet) |
 | `STRIPE_WEBHOOK_SECRET` | from `stripe listen --print-secret` | from the live webhook endpoint `https://www.lumetic.io/api/stripe/webhook` (use www: Stripe does not follow the lumetic.io redirect) |
 

@@ -45,6 +45,10 @@ export default function Footer() {
             <a href="https://x.com/LumeticStudio" target="_blank" rel="noopener noreferrer" className="hover:text-paper">
               X / @LumeticStudio
             </a>
+            <Link href="/pay" className="hover:text-paper">
+              Make a payment
+            </Link>
+            <span aria-hidden />
             <Link href="/privacy" className="hover:text-paper">
               Privacy
             </Link>

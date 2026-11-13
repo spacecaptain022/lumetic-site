@@ -15,7 +15,7 @@
     "resend:catchup": "node scripts/resend-catchup.mjs",
     "resend:health": "node scripts/resend-health.mjs",
     "stripe:catalog": "node --env-file=.env.local scripts/stripe-catalog.mjs",
-    "stripe:listen": "stripe listen --forward-to localhost:3000/api/stripe/webhook --events invoice.paid,invoice.payment_failed,invoice.overdue,charge.refunded,charge.dispute.created"
+    "stripe:listen": "stripe listen --forward-to localhost:3000/api/stripe/webhook --events invoice.paid,invoice.payment_failed,invoice.overdue,charge.refunded,charge.dispute.created,checkout.session.completed,checkout.session.async_payment_succeeded,checkout.session.async_payment_failed"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",
