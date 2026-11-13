@@ -57,10 +57,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: "/Lumetic logo black no text.png",
-    apple: "/Lumetic logo black no text.png",
-  },
   openGraph: {
     title: SHARE_TITLE,
     description: SHARE_DESCRIPTION,
