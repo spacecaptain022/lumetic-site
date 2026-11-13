@@ -49,7 +49,7 @@ Environment variables (`.env.local` locally, sensitive variables in Vercel for p
 | --- | --- | --- |
 | `STRIPE_SECRET_KEY` | sandbox `sk_test_` / `rk_test_` | live restricted key `rk_live_` |
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | `pk_test_` | `pk_live_` (not used by the site yet) |
-| `STRIPE_WEBHOOK_SECRET` | from `stripe listen --print-secret` | from the live webhook endpoint in the Dashboard |
+| `STRIPE_WEBHOOK_SECRET` | from `stripe listen --print-secret` | from the live webhook endpoint `https://www.lumetic.io/api/stripe/webhook` (use www: Stripe does not follow the lumetic.io redirect) |
 
 Local testing:
 
