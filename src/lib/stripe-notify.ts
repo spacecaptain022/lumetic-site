@@ -17,6 +17,9 @@ export const HANDLED_STRIPE_EVENTS = [
   "invoice.overdue",
   "charge.refunded",
   "charge.dispute.created",
+  "checkout.session.completed",
+  "checkout.session.async_payment_succeeded",
+  "checkout.session.async_payment_failed",
 ] as const;
 
 export type HandledStripeEvent = (typeof HANDLED_STRIPE_EVENTS)[number];
@@ -97,9 +100,42 @@ export function describeStripeEvent(event: Stripe.Event): StripeNotice | null {
         link: { label: "Respond in Stripe", url: dashboardUrl(`disputes/${dispute.id}`, event.livemode) },
       };
     }
+    case "checkout.session.completed":
+    case "checkout.session.async_payment_succeeded":
+    case "checkout.session.async_payment_failed": {
+      const session = event.data.object;
+      // A completed session can still be unpaid (bank debits clear days later). Only
+      // announce money once it's paid; the async events report the final outcome.
+      if (event.type === "checkout.session.completed" && session.payment_status === "unpaid") {
+        return {
+          title: `🕒 Website payment started, waiting to clear: ${formatStripeAmount(session.amount_total ?? 0, session.currency ?? "usd")}${mode}`,
+          rows: checkoutRows(session),
+          link: paymentLink(session, event.livemode),
+        };
+      }
+      const failed = event.type === "checkout.session.async_payment_failed";
+      return {
+        title: `${failed ? "⚠️ Website payment failed" : "💳 Website payment received"}: ${formatStripeAmount(session.amount_total ?? 0, session.currency ?? "usd")}${mode}`,
+        rows: checkoutRows(session),
+        link: paymentLink(session, event.livemode),
+      };
+    }
     default:
       return null;
   }
+}
+
+function checkoutRows(session: Stripe.Checkout.Session): [string, string][] {
+  return [
+    ["Client", customerLabel(session.customer_details?.name, session.customer_details?.email ?? session.customer_email)],
+    ["Service", session.metadata?.lumetic_service ?? "—"],
+    ["Project", session.metadata?.project ?? "—"],
+  ];
+}
+
+function paymentLink(session: Stripe.Checkout.Session, livemode: boolean): StripeNotice["link"] {
+  const pi = typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id;
+  return pi ? { label: "Open in Stripe", url: dashboardUrl(`payments/${pi}`, livemode) } : undefined;
 }
 
 export function formatNoticeText(notice: StripeNotice): string {
