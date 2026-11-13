@@ -34,3 +34,27 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Stripe (invoices + payment alerts)
+
+Lumetic bills by invoice: projects are scoped on a call, then invoices are sent from the Stripe Dashboard and paid on Stripe's hosted invoice page. The site only listens for what happens next.
+
+- `src/lib/stripe.ts`: server-only Stripe client (API version `2026-09-30.endive`).
+- `src/app/api/stripe/webhook/route.ts`: verifies the Stripe signature, then sends a Telegram message and an email to Lumetic.io@gmail.com for `invoice.paid`, `invoice.payment_failed`, `invoice.overdue`, `charge.refunded` and `charge.dispute.created`. It returns 500 (so Stripe retries) if neither channel succeeds.
+- `scripts/stripe-catalog.mjs`: creates one Product per service line. Invoices set their own amount, so products have no fixed price.
+
+Environment variables (`.env.local` locally, sensitive variables in Vercel for production):
+
+| Variable | Local | Production |
+| --- | --- | --- |
+| `STRIPE_SECRET_KEY` | sandbox `sk_test_` / `rk_test_` | live restricted key `rk_live_` |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | `pk_test_` | `pk_live_` (not used by the site yet) |
+| `STRIPE_WEBHOOK_SECRET` | from `stripe listen --print-secret` | from the live webhook endpoint `https://www.lumetic.io/api/stripe/webhook` (use www: Stripe does not follow the lumetic.io redirect) |
+
+Local testing:
+
+```bash
+npm run stripe:catalog   # create/update the service products in the sandbox
+npm run stripe:listen    # forward sandbox events to localhost:3000 (needs STRIPE_API_KEY or `stripe login`)
+stripe trigger invoice.paid
+```
