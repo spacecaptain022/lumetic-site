@@ -8,31 +8,42 @@ import SectionHead from "@/components/ui/SectionHead";
  * What Lumetic does, said as the result a business owner gets. Each card opens the closest
  * practice page in /work. Get found and Get booked share the web page, which covers both.
  */
-const OUTCOMES: { title: string; body: string; glyph: GlyphName; href: string; image: string }[] = [
+const OUTCOMES: {
+  title: string;
+  body: string;
+  includes: string[];
+  glyph: GlyphName;
+  href: string;
+  image: string;
+}[] = [
   {
     title: "Get found",
-    body: "A site that works on every phone, a Google listing filled out right, and local ads nearby.",
+    body: "Websites and online stores that work on every phone, plus Google and local ads.",
+    includes: ["Web design", "E-commerce, Shopify or custom", "Google listing & SEO", "Local ads"],
     glyph: "web",
     href: "/work/web-design-digital-presence",
     image: "/gallery/web-design-digital-v2.png",
   },
   {
     title: "Get booked",
-    body: "Online booking, quote forms, and tap-to-call, so a visit turns into an appointment.",
+    body: "Booking, quote forms, and checkout, so a visit turns into a customer.",
+    includes: ["Online booking", "Quote & estimate forms", "Checkout & payments", "Tap-to-call & lead capture"],
     glyph: "calendar",
     href: "/work/web-design-digital-presence",
     image: "/gallery/motion-visual-v2.png",
   },
   {
     title: "Runs on its own",
-    body: "Reminders, follow-ups, review requests, and payment links that go out by themselves.",
+    body: "Systems that handle reminders, follow-ups, and busywork by themselves.",
+    includes: ["Autonomous systems & flows", "Agents & automations", "Custom software", "Web3"],
     glyph: "chip",
     href: "/work/web3-ai-dev-services",
     image: "/gallery/web3-ai-dev.png",
   },
   {
     title: "Look the part",
-    body: "A brand, photos, and content that look as good as the work you do.",
+    body: "A brand, packaging, and content that look as good as the work you do.",
+    includes: ["Brand identity", "Strategy & naming", "Packaging", "Motion & content"],
     glyph: "brand",
     href: "/work/brand-identity-strategy",
     image: "/gallery/brand-identity.png",
@@ -46,7 +57,8 @@ export default function Services() {
         <SectionHead title={["What we", "do for you."]} tag="WHAT WE DO" note="One piece or all four" />
         <p className="lede mt-6 max-w-[36rem] text-ink/70">
           Most businesses don&apos;t need more tech. They need more people finding them, less time
-          on the phone, and fewer things to keep track of. Here&apos;s how Lumetic helps.
+          on the phone, and fewer things to keep track of. Here&apos;s how Lumetic helps, from
+          websites and online stores to autonomous systems, custom software, and Web3.
         </p>
       </div>
 
@@ -77,6 +89,15 @@ export default function Services() {
                 <span className="mt-2 block text-[0.95rem] leading-[1.45] opacity-70">{item.body}</span>
               </span>
             </Link>
+
+            <p className="label-mono mt-5 opacity-50">Includes</p>
+            <ul className="mt-2 border-t border-ink/12">
+              {item.includes.map((name) => (
+                <li key={name} className="border-b border-ink/12 py-2 text-[0.92rem] leading-[1.35]">
+                  {name}
+                </li>
+              ))}
+            </ul>
           </li>
         ))}
       </ul>
