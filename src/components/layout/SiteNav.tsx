@@ -14,7 +14,7 @@ import { useActiveSection } from "@/lib/useActiveSection";
 const SECTION_LABELS: Record<string, string> = {
   studio: "What is Lumetic",
   work: "Selected work",
-  services: "Four practices",
+  services: "What we do",
   system: "From idea to system",
   about: "Lumetic today",
   approach: "Engagements",

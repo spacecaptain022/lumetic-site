@@ -27,7 +27,10 @@ const STARTERS = [
 
 /** What the visitor was looking at when they opened the dock: a tailored first prompt and a hint for the assistant. */
 const SECTION_CONTEXT: Record<string, { prompt: string; context: string }> = {
-  services: { prompt: "I'm interested in one of your four practices", context: "the Services section (four practices)" },
+  services: {
+    prompt: "I'd like help with my business",
+    context: "the What we do section (Get found, Get booked, Runs on its own, Look the part)",
+  },
   work: { prompt: "Something like your work, for my brand", context: "the Selected work section" },
   system: { prompt: "Something like your work, for my brand", context: "the From strategy to system section" },
   approach: { prompt: "Which engagement fits my project?", context: "the Engagements section" },

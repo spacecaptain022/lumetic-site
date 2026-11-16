@@ -113,7 +113,7 @@ export default function Contact() {
             </div>
             <div>
               <dt className="label mb-1.5 opacity-60">Based in</dt>
-              <dd className="text-[1rem] font-medium">USA / Hong Kong</dd>
+              <dd className="text-[1rem] font-medium">USA / Midwest</dd>
             </div>
             {isBookingEnabled() && (
               <div className="col-span-2 border-t pt-5">

@@ -5,7 +5,7 @@ export default function About() {
   return (
     <section className="pb-24 md:pb-36">
       <div className="wrap">
-        <SectionHead title={["Lumetic", "today."]} tag="EST. 2025" note="USA / Hong Kong" />
+        <SectionHead title={["Lumetic", "today."]} tag="EST. 2025" note="USA / Midwest" />
 
         <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 md:mt-12 lg:grid-cols-4">
           <div className="flex min-h-[22rem] flex-col justify-between rounded-[16px] bg-ink p-6 text-paper lg:aspect-[3/4]">

@@ -49,7 +49,7 @@ export const FAQ = [
   },
   {
     q: "Where is Lumetic based?",
-    a: "Lumetic operates from the USA and Hong Kong, with clients wherever they are.",
+    a: "Lumetic is based in the Midwest, USA, and works with clients wherever they are.",
   },
   {
     q: "How do I get started?",
