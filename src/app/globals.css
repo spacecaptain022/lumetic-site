@@ -287,3 +287,19 @@ html:not([data-intro="play"]) .intro {
     pointer-events: none;
   }
 }
+
+/* Placeholder for the booking calendar while Google's frame loads. */
+.booking-skeleton {
+  background: var(--card);
+  animation: booking-pulse 1.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@keyframes booking-pulse {
+  50% {
+    opacity: 0.45;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .booking-skeleton {
+    animation: none;
+  }
+}
