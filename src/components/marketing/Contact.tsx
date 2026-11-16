@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Arrow } from "@/components/ui/BlockLink";
 import Reveal from "@/components/ui/Reveal";
 import { exploreServices } from "@/data/exploreServices";
+import { BOOKING_PATH, isBookingEnabled } from "@/lib/booking";
 import { CONTACT_PREFILL_EVENT, type ContactPrefill } from "@/lib/contact-prefill";
 
 const SERVICE_OPTIONS = [...exploreServices.map((s) => s.title), "Not sure yet"];
@@ -114,6 +115,17 @@ export default function Contact() {
               <dt className="label mb-1.5 opacity-60">Based in</dt>
               <dd className="text-[1rem] font-medium">USA / Hong Kong</dd>
             </div>
+            {isBookingEnabled() && (
+              <div className="col-span-2 border-t pt-5">
+                <dt className="label mb-1.5 opacity-60">Prefer to talk?</dt>
+                <dd>
+                  <a href={BOOKING_PATH} className="group inline-flex items-center gap-2 text-[1rem] font-medium">
+                    <span className="link-line">Book a call</span>
+                    <Arrow className="transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </a>
+                </dd>
+              </div>
+            )}
           </dl>
         </div>
 

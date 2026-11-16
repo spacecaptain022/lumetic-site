@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, m as motion } from "framer-motion";
 import BlockLink from "@/components/ui/BlockLink";
 import Mark from "@/components/ui/Mark";
+import { BOOKING_PATH, isBookingEnabled } from "@/lib/booking";
 import { MOTION_EASE_SWIFT } from "@/lib/motion";
 import { useActiveSection } from "@/lib/useActiveSection";
 
@@ -175,9 +176,15 @@ export default function SiteNav() {
                 })}
               </ul>
               <div className="mt-2 flex items-center justify-between gap-3 border-t border-paper/12 px-3.5 py-3">
-                <a href="mailto:hello@lumetic.io" className="text-[0.85rem] text-paper/70 hover:text-paper">
-                  hello@lumetic.io
-                </a>
+                {isBookingEnabled() ? (
+                  <Link href={BOOKING_PATH} className="text-[0.85rem] text-paper/70 hover:text-paper" onClick={() => setOpen(false)}>
+                    Book a call
+                  </Link>
+                ) : (
+                  <a href="mailto:hello@lumetic.io" className="text-[0.85rem] text-paper/70 hover:text-paper">
+                    hello@lumetic.io
+                  </a>
+                )}
                 <BlockLink href={isHome ? "#contact" : "/#contact"} tone="paper" size="sm" onClick={() => setOpen(false)}>
                   Start a project
                 </BlockLink>

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { isBookingEnabled } from "@/lib/booking";
 import { isResolveEnabled } from "@/lib/features";
 import { getAllWorkSlugs } from "@/lib/projects";
 import { SITE_URL } from "@/lib/site-seo";
@@ -18,6 +19,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...projectPages,
     ...(isResolveEnabled()
       ? [{ url: `${SITE_URL}/resolve`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 }]
+      : []),
+    ...(isBookingEnabled()
+      ? [{ url: `${SITE_URL}/book`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 }]
       : []),
     { url: `${SITE_URL}/intake`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },

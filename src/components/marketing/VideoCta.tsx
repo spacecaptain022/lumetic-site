@@ -3,6 +3,7 @@
 import AutoVideo from "@/components/ui/AutoVideo";
 import BlockLink from "@/components/ui/BlockLink";
 import Reveal from "@/components/ui/Reveal";
+import { BOOKING_PATH, isBookingEnabled } from "@/lib/booking";
 
 /** Closing call to action in a rounded media frame, leading straight down to the form. */
 export default function VideoCta() {
@@ -29,9 +30,15 @@ export default function VideoCta() {
             <BlockLink href="#contact" tone="paper">
               Start a project
             </BlockLink>
-            <BlockLink href="mailto:hello@lumetic.io" tone="glass">
-              Email Lumetic
-            </BlockLink>
+            {isBookingEnabled() ? (
+              <BlockLink href={BOOKING_PATH} tone="glass">
+                Book a call
+              </BlockLink>
+            ) : (
+              <BlockLink href="mailto:hello@lumetic.io" tone="glass">
+                Email Lumetic
+              </BlockLink>
+            )}
           </div>
         </Reveal>
       </div>
