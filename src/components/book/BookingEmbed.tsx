@@ -10,7 +10,7 @@ export default function BookingEmbed({ src }: { src: string }) {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className="relative overflow-hidden rounded-[12px] bg-white">
+    <div className="relative overflow-hidden rounded-[10px] bg-white">
       {!loaded && (
         <div aria-hidden className="absolute inset-0 flex flex-col gap-4 p-6 md:p-8">
           <div className="booking-skeleton h-5 w-40 rounded-[6px]" />
@@ -26,7 +26,7 @@ export default function BookingEmbed({ src }: { src: string }) {
         src={src}
         title="Book a call with Lumetic"
         onLoad={() => setLoaded(true)}
-        className={`relative block h-[760px] w-full border-0 transition-opacity duration-700 md:h-[700px] ${
+        className={`relative block h-[1040px] w-full border-0 transition-opacity duration-700 md:h-[720px] ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
       />

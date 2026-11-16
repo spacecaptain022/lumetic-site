@@ -1,11 +1,13 @@
 /*
- * Booking a call runs on a Google Calendar appointment schedule.
- * Set NEXT_PUBLIC_BOOKING_URL to the schedule's full booking page URL
- * (https://calendar.google.com/calendar/appointments/schedules/…). Until it is set,
- * /book returns 404 and every "Book a call" link stays hidden.
+ * Booking a call runs on the "Intro call with Lumetic" appointment schedule in
+ * preston@lumetic.io's Google Calendar. NEXT_PUBLIC_BOOKING_URL can point it at another
+ * schedule. Set either to "" and /book returns 404 and every "Book a call" link hides.
  */
 
-const RAW = process.env.NEXT_PUBLIC_BOOKING_URL?.trim() ?? "";
+const SCHEDULE_URL =
+  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ278GheWQLCOc-Ke0ZItL1FX3Pz73Yu0oeTK5chcWk1KkqOAKZ-Muo1lyQ3vRO0XQxjwJFv5aZA";
+
+const RAW = (process.env.NEXT_PUBLIC_BOOKING_URL ?? SCHEDULE_URL).trim();
 
 export const BOOKING_PATH = "/book";
 
