@@ -33,14 +33,14 @@ export default function Home() {
       <SiteNav />
       <main id="main">
         <Hero />
+        <div id="services">
+          <Services />
+        </div>
         <div id="studio">
           <Statement />
         </div>
         <div id="work">
           <Work />
-        </div>
-        <div id="services">
-          <Services />
         </div>
         <div id="system">
           <System />

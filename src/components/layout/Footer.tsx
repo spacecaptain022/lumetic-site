@@ -60,7 +60,7 @@ export default function Footer() {
       </div>
       <div className="wrap label flex items-center justify-between border-t border-paper/15 py-5 text-paper/55">
         <p>© 2026 Lumetic LLC.</p>
-        <p>USA / Hong Kong</p>
+        <p>USA / Midwest</p>
       </div>
     </footer>
   );
