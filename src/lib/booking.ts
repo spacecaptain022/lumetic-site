@@ -1,5 +1,5 @@
 /*
- * Booking a call runs on the "Intro call with Lumetic" appointment schedule in
+ * Booking a call runs on the "Call with Lumetic" appointment schedule in
  * preston@lumetic.io's Google Calendar. NEXT_PUBLIC_BOOKING_URL can point it at another
  * schedule. Set either to "" and /book returns 404 and every "Book a call" link hides.
  */

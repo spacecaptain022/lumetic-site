@@ -10,7 +10,7 @@ import { bookingEmbedUrl, isBookingEnabled } from "@/lib/booking";
 
 export const metadata: Metadata = {
   title: "Book a call",
-  description: "Book an intro call with Lumetic. Bring the idea or the problem, and leave with a clear next step.",
+  description: "Book a call with Lumetic. Bring the idea or the problem, and leave with a clear next step.",
   alternates: { canonical: "/book" },
 };
 
@@ -45,7 +45,7 @@ export default function BookPage() {
                 </div>
                 <h1 className="h-big max-w-[7em]">Talk it through.</h1>
                 <p className="lede mt-6 max-w-[26rem] text-paper/70">
-                  An intro call with Lumetic. Bring the idea or the problem, and leave with a clear next step.
+                  A call with Lumetic. Bring the idea or the problem, and leave with a clear next step.
                 </p>
               </div>
 
@@ -55,7 +55,7 @@ export default function BookPage() {
                   <div className="flex items-center justify-between gap-4 border-b px-4 py-3 md:px-5">
                     <div className="flex items-center gap-2.5">
                       <Mark className="h-4 w-auto" />
-                      <span className="label">Intro call</span>
+                      <span className="label">Call with Lumetic</span>
                     </div>
                     <span className="label inline-flex items-center gap-2 rounded-full bg-ink px-3 py-1.5 text-paper">
                       <span className="booking-dot h-1.5 w-1.5 rounded-full bg-mauve" aria-hidden />
