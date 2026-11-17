@@ -12,10 +12,15 @@ export default function AutoVideo({
   sources,
   poster,
   label,
+  lazy = false,
+  onPlaying,
 }: {
   sources: VideoSource[];
-  poster: string;
+  poster?: string;
   label: string;
+  /** Below the fold: fetch nothing until the video scrolls into view. */
+  lazy?: boolean;
+  onPlaying?: () => void;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
 
@@ -33,21 +38,23 @@ export default function AutoVideo({
         if (entry.isIntersecting) video.play().catch(() => {});
         else video.pause();
       },
-      { threshold: 0.05 }
+      // Lazy videos start loading a little before they arrive.
+      { threshold: lazy ? 0 : 0.05, rootMargin: lazy ? "300px 0px" : "0px" }
     );
     io.observe(video);
     return () => io.disconnect();
-  }, []);
+  }, [lazy]);
 
   return (
     <video
       ref={ref}
-      autoPlay
+      autoPlay={!lazy}
       muted
       loop
       playsInline
-      preload="metadata"
+      preload={lazy ? "none" : "metadata"}
       poster={poster}
+      onPlaying={onPlaying}
       aria-label={label}
       className="absolute inset-0 h-full w-full object-cover"
     >

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import LegalPageShell from "@/components/layout/LegalPageShell";
+import { SITE_URL } from "@/lib/site-seo";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Lumetic",
+  title: "Privacy Policy",
   description: "How Lumetic LLC collects, uses, and protects your information.",
+  alternates: { canonical: `${SITE_URL}/privacy` },
 };
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {

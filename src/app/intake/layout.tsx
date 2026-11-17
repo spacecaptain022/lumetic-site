@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SITE_NAME, SITE_URL } from "@/lib/site-seo";
+import { OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/site-seo";
 
 export const metadata: Metadata = {
   title: "Project Intake",
@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     description:
       "Start your Lumetic project with a guided intake conversation. Share your brand goals, timeline, and ambitions.",
     url: `${SITE_URL}/intake`,
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
 };
