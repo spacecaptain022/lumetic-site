@@ -41,4 +41,14 @@ export const exploreServices = [
     year: "2026",
     tags: ["AUTONOMOUS", "SOFTWARE", "WEB3"],
   },
+  {
+    title: "Payment Rails & Blockchain",
+    titleLines: ["PAYMENT", "RAILS &", "BLOCKCHAIN"] as const,
+    description:
+      "Payment rails for cards, bank transfers, subscriptions, and stablecoins, plus smart contracts, tokens, and on-chain records built safe and simple.",
+    image: "/card-4-graphic.webp",
+    exp: "EXP 005",
+    year: "2026",
+    tags: ["PAYMENTS", "BLOCKCHAIN", "STABLECOINS"],
+  },
 ] as const;

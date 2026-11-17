@@ -15,7 +15,8 @@ const DISCIPLINES: { label: string; glyph: GlyphName }[] = [
   { label: "Motion & content", glyph: "motion" },
   { label: "Agentic systems", glyph: "chip" },
   { label: "Custom software", glyph: "chip" },
-  { label: "Web3", glyph: "web3" },
+  { label: "Payment rails", glyph: "pay" },
+  { label: "Blockchain", glyph: "chain" },
   { label: "Autonomous systems", glyph: "chip" },
   { label: "Packaging", glyph: "commerce" },
 ];

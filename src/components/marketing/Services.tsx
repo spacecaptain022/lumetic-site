@@ -1,12 +1,17 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Arrow } from "@/components/ui/BlockLink";
 import PixelGlyph, { type GlyphName } from "@/components/ui/PixelGlyph";
 import SectionHead from "@/components/ui/SectionHead";
+import { prefillContact } from "@/lib/contact-prefill";
 
 /*
  * What Lumetic does, said as the result a business owner gets. Each card opens the closest
  * practice page in /work. Get found and Get booked share the web page, which covers both.
+ * Payments and blockchain have no /work page yet, so those cards open the contact form with
+ * the service picked.
  */
 const OUTCOMES: {
   title: string;
@@ -15,6 +20,8 @@ const OUTCOMES: {
   glyph: GlyphName;
   href: string;
   image: string;
+  /** When set, the card opens the contact form with this service picked instead of a page. */
+  service?: string;
 }[] = [
   {
     title: "Get found",
@@ -35,10 +42,28 @@ const OUTCOMES: {
   {
     title: "Runs on its own",
     body: "Systems that handle reminders, follow-ups, and busywork by themselves.",
-    includes: ["Autonomous systems & flows", "Agents & automations", "Headless, API-first builds", "1,700+ app integrations", "Custom software", "Web3"],
+    includes: ["Autonomous systems & flows", "Agents & automations", "Headless, API-first builds", "1,700+ app integrations", "Custom software"],
     glyph: "chip",
     href: "/work/web3-ai-dev-services",
     image: "/gallery/web3-ai-dev.png",
+  },
+  {
+    title: "Get paid",
+    body: "Payment rails for cards, bank transfers, invoices, subscriptions, and stablecoins, built into your site or app.",
+    includes: ["Card, ACH & Apple Pay", "Invoices & subscriptions", "Stablecoin & USDC payments", "Payouts & marketplaces"],
+    glyph: "pay",
+    href: "#contact",
+    image: "/gallery/new-york.png",
+    service: "Payment Rails & Blockchain",
+  },
+  {
+    title: "Own it on-chain",
+    body: "Blockchain solutions: smart contracts, tokens, and records anyone can verify, built safe and simple to use.",
+    includes: ["Smart contracts", "Tokenization & digital assets", "Wallets & on-chain payments", "Verifiable records"],
+    glyph: "chain",
+    href: "#contact",
+    image: "/gallery/collage.png",
+    service: "Payment Rails & Blockchain",
   },
   {
     title: "Look the part",
@@ -54,24 +79,25 @@ export default function Services() {
   return (
     <section className="pb-24 pt-24 md:pb-36 md:pt-36">
       <div className="wrap">
-        <SectionHead title={["What we", "do for you."]} tag="WHAT WE DO" note="One piece or all four" />
+        <SectionHead title={["What we", "do for you."]} tag="WHAT WE DO" note="One piece or all six" />
         <p className="lede mt-6 max-w-[36rem] text-ink/70">
           Most businesses don&apos;t need more tech. They need more people finding them, less time
           on the phone, and fewer things to keep track of. Here&apos;s how Lumetic helps, from
-          websites and online stores to autonomous systems, custom software, and Web3.
+          websites and online stores to autonomous systems, payment rails, and blockchain.
         </p>
       </div>
 
-      {/* Scrolls sideways on small screens, a row of four on large ones */}
-      <ul className="mt-10 flex snap-x snap-mandatory scroll-px-[var(--gutter)] gap-3 overflow-x-auto px-[var(--gutter)] pb-2 [scrollbar-width:none] md:mt-12 lg:wrap lg:grid lg:grid-cols-4 lg:overflow-visible">
+      {/* Scrolls sideways on small screens, two rows of three on large ones */}
+      <ul className="mt-10 flex snap-x snap-mandatory scroll-px-[var(--gutter)] gap-3 overflow-x-auto px-[var(--gutter)] pb-2 [scrollbar-width:none] md:mt-12 lg:wrap lg:grid lg:grid-cols-3 lg:overflow-visible">
         {OUTCOMES.map((item, i) => (
           <li key={item.title} className="w-[78vw] max-w-[22rem] shrink-0 snap-start lg:w-auto lg:max-w-none">
             <Link
               href={item.href}
-              className="group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-[16px] bg-card p-5 transition-colors duration-500 hover:text-paper focus-visible:text-paper md:p-6"
+              onClick={item.service ? () => prefillContact({ service: item.service }) : undefined}
+              className="group relative flex aspect-[4/5] lg:aspect-[5/4] flex-col justify-between overflow-hidden rounded-[16px] bg-card p-5 transition-colors duration-500 hover:text-paper focus-visible:text-paper md:p-6"
             >
               <span aria-hidden className="absolute inset-0 opacity-0 transition-opacity duration-500 ease-swift group-hover:opacity-100 group-focus-visible:opacity-100">
-                <Image src={item.image} alt="" fill sizes="(min-width: 1024px) 25vw, 78vw" className="object-cover" />
+                <Image src={item.image} alt="" fill sizes="(min-width: 1024px) 33vw, 78vw" className="object-cover" />
                 <span className="absolute inset-0 bg-ink/55" />
               </span>
 

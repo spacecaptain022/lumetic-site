@@ -33,7 +33,7 @@ export const FAQ = [
   },
   {
     q: "What can Lumetic build?",
-    a: "Anything you can picture. Most projects draw on four practices: Brand Identity & Strategy, Web Design & E-commerce, Motion & Visual Content, and Autonomous Systems & Software. Lumetic combines them however the problem needs.",
+    a: "Anything you can picture. Most projects draw on five practices: Brand Identity & Strategy, Web Design & E-commerce, Motion & Visual Content, Autonomous Systems & Software, and Payment Rails & Blockchain. Lumetic combines them however the problem needs.",
   },
   {
     q: "Does Lumetic build online stores?",
@@ -42,6 +42,10 @@ export const FAQ = [
   {
     q: "Does Lumetic build custom software and autonomous systems?",
     a: "Yes. Lumetic builds agents, automations, internal tools, and custom software around how your business already works, then hosts, monitors, and improves them. This site runs on its own systems: the Lumetic Assistant turns a short chat into a project brief, and every inquiry gets a personal first reply within one business day.",
+  },
+  {
+    q: "Does Lumetic build payment and blockchain solutions?",
+    a: "Yes. Lumetic builds payment rails that take cards, bank transfers (ACH), Apple Pay, invoices, subscriptions, and stablecoins like USDC, built into your site or app with payouts when you need them. On the blockchain side, Lumetic builds smart contracts, tokens and digital assets, wallets, and on-chain records anyone can verify, kept simple for your customers to use.",
   },
   {
     q: "Can Lumetic connect to the tools I already use?",
