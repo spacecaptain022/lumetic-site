@@ -35,7 +35,7 @@ const OUTCOMES: {
   {
     title: "Runs on its own",
     body: "Systems that handle reminders, follow-ups, and busywork by themselves.",
-    includes: ["Autonomous systems & flows", "Agents & automations", "Custom software", "Web3"],
+    includes: ["Autonomous systems & flows", "Agents & automations", "Headless, API-first builds", "1,700+ app integrations", "Custom software", "Web3"],
     glyph: "chip",
     href: "/work/web3-ai-dev-services",
     image: "/gallery/web3-ai-dev.png",

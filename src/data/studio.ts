@@ -44,6 +44,10 @@ export const FAQ = [
     a: "Yes. Lumetic builds agents, automations, internal tools, and custom software around how your business already works, then hosts, monitors, and improves them. This site runs on its own systems: the Lumetic Assistant turns a short chat into a project brief, and every inquiry gets a personal first reply within one business day.",
   },
   {
+    q: "Can Lumetic connect to the tools I already use?",
+    a: "Yes. Lumetic builds headless systems that work in your inbox, phone, team chat, or your own AI instead of another dashboard, and connects them to 1,700+ apps: CRMs like HubSpot and Salesforce with two-way sync, Shopify, Stripe, QuickBooks, Slack, Google Workspace, Zapier, and signed webhooks. If a tool has an API and isn't on the list, Lumetic connects it.",
+  },
+  {
     q: "How fast does Lumetic move?",
     a: "Fast, without cutting corners. Every engagement is scoped to move at the speed of the idea, with the same care from the first sketch to launch.",
   },
