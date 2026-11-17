@@ -37,6 +37,11 @@ export const SITE_KEYWORDS = [
   "motion design",
   "visual identity",
   "Web3 design",
+  "payment rails",
+  "payment integration",
+  "stablecoin payments",
+  "blockchain development",
+  "smart contract development",
   "agentic systems",
   "autonomous agents",
   "business automation",
@@ -71,6 +76,11 @@ export const SITE_SERVICES = [
     name: "Autonomous Systems & Software",
     description:
       "Agents, automations, and custom software built around how you work, plus Web3 when it fits. Lumetic builds it, then keeps it running.",
+  },
+  {
+    name: "Payment Rails & Blockchain",
+    description:
+      "Payment rails for cards, bank transfers, subscriptions, and stablecoins, plus smart contracts, tokens, and on-chain records built safe and simple.",
   },
 ] as const;
 

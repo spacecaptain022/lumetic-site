@@ -4,6 +4,7 @@ import Footer from "@/components/layout/Footer";
 import SiteNav from "@/components/layout/SiteNav";
 import About from "@/components/marketing/About";
 import Approach from "@/components/marketing/Approach";
+import Connected from "@/components/marketing/Connected";
 import Contact from "@/components/marketing/Contact";
 import Faq from "@/components/marketing/Faq";
 import Hero from "@/components/marketing/Hero";
@@ -35,6 +36,9 @@ export default function Home() {
         <Hero />
         <div id="services">
           <Services />
+        </div>
+        <div id="tech">
+          <Connected />
         </div>
         <div id="studio">
           <Statement />
